@@ -27,13 +27,13 @@ export default function LabPage() {
 
   return (
     <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-32">
-      <header className="border-b border-border/60 pt-16 pb-10">
-        <p className="inline-flex items-center gap-2 text-14 font-medium text-muted-foreground">
+      <header className="border-b border-border/60 pt-16 pb-8">
+        <p className="inline-flex items-center gap-1 text-12 font-medium tracking-wide text-muted-foreground uppercase">
           <FlaskConical className="size-4" aria-hidden />
           임시 페이지
         </p>
         <h1 className="mt-3 text-30 font-semibold tracking-tight">카드 UI 시안</h1>
-        <p className="mt-3 max-w-xl leading-relaxed text-muted-foreground">
+        <p className="mt-4 max-w-xl text-16 leading-relaxed text-muted-foreground">
           같은 아티클 {samples.length}개를 {CARD_VARIANTS.length}가지 카드로 그렸습니다. 썸네일이
           없는 링크와 읽는 시간이 빠진 링크를 일부러 섞어, 데이터가 부실할 때 어떻게 보이는지까지
           비교할 수 있게 했습니다.

@@ -16,9 +16,9 @@ export default function TimelinePage() {
 
   return (
     <main className="mx-auto w-full max-w-3xl flex-1 px-6 pb-24">
-      <header className="border-b border-border/60 pt-16 pb-10">
+      <header className="border-b border-border/60 pt-16 pb-8">
         <h1 className="text-30 font-semibold tracking-tight">타임라인</h1>
-        <p className="mt-3 leading-relaxed text-muted-foreground">
+        <p className="mt-4 max-w-xl text-16 leading-relaxed text-muted-foreground">
           {first && latest
             ? `${formatArchiveDate(first.date)}부터 ${formatArchiveDate(latest.date)}까지 `
             : ''}

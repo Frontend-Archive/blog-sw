@@ -23,7 +23,7 @@ export function CommandPaletteTrigger({ data }: CommandPaletteTriggerProps) {
       >
         <Search className="size-4" aria-hidden />
         <span className="hidden sm:inline">검색</span>
-        <kbd className="hidden rounded border bg-muted px-2 py-1 font-mono text-14 text-muted-foreground sm:inline">
+        <kbd className="hidden rounded border bg-muted px-2 py-1 font-mono text-12 text-muted-foreground sm:inline">
           ⌘K
         </kbd>
       </Button>

@@ -19,6 +19,10 @@ interface Stat {
   suffix?: string;
 }
 
+/**
+ * 히어로의 정보 계층
+ *   12 오버라인 → 36/48 제목 → 16 설명 → (24 값 / 12 라벨) 통계 → 12 출처
+ */
 export function HomeHero({
   archiveCount,
   articleCount,
@@ -39,46 +43,45 @@ export function HomeHero({
 
   return (
     <section className="border-b border-border/60 pt-16 pb-12">
-      <p className="text-14 font-medium text-muted-foreground">Frontend Archive</p>
-      <h1 className="mt-3 max-w-2xl text-36 leading-tight font-semibold tracking-tight text-balance sm:text-48">
+      <p className="text-12 font-medium tracking-wide text-muted-foreground uppercase">
+        Frontend Archive
+      </p>
+
+      <h1 className="mt-4 max-w-2xl text-36 leading-tight font-semibold tracking-tight text-balance sm:text-48">
         읽고, 쓰고, 나눈 것들을 모아둔 곳
       </h1>
-      <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">
+
+      <p className="mt-4 max-w-xl text-16 leading-relaxed text-muted-foreground">
         프론트엔드 스터디에서 회차마다 각자 쓴 글을 모읍니다. 원문은 각자의 블로그에 있고, 여기서는
         찾아보기 쉽게 정리합니다.
       </p>
 
-      <div className="mt-8 flex flex-wrap items-end gap-x-10 gap-y-4">
-        <dl className="flex flex-wrap gap-x-8 gap-y-4">
-          {stats.map(({ label, value, suffix }) => (
-            <div key={label}>
-              <dt className="text-14 text-muted-foreground">{label}</dt>
-              <dd className="mt-1 text-24 font-semibold tabular-nums">
-                {value}
-                {suffix ? (
-                  <span className="ml-1 text-14 font-normal text-muted-foreground">{suffix}</span>
-                ) : null}
-              </dd>
-            </div>
-          ))}
-        </dl>
+      <dl className="mt-8 flex flex-wrap gap-x-8 gap-y-4">
+        {stats.map(({ label, value, suffix }) => (
+          <div key={label}>
+            <dt className="text-12 text-muted-foreground">{label}</dt>
+            <dd className="mt-1 text-24 leading-none font-semibold tabular-nums">
+              {value}
+              {suffix ? (
+                <span className="ml-1 text-12 font-normal text-muted-foreground">{suffix}</span>
+              ) : null}
+            </dd>
+          </div>
+        ))}
+      </dl>
 
-        {latestDate ? (
-          <p className="text-14 text-muted-foreground">
-            최근 업데이트 {formatArchiveDate(latestDate)}
-          </p>
-        ) : null}
+      <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-12 text-muted-foreground">
+        <a
+          href={ARCHIVE_REPO_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-1 transition-colors hover:text-brand"
+        >
+          원본 데이터 {ARCHIVE_REPO_SLUG}
+          <ArrowUpRight className="size-3" aria-hidden />
+        </a>
+        {latestDate ? <span>최근 업데이트 {formatArchiveDate(latestDate)}</span> : null}
       </div>
-
-      <a
-        href={ARCHIVE_REPO_URL}
-        target="_blank"
-        rel="noreferrer"
-        className="mt-6 inline-flex items-center gap-1 text-14 text-muted-foreground transition-colors hover:text-foreground"
-      >
-        원본 데이터 {ARCHIVE_REPO_SLUG}
-        <ArrowUpRight className="size-3" aria-hidden />
-      </a>
     </section>
   );
 }

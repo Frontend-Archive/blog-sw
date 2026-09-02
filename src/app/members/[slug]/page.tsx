@@ -36,19 +36,19 @@ export default async function MemberDetailPage({ params }: PageProps<'/members/[
 
   return (
     <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-24">
-      <nav className="pt-10">
+      <nav className="pt-12">
         <Link
           href="/members"
-          className="inline-flex items-center gap-1 text-14 text-muted-foreground transition-colors hover:text-foreground"
+          className="inline-flex items-center gap-1 text-12 text-muted-foreground transition-colors hover:text-brand"
         >
           <ChevronLeft className="size-4" aria-hidden />
           전체 멤버
         </Link>
       </nav>
 
-      <header className="border-b border-border/60 pt-8 pb-10">
+      <header className="border-b border-border/60 pt-8 pb-8">
         <h1 className="text-30 font-semibold tracking-tight sm:text-36">{author}</h1>
-        <p className="mt-3 text-14 text-muted-foreground">아티클 {articles.length}개</p>
+        <p className="mt-2 text-12 text-muted-foreground">아티클 {articles.length}개</p>
         {topTags.length > 0 ? (
           <ul className="mt-5 flex flex-wrap gap-2">
             {topTags.map(({ tag, count }) => (
@@ -65,7 +65,7 @@ export default async function MemberDetailPage({ params }: PageProps<'/members/[
         ) : null}
       </header>
 
-      <section className="pt-10">
+      <section className="pt-8">
         <ArticleGrid articles={cards} />
       </section>
     </main>

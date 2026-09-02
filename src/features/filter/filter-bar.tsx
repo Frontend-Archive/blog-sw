@@ -29,7 +29,7 @@ export function FilterBar({ resultCount, totalCount }: FilterBarProps) {
           onChange={(event) => setQuery(event.target.value)}
           placeholder="제목, 작성자, 태그로 검색"
           aria-label="아티클 검색"
-          className="h-14 w-full rounded-xl border border-input bg-transparent pr-12 pl-12 text-16 transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [&::-webkit-search-cancel-button]:hidden"
+          className="h-14 w-full rounded-xl border border-input bg-transparent pr-12 pl-12 text-16 transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-brand focus-visible:ring-3 focus-visible:ring-brand/30 [&::-webkit-search-cancel-button]:hidden"
         />
         {hasQuery ? (
           <Button
@@ -44,7 +44,7 @@ export function FilterBar({ resultCount, totalCount }: FilterBarProps) {
         ) : null}
       </div>
 
-      <p className="text-14 text-muted-foreground" aria-live="polite">
+      <p className="text-12 text-muted-foreground" aria-live="polite">
         {hasQuery ? `${resultCount}개 / 전체 ${totalCount}개` : `전체 ${totalCount}개`}
       </p>
     </div>

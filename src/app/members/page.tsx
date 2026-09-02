@@ -11,12 +11,12 @@ export const metadata: Metadata = {
 export default function MembersPage() {
   return (
     <main className="mx-auto w-full max-w-4xl flex-1 px-6 pb-24">
-      <header className="border-b border-border/60 pt-16 pb-10">
+      <header className="border-b border-border/60 pt-16 pb-8">
         <h1 className="text-30 font-semibold tracking-tight">멤버</h1>
-        <p className="mt-3 text-14 text-muted-foreground">{authors.length}명</p>
+        <p className="mt-2 text-12 text-muted-foreground">{authors.length}명</p>
       </header>
 
-      <ul className="grid gap-4 pt-10 sm:grid-cols-2">
+      <ul className="grid gap-4 pt-8 sm:grid-cols-2">
         {authors.map((author) => {
           const count = articlesByAuthor(author).length;
           return (
@@ -26,8 +26,8 @@ export default function MembersPage() {
                 className="group flex items-center justify-between rounded-xl border border-border/70 px-5 py-4 transition-colors hover:border-foreground/25"
               >
                 <span>
-                  <span className="font-medium">{author}</span>
-                  <span className="ml-2 text-14 text-muted-foreground tabular-nums">
+                  <span className="text-16 font-medium">{author}</span>
+                  <span className="ml-2 text-12 text-muted-foreground tabular-nums">
                     아티클 {count}개
                   </span>
                 </span>

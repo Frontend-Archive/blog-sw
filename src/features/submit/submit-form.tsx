@@ -21,7 +21,7 @@ interface SubmitFormProps {
 
 function FieldError({ errors }: { errors: string[] | undefined }) {
   if (!errors || errors.length === 0) return null;
-  return <p className="text-14 text-destructive">{errors.join(' ')}</p>;
+  return <p className="text-12 text-destructive">{errors.join(' ')}</p>;
 }
 
 function SubmitButton({ children }: { children: React.ReactNode }) {
@@ -117,7 +117,7 @@ export function SubmitForm({ author, openSlots, nextArchiveId }: SubmitFormProps
             <div className="flex flex-col gap-2">
               <Label htmlFor="tags">태그</Label>
               <Input id="tags" name="tags" placeholder="쉼표로 구분. 예: React, 성능 개선" />
-              <p className="text-14 text-muted-foreground">최대 {MAX_TAGS}개</p>
+              <p className="text-12 text-muted-foreground">최대 {MAX_TAGS}개</p>
               <FieldError errors={fieldErrors.tags} />
             </div>
 

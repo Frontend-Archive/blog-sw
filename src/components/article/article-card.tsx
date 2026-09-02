@@ -12,6 +12,11 @@ interface ArticleCardProps {
   priority?: boolean;
 }
 
+/**
+ * 카드 안의 정보 계층
+ *   12 메타(작성자·회차·날짜) → 18 제목 → 14 요약 → 12 태그·출처
+ * 제목만 크고 굵게 두고 나머지는 muted 로 눌러 시선이 제목에 먼저 닿게 한다.
+ */
 export function ArticleCard({ article, priority = false }: ArticleCardProps) {
   const { hostname } = article;
 
@@ -28,9 +33,9 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
         />
       </div>
 
-      <div className="flex flex-1 flex-col gap-3 p-5">
-        <div className="flex items-center gap-2 text-14 text-muted-foreground">
-          <span className="font-medium text-foreground/80">{article.author}</span>
+      <div className="flex flex-1 flex-col p-5">
+        <div className="flex items-center gap-2 text-12 text-muted-foreground">
+          <span className="font-medium text-foreground/70">{article.author}</span>
           <span aria-hidden>·</span>
           <Link
             href={`/archives/${article.archiveId}`}
@@ -42,7 +47,7 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
           <time dateTime={article.archiveDate}>{formatArchiveDate(article.archiveDate)}</time>
         </div>
 
-        <h3 className="text-16 leading-snug font-semibold text-balance">
+        <h3 className="mt-2 text-18 leading-snug font-semibold text-balance">
           <a
             href={article.url}
             target="_blank"
@@ -54,13 +59,13 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
         </h3>
 
         {article.description ? (
-          <p className="line-clamp-2 text-14 leading-relaxed text-muted-foreground">
+          <p className="mt-2 line-clamp-2 text-14 leading-relaxed text-muted-foreground">
             {article.description}
           </p>
         ) : null}
 
         {article.tags.length > 0 ? (
-          <ul className="flex flex-wrap gap-2">
+          <ul className="mt-4 flex flex-wrap gap-1">
             {article.tags.map((tag) => (
               <li key={tag}>
                 <Link href={`/tags/${toSlug(tag)}`} className="relative z-10">
@@ -76,7 +81,7 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
           </ul>
         ) : null}
 
-        <div className="mt-auto flex items-center gap-2 pt-2 text-14 text-muted-foreground">
+        <div className="mt-auto flex items-center gap-2 pt-4 text-12 text-muted-foreground">
           {article.favicon ? (
             <Image
               src={article.favicon}

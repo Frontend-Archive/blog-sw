@@ -11,8 +11,8 @@ interface EmptySlotCardProps {
 export function EmptySlotCard({ author }: EmptySlotCardProps) {
   return (
     <div className="flex min-h-40 flex-col justify-between rounded-xl border border-dashed border-border/70 p-5 text-muted-foreground">
-      <span className="text-14 font-medium text-foreground/70">{author}</span>
-      <span className="inline-flex items-center gap-2 text-14">
+      <span className="text-12 font-medium text-foreground/70">{author}</span>
+      <span className="inline-flex items-center gap-1 text-14">
         <PenLine className="size-4" aria-hidden />
         작성 예정
       </span>
