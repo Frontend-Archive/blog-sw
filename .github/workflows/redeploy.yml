@@ -1,0 +1,31 @@
+# archive 레포에서 md 가 바뀌면 이 워크플로가 Vercel 재배포를 건다.
+#
+# blog-sw 자체의 push 는 Vercel 이 알아서 배포하므로 여기서 다루지 않는다.
+# archive 는 별개 레포라 이 경로가 없으면 새 글이 사이트에 반영되지 않는다.
+name: Redeploy
+
+on:
+  repository_dispatch:
+    types: [archive-updated]
+  workflow_dispatch:
+
+concurrency:
+  group: redeploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel deploy hook
+        env:
+          HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+          ARCHIVE_SHA: ${{ github.event.client_payload.sha }}
+        run: |
+          set -euo pipefail
+          if [ -z "${HOOK_URL:-}" ]; then
+            echo "VERCEL_DEPLOY_HOOK_URL 시크릿이 없습니다." >&2
+            exit 1
+          fi
+          echo "archive ${ARCHIVE_SHA:-unknown} 반영을 위해 재배포합니다."
+          curl -fsS -X POST "$HOOK_URL" > /dev/null

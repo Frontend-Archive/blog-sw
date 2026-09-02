@@ -19,11 +19,17 @@
 
 ## 설치
 
-1. 두 파일을 archive 레포의 같은 경로에 복사한다.
-2. blog-sw 쪽 환경변수에 `GITHUB_TOKEN` (repo 스코프 PAT) 을 넣는다.
-   이 토큰으로 archive 레포에 dispatch 를 보낸다.
-3. archive 레포 Settings → Actions → General → Workflow permissions 를
-   **Read and write permissions** 로 둔다. 워크플로가 커밋을 푸시해야 한다.
+1. 세 파일을 archive 레포의 같은 경로에 복사한다.
+2. archive 레포 Settings → Actions → General → Workflow permissions 를
+   **Read and write permissions** 로 둔다. `add-article` 이 커밋을 푸시해야 한다.
+3. 시크릿과 변수를 채운다.
+
+| 위치                | 이름                     | 값                                                                             |
+| ------------------- | ------------------------ | ------------------------------------------------------------------------------ |
+| blog-sw 환경변수    | `GITHUB_TOKEN`           | archive 레포에 dispatch 를 보낼 PAT. `Contents: read/write`                    |
+| archive 시크릿      | `BLOG_DISPATCH_TOKEN`    | blog-sw 에 dispatch 를 보낼 PAT. blog-sw 만 대상으로 한 fine-grained 토큰 권장 |
+| blog-sw 시크릿      | `VERCEL_DEPLOY_HOOK_URL` | Vercel 프로젝트의 Deploy Hook URL                                              |
+| archive 변수 (선택) | `BLOG_REPO`              | 기본값 `Frontend-Archive/blog-sw`                                              |
 
 ## 동작
 
@@ -32,8 +38,13 @@
   → 서버 액션이 세션으로 본인 확인 + 입력 검증
   → archive 레포로 repository_dispatch (add-article)
   → add-article.yml 이 md 수정 + npm run format + 커밋/푸시
-  → (notify-blog.yml) 블로그 재배포
+  → notify-blog.yml 이 blog-sw 로 dispatch (archive-updated)
+  → blog-sw 의 redeploy.yml 이 Vercel Deploy Hook 호출
+  → 사이트에 반영
 ```
+
+archive 에서 직접 Deploy Hook 을 때리면 한 단계 줄어들지만, blog-sw 쪽에 Actions
+실행 기록이 남지 않는다. 언제 왜 재배포됐는지 추적할 수 있게 dispatch 를 거친다.
 
 ## 지원하는 요청
 

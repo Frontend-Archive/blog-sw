@@ -1,0 +1,32 @@
+# archives/*.md 가 바뀌면 블로그 레포에 알려 재배포를 트리거한다.
+#
+# 이 파일은 blog-sw 레포에서 관리하지만 실제로는 archive 레포에 두고 동작한다.
+# 설치 방법은 integrations/archive/README.md 참고.
+name: Notify blog
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'archives/**.md'
+
+concurrency:
+  group: notify-blog
+  cancel-in-progress: true
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch to blog
+        env:
+          TOKEN: ${{ secrets.BLOG_DISPATCH_TOKEN }}
+          BLOG_REPO: ${{ vars.BLOG_REPO || 'Frontend-Archive/blog-sw' }}
+        run: |
+          set -euo pipefail
+          curl -fsS -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/$BLOG_REPO/dispatches" \
+            -d "{\"event_type\":\"archive-updated\",\"client_payload\":{\"sha\":\"${GITHUB_SHA}\"}}"
