@@ -14,8 +14,8 @@ interface ArticleCardProps {
 
 /**
  * 카드 안의 정보 계층
- *   12 메타(작성자·회차·날짜) → 18 제목 → 14 요약 → 12 태그·출처
- * 제목만 크고 굵게 두고 나머지는 muted 로 눌러 시선이 제목에 먼저 닿게 한다.
+ *   14 메타(작성자·회차·날짜) → 18 제목 → 16 요약 → 12 태그 → 14 출처
+ * 12px 은 칩에만 쓰므로, 메타와 요약은 크기 대신 굵기와 색으로 갈라놓는다.
  */
 export function ArticleCard({ article, priority = false }: ArticleCardProps) {
   const { hostname } = article;
@@ -34,7 +34,7 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-center gap-2 text-12 text-muted-foreground">
+        <div className="flex items-center gap-2 text-14 text-muted-foreground">
           <span className="font-medium text-foreground/70">{article.author}</span>
           <span aria-hidden>·</span>
           <Link
@@ -59,7 +59,7 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
         </h3>
 
         {article.description ? (
-          <p className="mt-2 line-clamp-2 text-14 leading-relaxed text-muted-foreground">
+          <p className="mt-2 line-clamp-2 text-16 leading-relaxed text-muted-foreground">
             {article.description}
           </p>
         ) : null}
@@ -81,7 +81,7 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
           </ul>
         ) : null}
 
-        <div className="mt-auto flex items-center gap-2 pt-4 text-12 text-muted-foreground">
+        <div className="mt-auto flex items-center gap-2 pt-4 text-14 text-muted-foreground">
           {article.favicon ? (
             <Image
               src={article.favicon}

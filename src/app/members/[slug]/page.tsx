@@ -39,7 +39,7 @@ export default async function MemberDetailPage({ params }: PageProps<'/members/[
       <nav className="pt-12">
         <Link
           href="/members"
-          className="inline-flex items-center gap-1 text-12 text-muted-foreground transition-colors hover:text-brand"
+          className="inline-flex items-center gap-1 text-14 text-muted-foreground transition-colors hover:text-brand"
         >
           <ChevronLeft className="size-4" aria-hidden />
           전체 멤버
@@ -48,7 +48,7 @@ export default async function MemberDetailPage({ params }: PageProps<'/members/[
 
       <header className="border-b border-border/60 pt-8 pb-8">
         <h1 className="text-30 font-semibold tracking-tight sm:text-36">{author}</h1>
-        <p className="mt-2 text-12 text-muted-foreground">아티클 {articles.length}개</p>
+        <p className="mt-2 text-14 text-muted-foreground">아티클 {articles.length}개</p>
         {topTags.length > 0 ? (
           <ul className="mt-5 flex flex-wrap gap-2">
             {topTags.map(({ tag, count }) => (

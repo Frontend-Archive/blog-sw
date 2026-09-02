@@ -36,7 +36,7 @@ export function TimelineEntry({ archive }: TimelineEntryProps) {
         </Badge>
         <Link
           href={`/archives/${archive.id}`}
-          className="ml-auto inline-flex items-center gap-1 text-12 text-muted-foreground transition-colors hover:text-brand"
+          className="ml-auto inline-flex items-center gap-1 text-14 text-muted-foreground transition-colors hover:text-brand"
         >
           {archive.title}
           <ChevronRight className="size-4" aria-hidden />
@@ -62,7 +62,7 @@ export function TimelineEntry({ archive }: TimelineEntryProps) {
                   aria-hidden
                 />
               </a>
-              <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-12 text-muted-foreground">
+              <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-14 text-muted-foreground">
                 <span>{article.author}</span>
                 {article.tags.map((tag) => (
                   <Link

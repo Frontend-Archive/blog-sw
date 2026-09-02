@@ -55,7 +55,7 @@ export default async function ArchiveDetailPage({ params }: PageProps<'/archives
       <nav className="pt-12">
         <Link
           href="/"
-          className="inline-flex items-center gap-1 text-12 text-muted-foreground transition-colors hover:text-brand"
+          className="inline-flex items-center gap-1 text-14 text-muted-foreground transition-colors hover:text-brand"
         >
           <ChevronLeft className="size-4" aria-hidden />
           전체 아티클
@@ -65,12 +65,12 @@ export default async function ArchiveDetailPage({ params }: PageProps<'/archives
       <header className="border-b border-border/60 pt-8 pb-8">
         <div className="flex items-center gap-3">
           <Badge variant="secondary">{archive.type === 'off-line' ? '오프라인' : '온라인'}</Badge>
-          <time dateTime={archive.date} className="text-12 text-muted-foreground">
+          <time dateTime={archive.date} className="text-14 text-muted-foreground">
             {formatArchiveDate(archive.date)}
           </time>
         </div>
         <h1 className="mt-3 text-30 font-semibold tracking-tight sm:text-36">{archive.title}</h1>
-        <p className="mt-2 text-12 text-muted-foreground">
+        <p className="mt-2 text-14 text-muted-foreground">
           아티클 {articles.length}개
           {emptyAuthors.length > 0 ? ` · 작성 예정 ${emptyAuthors.length}개` : ''}
         </p>

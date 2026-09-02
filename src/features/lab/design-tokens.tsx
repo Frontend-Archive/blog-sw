@@ -1,7 +1,7 @@
 const TEXT_SCALE = [
-  { size: 12, role: '메타 · 라벨 · 뱃지' },
-  { size: 14, role: '요약 · 보조 설명' },
-  { size: 16, role: '본문 · 목록 제목' },
+  { size: 12, role: '칩 · 태그 전용' },
+  { size: 14, role: '메타 · 보조 설명' },
+  { size: 16, role: '본문 · 요약 · 목록 제목' },
   { size: 18, role: '카드 제목' },
   { size: 20, role: '섹션 제목' },
   { size: 24, role: '통계 값' },
@@ -27,7 +27,7 @@ const COLORS = [
 function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="text-12 font-medium tracking-wide text-muted-foreground uppercase">{title}</h3>
+      <h3 className="text-14 font-medium tracking-wide text-muted-foreground uppercase">{title}</h3>
       {children}
     </div>
   );
@@ -39,8 +39,8 @@ export function DesignTokens() {
       <header className="mb-8 flex flex-col gap-2 border-b border-border/60 pb-4">
         <h2 className="font-semibold tracking-tight">00 · 디자인 토큰</h2>
         <p className="text-14 text-muted-foreground">
-          텍스트는 12px 부터 2px 씩 오르는 한 벌만 쓰고, 각 단계에 역할을 정해둔다. 간격은 4의
-          배수만. 색은 무채색에 포인트 하나.
+          텍스트는 12px 부터 2px 씩 오르는 한 벌만 쓰고, 각 단계에 역할을 정해둔다. 12px 은 칩과
+          태그에만 쓰고 그 밖의 글자는 14px 이상. 간격은 4의 배수만. 색은 무채색에 포인트 하나.
         </p>
       </header>
 
@@ -49,8 +49,8 @@ export function DesignTokens() {
           <div className="flex flex-col gap-3">
             {TEXT_SCALE.map(({ size, role }) => (
               <div key={size} className="flex items-baseline gap-4 border-b border-border/40 pb-3">
-                <code className="w-16 shrink-0 text-12 text-muted-foreground">text-{size}</code>
-                <span className="w-40 shrink-0 text-12 text-muted-foreground">{role}</span>
+                <code className="w-16 shrink-0 text-14 text-muted-foreground">text-{size}</code>
+                <span className="w-40 shrink-0 text-14 text-muted-foreground">{role}</span>
                 <span className="truncate" style={{ fontSize: `${size / 16}rem`, lineHeight: 1.3 }}>
                   읽고, 쓰고, 나눈 것들 Archive 0123
                 </span>
@@ -63,7 +63,7 @@ export function DesignTokens() {
           <div className="flex flex-col gap-2">
             {SPACE_SCALE.map((step) => (
               <div key={step} className="flex items-center gap-4">
-                <code className="w-16 shrink-0 text-12 text-muted-foreground">{step}</code>
+                <code className="w-16 shrink-0 text-14 text-muted-foreground">{step}</code>
                 <span className="w-12 shrink-0 text-14 text-muted-foreground tabular-nums">
                   {step * 4}px
                 </span>
@@ -87,7 +87,7 @@ export function DesignTokens() {
                 />
                 <span className="flex min-w-0 flex-col">
                   <code className="truncate text-14">{token}</code>
-                  <span className="truncate text-12 text-muted-foreground">{note}</span>
+                  <span className="truncate text-14 text-muted-foreground">{note}</span>
                 </span>
               </li>
             ))}

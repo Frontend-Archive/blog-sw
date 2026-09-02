@@ -28,7 +28,7 @@ export default function LabPage() {
   return (
     <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-32">
       <header className="border-b border-border/60 pt-16 pb-8">
-        <p className="inline-flex items-center gap-1 text-12 font-medium tracking-wide text-muted-foreground uppercase">
+        <p className="inline-flex items-center gap-1 text-14 font-medium tracking-wide text-muted-foreground uppercase">
           <FlaskConical className="size-4" aria-hidden />
           임시 페이지
         </p>

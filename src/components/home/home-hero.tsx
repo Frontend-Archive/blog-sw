@@ -43,7 +43,7 @@ export function HomeHero({
 
   return (
     <section className="border-b border-border/60 pt-16 pb-12">
-      <p className="text-12 font-medium tracking-wide text-muted-foreground uppercase">
+      <p className="text-14 font-medium tracking-wide text-muted-foreground uppercase">
         Frontend Archive
       </p>
 
@@ -59,18 +59,18 @@ export function HomeHero({
       <dl className="mt-8 flex flex-wrap gap-x-8 gap-y-4">
         {stats.map(({ label, value, suffix }) => (
           <div key={label}>
-            <dt className="text-12 text-muted-foreground">{label}</dt>
+            <dt className="text-14 text-muted-foreground">{label}</dt>
             <dd className="mt-1 text-24 leading-none font-semibold tabular-nums">
               {value}
               {suffix ? (
-                <span className="ml-1 text-12 font-normal text-muted-foreground">{suffix}</span>
+                <span className="ml-1 text-14 font-normal text-muted-foreground">{suffix}</span>
               ) : null}
             </dd>
           </div>
         ))}
       </dl>
 
-      <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-12 text-muted-foreground">
+      <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-14 text-muted-foreground">
         <a
           href={ARCHIVE_REPO_URL}
           target="_blank"

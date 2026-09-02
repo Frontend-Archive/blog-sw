@@ -44,7 +44,7 @@ export function FilterBar({ resultCount, totalCount }: FilterBarProps) {
         ) : null}
       </div>
 
-      <p className="text-12 text-muted-foreground" aria-live="polite">
+      <p className="text-14 text-muted-foreground" aria-live="polite">
         {hasQuery ? `${resultCount}개 / 전체 ${totalCount}개` : `전체 ${totalCount}개`}
       </p>
     </div>
