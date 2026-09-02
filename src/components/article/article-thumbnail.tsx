@@ -49,7 +49,7 @@ export function ArticleThumbnail({
         )}
       >
         {fallbackLabel ? (
-          <span className="px-4 text-center text-sm font-medium text-balance text-foreground/60">
+          <span className="px-4 text-center text-14 font-medium text-balance text-foreground/60">
             {fallbackLabel}
           </span>
         ) : null}

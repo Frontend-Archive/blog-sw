@@ -39,7 +39,7 @@ export default async function MemberDetailPage({ params }: PageProps<'/members/[
       <nav className="pt-10">
         <Link
           href="/members"
-          className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+          className="inline-flex items-center gap-1 text-14 text-muted-foreground transition-colors hover:text-foreground"
         >
           <ChevronLeft className="size-4" aria-hidden />
           전체 멤버
@@ -47,14 +47,14 @@ export default async function MemberDetailPage({ params }: PageProps<'/members/[
       </nav>
 
       <header className="border-b border-border/60 pt-8 pb-10">
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{author}</h1>
-        <p className="mt-3 text-sm text-muted-foreground">아티클 {articles.length}개</p>
+        <h1 className="text-30 font-semibold tracking-tight sm:text-36">{author}</h1>
+        <p className="mt-3 text-14 text-muted-foreground">아티클 {articles.length}개</p>
         {topTags.length > 0 ? (
-          <ul className="mt-5 flex flex-wrap gap-1.5">
+          <ul className="mt-5 flex flex-wrap gap-2">
             {topTags.map(({ tag, count }) => (
               <li key={tag}>
                 <Link href={`/tags/${toSlug(tag)}`}>
-                  <Badge variant="secondary" className="gap-1.5 font-normal">
+                  <Badge variant="secondary" className="gap-2 font-normal">
                     {tag}
                     <span className="text-muted-foreground/80 tabular-nums">{count}</span>
                   </Badge>

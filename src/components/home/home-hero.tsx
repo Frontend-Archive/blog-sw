@@ -39,8 +39,8 @@ export function HomeHero({
 
   return (
     <section className="border-b border-border/60 pt-16 pb-12">
-      <p className="text-sm font-medium text-muted-foreground">Frontend Archive</p>
-      <h1 className="mt-3 max-w-2xl text-4xl leading-tight font-semibold tracking-tight text-balance sm:text-5xl">
+      <p className="text-14 font-medium text-muted-foreground">Frontend Archive</p>
+      <h1 className="mt-3 max-w-2xl text-36 leading-tight font-semibold tracking-tight text-balance sm:text-48">
         읽고, 쓰고, 나눈 것들을 모아둔 곳
       </h1>
       <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">
@@ -52,11 +52,11 @@ export function HomeHero({
         <dl className="flex flex-wrap gap-x-8 gap-y-4">
           {stats.map(({ label, value, suffix }) => (
             <div key={label}>
-              <dt className="text-xs text-muted-foreground">{label}</dt>
-              <dd className="mt-1 text-2xl font-semibold tabular-nums">
+              <dt className="text-14 text-muted-foreground">{label}</dt>
+              <dd className="mt-1 text-24 font-semibold tabular-nums">
                 {value}
                 {suffix ? (
-                  <span className="ml-0.5 text-sm font-normal text-muted-foreground">{suffix}</span>
+                  <span className="ml-1 text-14 font-normal text-muted-foreground">{suffix}</span>
                 ) : null}
               </dd>
             </div>
@@ -64,7 +64,7 @@ export function HomeHero({
         </dl>
 
         {latestDate ? (
-          <p className="text-xs text-muted-foreground">
+          <p className="text-14 text-muted-foreground">
             최근 업데이트 {formatArchiveDate(latestDate)}
           </p>
         ) : null}
@@ -74,7 +74,7 @@ export function HomeHero({
         href={ARCHIVE_REPO_URL}
         target="_blank"
         rel="noreferrer"
-        className="mt-6 inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
+        className="mt-6 inline-flex items-center gap-1 text-14 text-muted-foreground transition-colors hover:text-foreground"
       >
         원본 데이터 {ARCHIVE_REPO_SLUG}
         <ArrowUpRight className="size-3" aria-hidden />

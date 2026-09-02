@@ -21,7 +21,7 @@ interface SubmitFormProps {
 
 function FieldError({ errors }: { errors: string[] | undefined }) {
   if (!errors || errors.length === 0) return null;
-  return <p className="text-xs text-destructive">{errors.join(' ')}</p>;
+  return <p className="text-14 text-destructive">{errors.join(' ')}</p>;
 }
 
 function SubmitButton({ children }: { children: React.ReactNode }) {
@@ -40,7 +40,7 @@ function ResultBanner({ result }: { result: SubmitResult | null }) {
   return (
     <p
       aria-live="polite"
-      className={`flex items-center gap-2 text-sm ${result.ok ? 'text-foreground' : 'text-destructive'}`}
+      className={`flex items-center gap-2 text-14 ${result.ok ? 'text-foreground' : 'text-destructive'}`}
     >
       <Icon className="size-4 shrink-0" aria-hidden />
       {result.message}
@@ -70,7 +70,7 @@ export function SubmitForm({ author, openSlots, nextArchiveId }: SubmitFormProps
 
       <TabsContent value="fill-slot">
         {openSlots.length === 0 ? (
-          <p className="text-sm leading-relaxed text-muted-foreground">
+          <p className="text-16 leading-relaxed text-muted-foreground">
             {author} 님이 채울 빈 자리가 없습니다. 새 회차를 먼저 열어 주세요.
           </p>
         ) : (
@@ -84,7 +84,7 @@ export function SubmitForm({ author, openSlots, nextArchiveId }: SubmitFormProps
                 name="archiveId"
                 required
                 defaultValue={openSlots[0]?.archiveId}
-                className="h-9 rounded-md border border-input bg-background px-3 text-sm"
+                className="h-9 rounded-md border border-input bg-background px-3 text-14"
               >
                 {openSlots.map((slot) => (
                   <option key={slot.archiveId} value={slot.archiveId}>
@@ -117,7 +117,7 @@ export function SubmitForm({ author, openSlots, nextArchiveId }: SubmitFormProps
             <div className="flex flex-col gap-2">
               <Label htmlFor="tags">태그</Label>
               <Input id="tags" name="tags" placeholder="쉼표로 구분. 예: React, 성능 개선" />
-              <p className="text-xs text-muted-foreground">최대 {MAX_TAGS}개</p>
+              <p className="text-14 text-muted-foreground">최대 {MAX_TAGS}개</p>
               <FieldError errors={fieldErrors.tags} />
             </div>
 
@@ -133,7 +133,7 @@ export function SubmitForm({ author, openSlots, nextArchiveId }: SubmitFormProps
         <form action={formAction} className="flex flex-col gap-5">
           <input type="hidden" name="mode" value="new-archive" />
 
-          <p className="text-sm leading-relaxed text-muted-foreground">
+          <p className="text-16 leading-relaxed text-muted-foreground">
             {nextArchiveId}회차를 만들고 멤버 자리를 비워 둡니다. 각자 나중에 채우면 됩니다.
           </p>
 
@@ -150,7 +150,7 @@ export function SubmitForm({ author, openSlots, nextArchiveId }: SubmitFormProps
               name="type"
               required
               defaultValue="off-line"
-              className="h-9 rounded-md border border-input bg-background px-3 text-sm"
+              className="h-9 rounded-md border border-input bg-background px-3 text-14"
             >
               <option value="off-line">오프라인</option>
               <option value="on-line">온라인</option>

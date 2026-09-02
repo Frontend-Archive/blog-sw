@@ -67,7 +67,7 @@ export function CommandPalette({ data, open, onOpenChange }: CommandPaletteProps
               >
                 <ExternalLink className="size-4" aria-hidden />
                 <span className="truncate">{article.title}</span>
-                <span className="ml-auto shrink-0 text-xs text-muted-foreground">
+                <span className="ml-auto shrink-0 text-14 text-muted-foreground">
                   {article.author} · {article.archiveId}회차
                 </span>
               </CommandItem>
@@ -85,7 +85,7 @@ export function CommandPalette({ data, open, onOpenChange }: CommandPaletteProps
               >
                 <Hash className="size-4" aria-hidden />
                 <span>{tag}</span>
-                <span className="ml-auto text-xs text-muted-foreground tabular-nums">{count}</span>
+                <span className="ml-auto text-14 text-muted-foreground tabular-nums">{count}</span>
               </CommandItem>
             ))}
           </CommandGroup>
@@ -116,7 +116,7 @@ export function CommandPalette({ data, open, onOpenChange }: CommandPaletteProps
               >
                 <Layers className="size-4" aria-hidden />
                 <span>{title}</span>
-                <span className="ml-auto text-xs text-muted-foreground">
+                <span className="ml-auto text-14 text-muted-foreground">
                   {formatArchiveDate(date)}
                 </span>
               </CommandItem>

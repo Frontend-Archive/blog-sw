@@ -15,16 +15,16 @@ export function TimelineEntry({ archive }: TimelineEntryProps) {
     <li className="group relative pb-12 pl-8 last:pb-0">
       {/* 회차를 잇는 세로선. 마지막 항목에서는 아래로 흘러내리지 않게 감춘다. */}
       <span
-        className="absolute top-2 bottom-0 left-[5px] w-px bg-foreground/15 group-last:hidden"
+        className="absolute top-2 bottom-0 left-2 w-px bg-foreground/15 group-last:hidden"
         aria-hidden
       />
       <span
-        className="absolute top-1.5 left-0 size-[11px] rounded-full border-2 border-background bg-foreground"
+        className="absolute top-2 left-1 size-2 rounded-full bg-brand ring-4 ring-background"
         aria-hidden
       />
 
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <time dateTime={archive.date} className="text-sm font-medium tabular-nums">
+        <time dateTime={archive.date} className="text-14 font-medium tabular-nums">
           {formatArchiveDate(archive.date)}
         </time>
         <Badge variant="secondary" className="font-normal">
@@ -32,10 +32,10 @@ export function TimelineEntry({ archive }: TimelineEntryProps) {
         </Badge>
         <Link
           href={`/archives/${archive.id}`}
-          className="ml-auto inline-flex items-center gap-0.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+          className="ml-auto inline-flex items-center gap-1 text-14 text-muted-foreground transition-colors hover:text-foreground"
         >
           {archive.title}
-          <ChevronRight className="size-3.5" aria-hidden />
+          <ChevronRight className="size-4" aria-hidden />
         </Link>
       </div>
 
@@ -50,15 +50,15 @@ export function TimelineEntry({ archive }: TimelineEntryProps) {
                 href={article.url}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-start gap-1.5 text-sm leading-snug font-medium"
+                className="inline-flex items-start gap-2 text-16 leading-snug font-medium"
               >
                 {article.title}
                 <ArrowUpRight
-                  className="mt-0.5 size-3.5 shrink-0 opacity-0 transition-opacity group-hover:opacity-60"
+                  className="mt-1 size-4 shrink-0 opacity-0 transition-opacity group-hover:opacity-60"
                   aria-hidden
                 />
               </a>
-              <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
+              <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-14 text-muted-foreground">
                 <span>{article.author}</span>
                 {article.tags.map((tag) => (
                   <Link
@@ -74,10 +74,10 @@ export function TimelineEntry({ archive }: TimelineEntryProps) {
           ) : (
             <li
               key={article.author}
-              className="border-l-2 border-dashed border-border/40 pl-4 text-sm text-muted-foreground"
+              className="border-l-2 border-dashed border-border/40 pl-4 text-14 text-muted-foreground"
             >
-              <span className="inline-flex items-center gap-1.5">
-                <PenLine className="size-3.5" aria-hidden />
+              <span className="inline-flex items-center gap-2">
+                <PenLine className="size-4" aria-hidden />
                 {article.author} · 작성 예정
               </span>
             </li>

@@ -55,7 +55,7 @@ export default async function ArchiveDetailPage({ params }: PageProps<'/archives
       <nav className="pt-10">
         <Link
           href="/"
-          className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+          className="inline-flex items-center gap-1 text-14 text-muted-foreground transition-colors hover:text-foreground"
         >
           <ChevronLeft className="size-4" aria-hidden />
           전체 아티클
@@ -65,12 +65,12 @@ export default async function ArchiveDetailPage({ params }: PageProps<'/archives
       <header className="border-b border-border/60 pt-8 pb-10">
         <div className="flex items-center gap-3">
           <Badge variant="secondary">{archive.type === 'off-line' ? '오프라인' : '온라인'}</Badge>
-          <time dateTime={archive.date} className="text-sm text-muted-foreground">
+          <time dateTime={archive.date} className="text-14 text-muted-foreground">
             {formatArchiveDate(archive.date)}
           </time>
         </div>
-        <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">{archive.title}</h1>
-        <p className="mt-3 text-sm text-muted-foreground">
+        <h1 className="mt-4 text-30 font-semibold tracking-tight sm:text-36">{archive.title}</h1>
+        <p className="mt-3 text-14 text-muted-foreground">
           아티클 {articles.length}개
           {emptyAuthors.length > 0 ? ` · 작성 예정 ${emptyAuthors.length}개` : ''}
         </p>
@@ -85,7 +85,7 @@ export default async function ArchiveDetailPage({ params }: PageProps<'/archives
         ))}
       </section>
 
-      <nav className="mt-16 flex items-center justify-between border-t border-border/60 pt-6 text-sm">
+      <nav className="mt-16 flex items-center justify-between border-t border-border/60 pt-6 text-14">
         {older ? (
           <Link
             href={`/archives/${older.id}`}

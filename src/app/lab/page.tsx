@@ -1,5 +1,6 @@
 import { FlaskConical } from 'lucide-react';
 import type { Metadata } from 'next';
+import { DesignTokens } from '@/features/lab/design-tokens';
 import { LabSection } from '@/features/lab/lab-section';
 import { CARD_VARIANTS } from '@/features/lab/variants';
 import { articles } from '@/lib/archive/source';
@@ -27,11 +28,11 @@ export default function LabPage() {
   return (
     <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-32">
       <header className="border-b border-border/60 pt-16 pb-10">
-        <p className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
+        <p className="inline-flex items-center gap-2 text-14 font-medium text-muted-foreground">
           <FlaskConical className="size-4" aria-hidden />
           임시 페이지
         </p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight">카드 UI 시안</h1>
+        <h1 className="mt-3 text-30 font-semibold tracking-tight">카드 UI 시안</h1>
         <p className="mt-3 max-w-xl leading-relaxed text-muted-foreground">
           같은 아티클 {samples.length}개를 {CARD_VARIANTS.length}가지 카드로 그렸습니다. 썸네일이
           없는 링크와 읽는 시간이 빠진 링크를 일부러 섞어, 데이터가 부실할 때 어떻게 보이는지까지
@@ -39,11 +40,17 @@ export default function LabPage() {
         </p>
 
         <nav className="mt-6 flex flex-wrap gap-2">
+          <a
+            href="#tokens"
+            className="rounded-md border border-border/70 px-3 py-1 text-14 transition-colors hover:bg-accent"
+          >
+            00 · 디자인 토큰
+          </a>
           {CARD_VARIANTS.map((variant) => (
             <a
               key={variant.id}
               href={`#${variant.id}`}
-              className="rounded-md border border-border/70 px-2.5 py-1 text-xs transition-colors hover:bg-accent"
+              className="rounded-md border border-border/70 px-3 py-1 text-14 transition-colors hover:bg-accent"
             >
               {variant.name}
             </a>
@@ -52,6 +59,7 @@ export default function LabPage() {
       </header>
 
       <div className="flex flex-col gap-20 pt-12">
+        <DesignTokens />
         {CARD_VARIANTS.map((variant) => (
           <LabSection key={variant.id} variant={variant} articles={samples} />
         ))}

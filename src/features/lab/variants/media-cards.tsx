@@ -23,7 +23,7 @@ export function NaturalRatioCard({ article }: CardVariantProps) {
         />
       </div>
       <div className="flex flex-col gap-2 p-4">
-        <h3 className="text-sm leading-snug font-semibold text-balance">
+        <h3 className="text-14 leading-snug font-semibold text-balance">
           <a
             href={article.url}
             target="_blank"
@@ -33,7 +33,7 @@ export function NaturalRatioCard({ article }: CardVariantProps) {
             {article.title}
           </a>
         </h3>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-14 text-muted-foreground">
           {article.author} · {article.archiveId}회차
           {article.readingMinutes ? ` · ${article.readingMinutes}분` : ''}
         </p>
@@ -46,7 +46,7 @@ export function NaturalRatioCard({ article }: CardVariantProps) {
 export function ThumbRightCard({ article }: CardVariantProps) {
   return (
     <article className="group relative flex items-start gap-4 border-b border-border/60 py-5">
-      <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+      <div className="flex min-w-0 flex-1 flex-col gap-2">
         <h3 className="leading-snug font-semibold text-balance">
           <a
             href={article.url}
@@ -58,11 +58,11 @@ export function ThumbRightCard({ article }: CardVariantProps) {
           </a>
         </h3>
         {article.description ? (
-          <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+          <p className="line-clamp-2 text-14 leading-relaxed text-muted-foreground">
             {article.description}
           </p>
         ) : null}
-        <p className="mt-1 text-xs text-muted-foreground">
+        <p className="mt-1 text-14 text-muted-foreground">
           {article.author} · {formatArchiveDate(article.archiveDate)}
         </p>
       </div>
@@ -83,7 +83,7 @@ export function ThumbRightCard({ article }: CardVariantProps) {
 export function CutCornerCard({ article }: CardVariantProps) {
   return (
     <article className="group relative">
-      <span className="absolute top-2 right-0 z-10 text-xs font-semibold text-muted-foreground tabular-nums">
+      <span className="absolute top-2 right-0 z-10 text-14 font-semibold text-muted-foreground tabular-nums">
         {String(article.archiveId).padStart(2, '0')}
       </span>
       <div
@@ -103,7 +103,7 @@ export function CutCornerCard({ article }: CardVariantProps) {
           />
         </div>
         <div className="flex flex-1 flex-col gap-2 p-4">
-          <h3 className="text-sm leading-snug font-semibold text-balance">
+          <h3 className="text-14 leading-snug font-semibold text-balance">
             <a
               href={article.url}
               target="_blank"
@@ -113,7 +113,7 @@ export function CutCornerCard({ article }: CardVariantProps) {
               <span className="line-clamp-2">{article.title}</span>
             </a>
           </h3>
-          <p className="mt-auto text-xs text-muted-foreground">{article.author}</p>
+          <p className="mt-auto text-14 text-muted-foreground">{article.author}</p>
         </div>
       </div>
     </article>
@@ -139,17 +139,17 @@ export function StoryCard({ article, index }: CardVariantProps) {
         {Array.from({ length: segments }, (_, segment) => (
           <span
             key={segment}
-            className={`h-0.5 flex-1 rounded-full ${segment <= index ? 'bg-white' : 'bg-white/30'}`}
+            className={`h-1 flex-1 rounded-full ${segment <= index ? 'bg-white' : 'bg-white/30'}`}
             aria-hidden
           />
         ))}
       </div>
 
       <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-4">
-        <span className="text-[11px] text-white/70">
+        <span className="text-14 text-white/70">
           {article.author} · {article.archiveId}회차
         </span>
-        <h3 className="text-sm leading-snug font-semibold text-balance text-white">
+        <h3 className="text-14 leading-snug font-semibold text-balance text-white">
           <a
             href={article.url}
             target="_blank"

@@ -34,7 +34,7 @@ export default async function TagDetailPage({ params }: PageProps<'/tags/[slug]'
       <nav className="pt-10">
         <Link
           href="/tags"
-          className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+          className="inline-flex items-center gap-1 text-14 text-muted-foreground transition-colors hover:text-foreground"
         >
           <ChevronLeft className="size-4" aria-hidden />
           전체 태그
@@ -42,8 +42,8 @@ export default async function TagDetailPage({ params }: PageProps<'/tags/[slug]'
       </nav>
 
       <header className="border-b border-border/60 pt-8 pb-10">
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{tag}</h1>
-        <p className="mt-3 text-sm text-muted-foreground">아티클 {articles.length}개</p>
+        <h1 className="text-30 font-semibold tracking-tight sm:text-36">{tag}</h1>
+        <p className="mt-3 text-14 text-muted-foreground">아티클 {articles.length}개</p>
       </header>
 
       <section className="pt-10">

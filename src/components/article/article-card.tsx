@@ -16,7 +16,7 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
   const { hostname } = article;
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-xl border border-border/70 bg-card transition-colors hover:border-foreground/25">
+    <article className="group relative flex flex-col overflow-hidden rounded-xl border border-border/70 bg-card transition-colors hover:border-brand/50">
       <div className="aspect-[1.91/1] overflow-hidden bg-muted">
         <ArticleThumbnail
           image={article.image}
@@ -29,7 +29,7 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-5">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+        <div className="flex items-center gap-2 text-14 text-muted-foreground">
           <span className="font-medium text-foreground/80">{article.author}</span>
           <span aria-hidden>·</span>
           <Link
@@ -42,7 +42,7 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
           <time dateTime={article.archiveDate}>{formatArchiveDate(article.archiveDate)}</time>
         </div>
 
-        <h3 className="text-base leading-snug font-semibold text-balance">
+        <h3 className="text-16 leading-snug font-semibold text-balance">
           <a
             href={article.url}
             target="_blank"
@@ -54,13 +54,13 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
         </h3>
 
         {article.description ? (
-          <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+          <p className="line-clamp-2 text-14 leading-relaxed text-muted-foreground">
             {article.description}
           </p>
         ) : null}
 
         {article.tags.length > 0 ? (
-          <ul className="flex flex-wrap gap-1.5">
+          <ul className="flex flex-wrap gap-2">
             {article.tags.map((tag) => (
               <li key={tag}>
                 <Link href={`/tags/${toSlug(tag)}`} className="relative z-10">
@@ -76,14 +76,14 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
           </ul>
         ) : null}
 
-        <div className="mt-auto flex items-center gap-2 pt-2 text-xs text-muted-foreground">
+        <div className="mt-auto flex items-center gap-2 pt-2 text-14 text-muted-foreground">
           {article.favicon ? (
             <Image
               src={article.favicon}
               alt=""
               width={14}
               height={14}
-              className="size-3.5 rounded-sm"
+              className="size-4 rounded-sm"
             />
           ) : null}
           <span className="truncate">{hostname}</span>

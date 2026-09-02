@@ -13,8 +13,8 @@ export default function TagsPage() {
   return (
     <main className="mx-auto w-full max-w-4xl flex-1 px-6 pb-24">
       <header className="border-b border-border/60 pt-16 pb-10">
-        <h1 className="text-3xl font-semibold tracking-tight">태그</h1>
-        <p className="mt-3 text-sm text-muted-foreground">{tagCounts.length}개의 주제</p>
+        <h1 className="text-30 font-semibold tracking-tight">태그</h1>
+        <p className="mt-3 text-14 text-muted-foreground">{tagCounts.length}개의 주제</p>
       </header>
 
       <ul className="flex flex-wrap gap-2 pt-10">
@@ -23,7 +23,7 @@ export default function TagsPage() {
             <Link href={`/tags/${toSlug(tag)}`}>
               <Badge
                 variant="secondary"
-                className="gap-1.5 px-3 py-1 text-sm font-normal transition-colors hover:bg-foreground hover:text-background"
+                className="gap-2 px-3 py-1 text-14 font-normal transition-colors hover:bg-foreground hover:text-background"
               >
                 {tag}
                 <span className="text-muted-foreground/80 tabular-nums">{count}</span>

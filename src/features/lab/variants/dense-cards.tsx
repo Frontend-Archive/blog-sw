@@ -17,7 +17,7 @@ export function OffsetCard({ article }: CardVariantProps) {
         />
       </div>
       <div className="-mt-10 -ml-6 w-[85%] rounded-lg border border-border/70 bg-background p-4 transition-transform duration-300 group-hover:-translate-y-1">
-        <h3 className="text-sm leading-snug font-semibold text-balance">
+        <h3 className="text-14 leading-snug font-semibold text-balance">
           <a
             href={article.url}
             target="_blank"
@@ -27,7 +27,7 @@ export function OffsetCard({ article }: CardVariantProps) {
             <span className="line-clamp-2">{article.title}</span>
           </a>
         </h3>
-        <p className="mt-2 text-xs text-muted-foreground">
+        <p className="mt-2 text-14 text-muted-foreground">
           {article.author} · {formatArchiveDate(article.archiveDate)}
         </p>
       </div>
@@ -41,7 +41,7 @@ export function FolderCard({ article }: CardVariantProps) {
 
   return (
     <article className="group relative flex flex-col">
-      <span className="w-fit max-w-[70%] truncate rounded-t-lg border border-b-0 border-border/70 bg-card px-3 py-1 text-[11px] text-muted-foreground">
+      <span className="w-fit max-w-[70%] truncate rounded-t-lg border border-b-0 border-border/70 bg-card px-3 py-1 text-14 text-muted-foreground">
         {tab}
       </span>
       <div className="flex flex-1 flex-col overflow-hidden rounded-tr-lg rounded-b-lg border border-border/70 bg-card transition-colors group-hover:border-foreground/30">
@@ -55,7 +55,7 @@ export function FolderCard({ article }: CardVariantProps) {
           />
         </div>
         <div className="flex flex-1 flex-col gap-2 p-4">
-          <h3 className="text-sm leading-snug font-semibold text-balance">
+          <h3 className="text-14 leading-snug font-semibold text-balance">
             <a
               href={article.url}
               target="_blank"
@@ -65,7 +65,7 @@ export function FolderCard({ article }: CardVariantProps) {
               <span className="line-clamp-2">{article.title}</span>
             </a>
           </h3>
-          <p className="mt-auto text-xs text-muted-foreground">
+          <p className="mt-auto text-14 text-muted-foreground">
             {article.author} · {article.archiveId}회차
           </p>
         </div>
@@ -79,7 +79,7 @@ export function WatermarkCard({ article }: CardVariantProps) {
   return (
     <article className="group relative overflow-hidden rounded-xl border border-border/70 bg-card p-5 transition-colors hover:border-foreground/25">
       <span
-        className="pointer-events-none absolute -top-4 -right-2 text-[7rem] leading-none font-bold text-foreground/[0.04] tabular-nums transition-colors group-hover:text-foreground/[0.07]"
+        className="pointer-events-none absolute -top-4 -right-2 text-48 leading-none font-bold text-foreground/[0.04] tabular-nums transition-colors group-hover:text-foreground/[0.07]"
         aria-hidden
       >
         {String(article.archiveId).padStart(2, '0')}
@@ -95,7 +95,7 @@ export function WatermarkCard({ article }: CardVariantProps) {
             className="h-full w-full object-cover"
           />
         </div>
-        <h3 className="text-sm leading-snug font-semibold text-balance">
+        <h3 className="text-14 leading-snug font-semibold text-balance">
           <a
             href={article.url}
             target="_blank"
@@ -106,18 +106,18 @@ export function WatermarkCard({ article }: CardVariantProps) {
           </a>
         </h3>
         {article.description ? (
-          <p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">
+          <p className="line-clamp-2 text-14 leading-relaxed text-muted-foreground">
             {article.description}
           </p>
         ) : null}
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+        <div className="flex items-center gap-2 text-14 text-muted-foreground">
           {article.favicon ? (
             <Image
               src={article.favicon}
               alt=""
               width={14}
               height={14}
-              className="size-3.5 rounded-sm"
+              className="size-4 rounded-sm"
             />
           ) : null}
           <span>{article.author}</span>
@@ -146,7 +146,7 @@ export function BookCoverCard({ article }: CardVariantProps) {
         />
       </div>
       <div className="flex flex-col gap-1">
-        <h3 className="text-sm leading-snug font-semibold text-balance">
+        <h3 className="text-14 leading-snug font-semibold text-balance">
           <a
             href={article.url}
             target="_blank"
@@ -156,7 +156,7 @@ export function BookCoverCard({ article }: CardVariantProps) {
             <span className="line-clamp-2">{article.title}</span>
           </a>
         </h3>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-14 text-muted-foreground">
           {article.author}
           {article.readingMinutes ? ` · ${article.readingMinutes}분` : ''}
         </p>

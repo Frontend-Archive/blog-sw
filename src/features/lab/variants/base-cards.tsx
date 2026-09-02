@@ -15,12 +15,12 @@ export function StandardCard({ article }: CardVariantProps) {
         />
       </div>
       <div className="flex flex-1 flex-col gap-3 p-5">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+        <div className="flex items-center gap-2 text-14 text-muted-foreground">
           <span className="font-medium text-foreground/80">{article.author}</span>
           <span aria-hidden>·</span>
           <span>{article.archiveId}회차</span>
         </div>
-        <h3 className="text-base leading-snug font-semibold text-balance">
+        <h3 className="text-16 leading-snug font-semibold text-balance">
           <a
             href={article.url}
             target="_blank"
@@ -31,11 +31,11 @@ export function StandardCard({ article }: CardVariantProps) {
           </a>
         </h3>
         {article.description ? (
-          <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+          <p className="line-clamp-2 text-14 leading-relaxed text-muted-foreground">
             {article.description}
           </p>
         ) : null}
-        <div className="mt-auto flex items-center gap-2 pt-2 text-xs text-muted-foreground">
+        <div className="mt-auto flex items-center gap-2 pt-2 text-14 text-muted-foreground">
           <span className="truncate">{article.hostname}</span>
           {article.readingMinutes ? <span>· {article.readingMinutes}분</span> : null}
         </div>
@@ -48,10 +48,10 @@ export function StandardCard({ article }: CardVariantProps) {
 export function IndexedCard({ article, index }: CardVariantProps) {
   return (
     <article className="group relative flex gap-5 border-b border-border/60 py-6">
-      <span className="w-10 shrink-0 text-2xl font-semibold text-muted-foreground/40 tabular-nums transition-colors group-hover:text-foreground/60">
+      <span className="w-10 shrink-0 text-24 font-semibold text-muted-foreground/40 tabular-nums transition-colors group-hover:text-foreground/60">
         {String(index + 1).padStart(2, '0')}
       </span>
-      <div className="flex min-w-0 flex-col gap-1.5">
+      <div className="flex min-w-0 flex-col gap-2">
         <h3 className="leading-snug font-semibold text-balance">
           <a
             href={article.url}
@@ -62,7 +62,7 @@ export function IndexedCard({ article, index }: CardVariantProps) {
             {article.title}
           </a>
         </h3>
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-14 text-muted-foreground">
           <span>{article.author}</span>
           <span aria-hidden>·</span>
           <span>{article.hostname}</span>

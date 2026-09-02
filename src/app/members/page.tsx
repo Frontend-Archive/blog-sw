@@ -12,8 +12,8 @@ export default function MembersPage() {
   return (
     <main className="mx-auto w-full max-w-4xl flex-1 px-6 pb-24">
       <header className="border-b border-border/60 pt-16 pb-10">
-        <h1 className="text-3xl font-semibold tracking-tight">멤버</h1>
-        <p className="mt-3 text-sm text-muted-foreground">{authors.length}명</p>
+        <h1 className="text-30 font-semibold tracking-tight">멤버</h1>
+        <p className="mt-3 text-14 text-muted-foreground">{authors.length}명</p>
       </header>
 
       <ul className="grid gap-4 pt-10 sm:grid-cols-2">
@@ -27,7 +27,7 @@ export default function MembersPage() {
               >
                 <span>
                   <span className="font-medium">{author}</span>
-                  <span className="ml-2 text-sm text-muted-foreground tabular-nums">
+                  <span className="ml-2 text-14 text-muted-foreground tabular-nums">
                     아티클 {count}개
                   </span>
                 </span>

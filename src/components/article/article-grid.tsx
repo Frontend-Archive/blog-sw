@@ -15,7 +15,7 @@ export function ArticleGrid({
 }: ArticleGridProps) {
   if (articles.length === 0) {
     return (
-      <p className="rounded-xl border border-dashed border-border/60 px-6 py-16 text-center text-sm text-muted-foreground">
+      <p className="rounded-xl border border-dashed border-border/60 px-6 py-16 text-center text-14 text-muted-foreground">
         {emptyMessage}
       </p>
     );

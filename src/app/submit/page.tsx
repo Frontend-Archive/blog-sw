@@ -18,8 +18,8 @@ export const dynamic = 'force-dynamic';
 
 function Notice({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex gap-3 rounded-xl border border-dashed border-border/70 p-5 text-sm text-muted-foreground">
-      <TriangleAlert className="mt-0.5 size-4 shrink-0" aria-hidden />
+    <div className="flex gap-3 rounded-xl border border-dashed border-border/70 p-5 text-14 text-muted-foreground">
+      <TriangleAlert className="mt-1 size-4 shrink-0" aria-hidden />
       <div className="leading-relaxed">{children}</div>
     </div>
   );
@@ -38,7 +38,7 @@ export default async function SubmitPage() {
   return (
     <main className="mx-auto w-full max-w-2xl flex-1 px-6 pb-24">
       <header className="border-b border-border/60 pt-16 pb-10">
-        <h1 className="text-3xl font-semibold tracking-tight">글 등록</h1>
+        <h1 className="text-30 font-semibold tracking-tight">글 등록</h1>
         <p className="mt-3 leading-relaxed text-muted-foreground">
           여기서 등록한 글은 archive 레포의 마크다운에 그대로 커밋되고, 그 커밋이 다시 이 사이트를
           재배포합니다.
@@ -57,7 +57,7 @@ export default async function SubmitPage() {
         {author ? (
           <>
             <div className="flex items-center justify-between gap-4">
-              <p className="text-sm">
+              <p className="text-14">
                 <span className="font-medium">{author}</span>
                 <span className="text-muted-foreground"> 님으로 로그인했습니다.</span>
               </p>
@@ -71,7 +71,7 @@ export default async function SubmitPage() {
           </>
         ) : (
           <>
-            <p className="text-sm leading-relaxed text-muted-foreground">
+            <p className="text-16 leading-relaxed text-muted-foreground">
               스터디 멤버만 등록할 수 있습니다. GitHub 계정으로 본인을 확인합니다.
             </p>
             {isAuthConfigured ? (
