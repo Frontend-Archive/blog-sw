@@ -1,19 +1,24 @@
-import { ArticleCard } from '@/components/article/article-card';
+import { ArticleGrid } from '@/components/article/article-grid';
+import { HomeHero } from '@/components/home/home-hero';
+import { collectAuthors } from '@/lib/archive/model';
 import { archives, articles } from '@/lib/archive/source';
 
 export default function Home() {
-  return (
-    <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-16">
-      <h1 className="text-3xl font-semibold tracking-tight">Frontend Archive</h1>
-      <p className="mt-3 text-muted-foreground">
-        스터디 {archives.length}회차 · 아티클 {articles.length}개
-      </p>
+  const latest = archives[0];
 
-      <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {articles.map((article, index) => (
-          <ArticleCard key={article.key} article={article} priority={index < 3} />
-        ))}
-      </div>
+  return (
+    <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-24">
+      <HomeHero
+        archiveCount={archives.length}
+        articleCount={articles.length}
+        memberCount={collectAuthors(archives).length}
+        latestDate={latest?.date}
+      />
+
+      <section className="pt-12">
+        <h2 className="sr-only">아티클 목록</h2>
+        <ArticleGrid articles={articles} />
+      </section>
     </main>
   );
 }
