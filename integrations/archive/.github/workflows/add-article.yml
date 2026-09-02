@@ -1,0 +1,57 @@
+# 블로그의 글 등록 폼이 보낸 repository_dispatch 를 받아 archives/*.md 를 고친다.
+#
+# 이 파일은 blog-sw 레포에서 관리하지만 실제로는 archive 레포에 두고 동작한다.
+# 설치 방법은 integrations/archive/README.md 참고.
+name: Add article
+
+on:
+  repository_dispatch:
+    types: [add-article]
+
+permissions:
+  contents: write
+
+# 동시에 두 건이 들어오면 뒤엣것이 앞엣것의 결과 위에서 다시 돌게 한다.
+concurrency:
+  group: add-article
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Apply payload
+        id: apply
+        env:
+          PAYLOAD: ${{ toJSON(github.event.client_payload) }}
+        run: node scripts/add-article.mjs
+
+      - name: Format
+        run: npm run format
+
+      - name: Commit
+        env:
+          SUMMARY: ${{ steps.apply.outputs.summary }}
+          REQUESTED_BY: ${{ github.event.client_payload.requestedBy }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo "변경 사항이 없습니다."
+            exit 0
+          fi
+          # 실제로 등록한 사람이 커밋 작성자로 남게 한다.
+          AUTHOR="${REQUESTED_BY:-github-actions[bot]}"
+          git config user.name "$AUTHOR"
+          git config user.email "$AUTHOR@users.noreply.github.com"
+          git add archives
+          git commit -m "docs: $SUMMARY" -m "blog-sw 글 등록 폼에서 반영됨."
+          git push
