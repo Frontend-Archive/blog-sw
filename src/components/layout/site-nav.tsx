@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 
 const NAV_ITEMS = [
   { href: '/', label: '아티클' },
+  { href: '/timeline', label: '타임라인' },
   { href: '/tags', label: '태그' },
   { href: '/members', label: '멤버' },
 ] as const;
