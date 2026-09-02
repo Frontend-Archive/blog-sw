@@ -39,9 +39,21 @@ export type FillSlotInput = z.infer<typeof fillSlotSchema>;
 export type NewArchiveInput = z.infer<typeof newArchiveSchema>;
 export type SubmissionInput = z.infer<typeof submissionSchema>;
 
+/** 등록 요청이 실제로 반영됐는지 추적하는 데 필요한 정보 */
+export interface PendingSubmission {
+  /** archive 레포에서 확인할 파일 (예: 202607.md) */
+  fileName: string;
+  archiveId: number;
+  /** 채우기 요청이면 이 URL 이 파일에 들어갔는지로 판정한다 */
+  url?: string;
+}
+
 export interface SubmitResult {
   ok: boolean;
   message: string;
   /** 필드별 오류. 폼에서 각 입력 아래에 표시한다. */
   fieldErrors?: Record<string, string[]>;
+  pending?: PendingSubmission;
 }
+
+export const ARCHIVE_FILE_NAME = /^\d{6}\.md$/;

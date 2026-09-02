@@ -2,7 +2,7 @@
 
 import { auth } from '@/lib/auth';
 import { isAuthConfigured } from '@/lib/auth/members';
-import { findOpenSlots } from '@/lib/archive/model';
+import { findOpenSlots, nextArchiveId } from '@/lib/archive/model';
 import { archives } from '@/lib/archive/source';
 import {
   ArchiveDispatchError,
@@ -10,7 +10,12 @@ import {
   isDispatchConfigured,
   type ArchiveDispatchPayload,
 } from '@/lib/archive/dispatch';
-import { submissionSchema, type SubmissionInput, type SubmitResult } from './schema';
+import {
+  submissionSchema,
+  type PendingSubmission,
+  type SubmissionInput,
+  type SubmitResult,
+} from './schema';
 
 function fail(message: string, fieldErrors?: Record<string, string[]>): SubmitResult {
   return { ok: false, message, fieldErrors };
@@ -59,6 +64,11 @@ export async function submitArticle(
     if (!openSlots.some((slot) => slot.archiveId === input.archiveId)) {
       return fail(`${input.archiveId}회차에는 ${author} 님이 채울 빈 자리가 없습니다.`);
     }
+    const target = archives.find((archive) => archive.id === input.archiveId);
+    if (!target) {
+      return fail(`${input.archiveId}회차를 찾지 못했습니다.`);
+    }
+
     return send(
       {
         mode: 'fill-slot',
@@ -69,7 +79,8 @@ export async function submitArticle(
         tags: input.tags,
         requestedBy,
       },
-      `${input.archiveId}회차에 등록을 요청했습니다. 반영까지 1~2분 걸립니다.`,
+      `${input.archiveId}회차에 등록을 요청했습니다.`,
+      { fileName: target.fileName, archiveId: input.archiveId, url: input.url },
     );
   }
 
@@ -82,14 +93,19 @@ export async function submitArticle(
 
   return send(
     { mode: 'new-archive', date: input.date, type: input.type, requestedBy },
-    '새 회차 생성을 요청했습니다. 반영까지 1~2분 걸립니다.',
+    '새 회차 생성을 요청했습니다.',
+    { fileName: `${yearMonth}.md`, archiveId: nextArchiveId(archives) },
   );
 }
 
-async function send(payload: ArchiveDispatchPayload, message: string): Promise<SubmitResult> {
+async function send(
+  payload: ArchiveDispatchPayload,
+  message: string,
+  pending: PendingSubmission,
+): Promise<SubmitResult> {
   try {
     await dispatchToArchive(payload);
-    return { ok: true, message };
+    return { ok: true, message, pending };
   } catch (error) {
     if (error instanceof ArchiveDispatchError) {
       return fail(error.message);

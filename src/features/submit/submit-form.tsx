@@ -11,6 +11,7 @@ import type { OpenSlot } from '@/lib/archive/model';
 import { formatArchiveDate } from '@/lib/format';
 import { submitArticle } from './actions';
 import { MAX_TAGS, type SubmitResult } from './schema';
+import { SubmitStatus } from './submit-status';
 
 interface SubmitFormProps {
   author: string;
@@ -50,6 +51,15 @@ function ResultBanner({ result }: { result: SubmitResult | null }) {
 export function SubmitForm({ author, openSlots, nextArchiveId }: SubmitFormProps) {
   const [result, formAction] = useActionState<SubmitResult | null, FormData>(submitArticle, null);
   const fieldErrors = result?.fieldErrors ?? {};
+
+  if (result?.ok && result.pending) {
+    return (
+      <div className="flex flex-col gap-4">
+        <ResultBanner result={result} />
+        <SubmitStatus pending={result.pending} />
+      </div>
+    );
+  }
 
   return (
     <Tabs defaultValue="fill-slot" className="gap-6">
