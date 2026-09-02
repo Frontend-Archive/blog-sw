@@ -1,4 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
+import type { ReactNode } from 'react';
+import { DaysSince } from '@/components/home/days-since';
 import { ARCHIVE_REPO_SLUG, ARCHIVE_REPO_URL } from '@/lib/archive/config';
 import { formatArchiveDate } from '@/lib/format';
 
@@ -6,14 +8,33 @@ interface HomeHeroProps {
   archiveCount: number;
   articleCount: number;
   memberCount: number;
+  topicCount: number;
+  firstDate: string | undefined;
   latestDate: string | undefined;
 }
 
-export function HomeHero({ archiveCount, articleCount, memberCount, latestDate }: HomeHeroProps) {
-  const stats = [
+interface Stat {
+  label: string;
+  value: ReactNode;
+  suffix?: string;
+}
+
+export function HomeHero({
+  archiveCount,
+  articleCount,
+  memberCount,
+  topicCount,
+  firstDate,
+  latestDate,
+}: HomeHeroProps) {
+  const stats: Stat[] = [
     { label: '회차', value: archiveCount },
     { label: '아티클', value: articleCount },
     { label: '멤버', value: memberCount },
+    { label: '주제', value: topicCount },
+    ...(firstDate
+      ? [{ label: '함께한 지', value: <DaysSince from={firstDate} />, suffix: '일' }]
+      : []),
   ];
 
   return (
@@ -28,11 +49,16 @@ export function HomeHero({ archiveCount, articleCount, memberCount, latestDate }
       </p>
 
       <div className="mt-8 flex flex-wrap items-end gap-x-10 gap-y-4">
-        <dl className="flex gap-8">
-          {stats.map(({ label, value }) => (
+        <dl className="flex flex-wrap gap-x-8 gap-y-4">
+          {stats.map(({ label, value, suffix }) => (
             <div key={label}>
               <dt className="text-xs text-muted-foreground">{label}</dt>
-              <dd className="mt-1 text-2xl font-semibold tabular-nums">{value}</dd>
+              <dd className="mt-1 text-2xl font-semibold tabular-nums">
+                {value}
+                {suffix ? (
+                  <span className="ml-0.5 text-sm font-normal text-muted-foreground">{suffix}</span>
+                ) : null}
+              </dd>
             </div>
           ))}
         </dl>

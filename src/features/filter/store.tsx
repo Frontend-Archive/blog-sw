@@ -7,9 +7,6 @@ import { EMPTY_FILTER, type ArticleFilter } from './types';
 
 interface FilterActions {
   setQuery: (query: string) => void;
-  toggleTag: (tag: string) => void;
-  toggleAuthor: (author: string) => void;
-  toggleArchiveId: (archiveId: number) => void;
   /** URL 에서 읽은 필터를 통째로 덮어쓴다. */
   hydrate: (filter: ArticleFilter) => void;
   reset: () => void;
@@ -17,18 +14,10 @@ interface FilterActions {
 
 export type FilterStore = ArticleFilter & FilterActions;
 
-function toggle<T>(list: T[], value: T): T[] {
-  return list.includes(value) ? list.filter((item) => item !== value) : [...list, value];
-}
-
 function createFilterStore(initial: ArticleFilter): StoreApi<FilterStore> {
   return createStore<FilterStore>()((set) => ({
     ...initial,
     setQuery: (query) => set({ query }),
-    toggleTag: (tag) => set((state) => ({ tags: toggle(state.tags, tag) })),
-    toggleAuthor: (author) => set((state) => ({ authors: toggle(state.authors, author) })),
-    toggleArchiveId: (archiveId) =>
-      set((state) => ({ archiveIds: toggle(state.archiveIds, archiveId) })),
     hydrate: (filter) => set({ ...filter }),
     reset: () => set({ ...EMPTY_FILTER }),
   }));
@@ -36,15 +25,11 @@ function createFilterStore(initial: ArticleFilter): StoreApi<FilterStore> {
 
 const FilterStoreContext = createContext<StoreApi<FilterStore> | null>(null);
 
-interface FilterStoreProviderProps {
-  children: ReactNode;
-}
-
 /**
  * 서버 렌더와 첫 클라이언트 렌더가 어긋나지 않도록 항상 빈 필터로 시작한다.
  * URL 에 담긴 필터는 마운트 직후 useFilterUrlSync 가 적용한다.
  */
-export function FilterStoreProvider({ children }: FilterStoreProviderProps) {
+export function FilterStoreProvider({ children }: { children: ReactNode }) {
   const [store] = useState(() => createFilterStore(EMPTY_FILTER));
 
   return <FilterStoreContext.Provider value={store}>{children}</FilterStoreContext.Provider>;

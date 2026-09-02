@@ -11,20 +11,10 @@ import { useFilterUrlSync } from './use-filter-url-sync';
 
 interface ArticleExplorerProps {
   articles: ArticleCardData[];
-  authors: string[];
-  archiveIds: number[];
-  tags: string[];
 }
 
-function ExplorerBody({ articles, authors, archiveIds, tags }: ArticleExplorerProps) {
-  const filter = useFilterStore(
-    useShallow((state) => ({
-      query: state.query,
-      tags: state.tags,
-      authors: state.authors,
-      archiveIds: state.archiveIds,
-    })),
-  );
+function ExplorerBody({ articles }: ArticleExplorerProps) {
+  const filter = useFilterStore(useShallow((state) => ({ query: state.query })));
   const hydrate = useFilterStore((state) => state.hydrate);
 
   useFilterUrlSync(filter, hydrate);
@@ -32,17 +22,11 @@ function ExplorerBody({ articles, authors, archiveIds, tags }: ArticleExplorerPr
   const filtered = useMemo(() => filterArticles(articles, filter), [articles, filter]);
 
   return (
-    <div className="flex flex-col gap-10">
-      <FilterBar
-        authors={authors}
-        archiveIds={archiveIds}
-        tags={tags}
-        resultCount={filtered.length}
-        totalCount={articles.length}
-      />
+    <div className="flex flex-col gap-8">
+      <FilterBar resultCount={filtered.length} totalCount={articles.length} />
       <ArticleGrid
         articles={filtered}
-        emptyMessage="조건에 맞는 아티클이 없습니다. 필터를 지워보세요."
+        emptyMessage="조건에 맞는 아티클이 없습니다. 검색어를 지워보세요."
       />
     </div>
   );
