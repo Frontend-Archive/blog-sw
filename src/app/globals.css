@@ -17,6 +17,9 @@
 
    text-xs / text-sm 같은 기본 단계는 꺼서 섞여 들어오지 못하게 한다. */
 @theme {
+  /* 헤더 높이. 본문 최소 높이 계산에 함께 쓰인다. */
+  --header-height: 4rem;
+
   --text-*: initial;
   --text-12: 0.75rem;
   --text-12--line-height: 1.5;
@@ -121,7 +124,9 @@
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
+  /* 호버 배경. 불투명한 톤 대신 포인트 색을 반투명으로 얹는다.
+     아래 깔린 색이 카드든 페이지든 그 위에 은은하게 섞인다. */
+  --accent: oklch(0.52 0.19 264 / 0.06);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
@@ -160,7 +165,7 @@
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
+  --accent: oklch(0.74 0.16 264 / 0.12);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
@@ -187,6 +192,13 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+  }
+  /* Tailwind v4 는 preflight 에서 버튼 커서를 default 로 되돌린다.
+     누를 수 있는 요소는 손가락 커서가 보이는 편이 맞다. */
+  button:not(:disabled),
+  [role='button']:not(:disabled),
+  summary {
+    cursor: pointer;
   }
   body {
     @apply bg-background text-foreground;

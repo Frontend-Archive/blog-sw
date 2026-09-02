@@ -15,9 +15,11 @@ interface CountUpProps {
 /**
  * 0 에서 value 까지 숫자를 올린다.
  *
- * 서버 렌더에서는 최종값을 그대로 내보내 자바스크립트가 없거나 느린 환경에서도
- * 정확한 숫자가 보이게 하고, 마운트 이후에만 애니메이션을 시작한다.
- * prefers-reduced-motion 이면 아예 움직이지 않는다.
+ * 서버 렌더와 첫 상태는 최종값이다. 자바스크립트가 없거나 애니메이션을 시작하지
+ * 못하는 상황에서도 정확한 숫자가 보여야 하기 때문이다.
+ *
+ * 숨겨진 탭에서는 시작하지 않는다. requestAnimationFrame 이 멈춰 있어
+ * 0 을 그린 채로 굳어버리기 때문이다. 탭이 보이는 순간 그때 시작한다.
  */
 export function CountUp({ value, delayMs = 0 }: CountUpProps) {
   const [display, setDisplay] = useState(value);
@@ -26,8 +28,6 @@ export function CountUp({ value, delayMs = 0 }: CountUpProps) {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    // 지연은 setTimeout 이 아니라 진행도 계산으로 처리한다. 이펙트 본문에서
-    // setState 를 부르지 않기 위해서이고, 첫 프레임이 곧 0 을 그린다.
     let startedAt: number | null = null;
 
     const step = (now: number) => {
@@ -38,9 +38,26 @@ export function CountUp({ value, delayMs = 0 }: CountUpProps) {
       if (progress < 1) frameRef.current = requestAnimationFrame(step);
     };
 
-    frameRef.current = requestAnimationFrame(step);
+    const start = () => {
+      frameRef.current = requestAnimationFrame(step);
+    };
+
+    if (document.visibilityState === 'visible') {
+      start();
+      return () => {
+        if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+      };
+    }
+
+    const startWhenVisible = () => {
+      if (document.visibilityState !== 'visible') return;
+      document.removeEventListener('visibilitychange', startWhenVisible);
+      start();
+    };
+    document.addEventListener('visibilitychange', startWhenVisible);
 
     return () => {
+      document.removeEventListener('visibilitychange', startWhenVisible);
       if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
     };
   }, [delayMs, value]);

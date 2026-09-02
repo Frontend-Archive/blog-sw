@@ -50,14 +50,19 @@ export function HomeHero({
   ];
 
   return (
-    <section className="pt-20 pb-16">
-      <h1 className="max-w-2xl text-36 leading-tight font-semibold tracking-tight text-balance sm:text-48">
+    <section className="relative isolate pt-20 pb-16">
+      {/* 제목 뒤에 깔리는 포인트 색 헤일로. 크게 흐려서 색만 남기고 형태는 지운다. */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute top-12 -left-6 h-40 w-2/5 rounded-full bg-gradient-to-br from-brand/45 via-brand/25 to-transparent blur-3xl dark:from-brand/35 dark:via-brand/20"
+      />
+
+      <h1 className="relative max-w-2xl text-36 leading-tight font-semibold tracking-tight text-balance sm:text-48">
         읽고, 쓰고, 나눈 것들을 모아둔 곳
       </h1>
 
       <p className="mt-6 max-w-3xl text-16 leading-relaxed text-muted-foreground">
-        프론트엔드 스터디에서 회차마다 각자 쓴 글을 모읍니다. 원문은 각자의 블로그에 있고, 여기서는
-        찾아보기 쉽게 정리합니다.
+        회차마다 각자 쓴 글을 모읍니다. 원문은 각자의 블로그에 있습니다.
       </p>
 
       <dl className="mt-12 flex flex-wrap gap-x-12 gap-y-6">

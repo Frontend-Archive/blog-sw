@@ -12,7 +12,9 @@ const geist = Geist({
 });
 
 const notoSansKr = Noto_Sans_KR({
-  weight: ['400', '500', '700'],
+  // 태그 클라우드가 굵기 4단계를 쓴다. 없는 무게를 지정하면 브라우저가
+  // 가짜 볼드를 만들어 한글이 뭉개진다.
+  weight: ['400', '500', '600', '700'],
   variable: '--font-noto-kr',
   display: 'swap',
   preload: false,
@@ -33,7 +35,8 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       <body className="flex min-h-dvh flex-col bg-background font-sans text-foreground">
         <ThemeProvider>
           <SiteHeader />
-          {children}
+          {/* 본문이 최소 한 화면을 차지하게 해서, 스크롤 맨 위에서는 푸터가 보이지 않는다. */}
+          <div className="flex min-h-[calc(100dvh-var(--header-height))] flex-col">{children}</div>
           <SiteFooter />
         </ThemeProvider>
       </body>

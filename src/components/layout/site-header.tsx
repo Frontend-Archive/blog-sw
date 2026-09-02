@@ -12,7 +12,7 @@ export function SiteHeader() {
       data-site-header
       className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur"
     >
-      <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-8 px-6">
+      <div className="mx-auto flex h-(--header-height) w-full max-w-6xl items-center gap-8 px-6">
         <Link href="/" className="text-16 font-semibold tracking-tight">
           Frontend Archive
         </Link>
