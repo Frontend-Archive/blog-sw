@@ -5,6 +5,7 @@ import { ArticleThumbnail } from '@/components/article/article-thumbnail';
 import { Badge } from '@/components/ui/badge';
 import type { ArchiveArticle } from '@/lib/archive/model';
 import { getHostname, getOg } from '@/lib/archive/og';
+import { toSlug } from '@/lib/archive/taxonomy';
 import { formatArchiveDate } from '@/lib/format';
 
 interface ArticleCardProps {
@@ -64,9 +65,14 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
           <ul className="flex flex-wrap gap-1.5">
             {article.tags.map((tag) => (
               <li key={tag}>
-                <Badge variant="secondary" className="font-normal">
-                  {tag}
-                </Badge>
+                <Link href={`/tags/${toSlug(tag)}`} className="relative z-10">
+                  <Badge
+                    variant="secondary"
+                    className="font-normal transition-colors hover:bg-foreground hover:text-background"
+                  >
+                    {tag}
+                  </Badge>
+                </Link>
               </li>
             ))}
           </ul>
