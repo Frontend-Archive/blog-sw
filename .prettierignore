@@ -5,3 +5,4 @@ out
 .vercel
 public
 src/components/ui
+content/archive.json
