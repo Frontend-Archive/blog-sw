@@ -37,7 +37,7 @@ export default async function SubmitPage() {
 
   return (
     <main className="mx-auto w-full max-w-2xl flex-1 px-6 pb-24">
-      <header className="border-b border-border/60 pt-16 pb-8">
+      <header className="pt-20 pb-12">
         <h1 className="text-30 font-semibold tracking-tight">글 등록</h1>
         <p className="mt-4 max-w-xl text-16 leading-relaxed text-muted-foreground">
           여기서 등록한 글은 archive 레포의 마크다운에 그대로 커밋되고, 그 커밋이 다시 이 사이트를
@@ -45,7 +45,7 @@ export default async function SubmitPage() {
         </p>
       </header>
 
-      <section className="flex flex-col gap-6 pt-8">
+      <section className="flex flex-col gap-6">
         {missingEnv.length > 0 ? (
           <Notice>
             아직 설정되지 않은 환경변수가 있습니다 — <code>{missingEnv.join(', ')}</code>.

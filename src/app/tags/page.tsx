@@ -12,14 +12,14 @@ export const metadata: Metadata = {
 export default function TagsPage() {
   return (
     <main className="mx-auto w-full max-w-4xl flex-1 px-6 pb-24">
-      <header className="border-b border-border/60 pt-16 pb-8">
+      <header className="pt-20 pb-12">
         <h1 className="text-30 font-semibold tracking-tight">태그</h1>
         <p className="mt-2 text-14 text-muted-foreground">{tagCounts.length}개의 주제</p>
       </header>
 
       {/* 카드 안의 태그는 12px 라벨이지만, 여기서는 칩 자체가 이 페이지의 주 내비게이션이라
           한 단계 키우고 여백도 넓힌다. */}
-      <ul className="flex flex-wrap gap-2 pt-8">
+      <ul className="flex flex-wrap gap-2">
         {tagCounts.map(({ tag, count }) => (
           <li key={tag}>
             <Link href={`/tags/${toSlug(tag)}`}>

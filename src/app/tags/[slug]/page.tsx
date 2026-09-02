@@ -41,12 +41,12 @@ export default async function TagDetailPage({ params }: PageProps<'/tags/[slug]'
         </Link>
       </nav>
 
-      <header className="border-b border-border/60 pt-8 pb-8">
+      <header className="pt-8 pb-12">
         <h1 className="text-30 font-semibold tracking-tight sm:text-36">{tag}</h1>
         <p className="mt-2 text-14 text-muted-foreground">아티클 {articles.length}개</p>
       </header>
 
-      <section className="pt-8">
+      <section>
         <ArticleGrid articles={cards} />
       </section>
     </main>

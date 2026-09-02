@@ -5,22 +5,20 @@ import { archives, articles } from '@/lib/archive/source';
 import { toArticleCardList } from '@/lib/archive/view';
 
 export default function Home() {
-  const latest = archives[0];
   const first = archives.at(-1);
   const cards = toArticleCardList(articles);
 
   return (
-    <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-24">
+    <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-32">
       <HomeHero
         archiveCount={archives.length}
         articleCount={articles.length}
         memberCount={collectAuthors(archives).length}
         readingMinutes={cards.reduce((total, card) => total + (card.readingMinutes ?? 0), 0)}
         firstDate={first?.date}
-        latestDate={latest?.date}
       />
 
-      <section className="pt-12">
+      <section>
         <h2 className="sr-only">아티클 목록</h2>
         <ArticleExplorer articles={cards} />
       </section>

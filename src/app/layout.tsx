@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist, Noto_Sans_KR } from 'next/font/google';
+import { SiteFooter } from '@/components/layout/site-footer';
 import { SiteHeader } from '@/components/layout/site-header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
 import './globals.css';
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         <ThemeProvider>
           <SiteHeader />
           {children}
+          <SiteFooter />
         </ThemeProvider>
       </body>
     </html>

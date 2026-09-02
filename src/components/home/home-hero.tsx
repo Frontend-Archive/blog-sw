@@ -1,8 +1,5 @@
-import { ArrowUpRight } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { DaysSince } from '@/components/home/days-since';
-import { ARCHIVE_REPO_SLUG, ARCHIVE_REPO_URL } from '@/lib/archive/config';
-import { formatArchiveDate } from '@/lib/format';
 
 interface HomeHeroProps {
   archiveCount: number;
@@ -10,7 +7,6 @@ interface HomeHeroProps {
   memberCount: number;
   readingMinutes: number;
   firstDate: string | undefined;
-  latestDate: string | undefined;
 }
 
 interface Stat {
@@ -20,8 +16,8 @@ interface Stat {
 }
 
 /**
- * 히어로의 정보 계층
- *   12 오버라인 → 36/48 제목 → 16 설명 → (24 값 / 12 라벨) 통계 → 12 출처
+ * 구분선을 두지 않는다. 선 하나 긋는 것보다 여백으로 나누는 편이 조용하고,
+ * 아래의 검색창이 이미 시각적인 경계 역할을 한다.
  */
 export function HomeHero({
   archiveCount,
@@ -29,7 +25,6 @@ export function HomeHero({
   memberCount,
   readingMinutes,
   firstDate,
-  latestDate,
 }: HomeHeroProps) {
   const stats: Stat[] = [
     { label: '회차', value: archiveCount },
@@ -42,25 +37,21 @@ export function HomeHero({
   ];
 
   return (
-    <section className="border-b border-border/60 pt-16 pb-12">
-      <p className="text-14 font-medium tracking-wide text-muted-foreground uppercase">
-        Frontend Archive
-      </p>
-
-      <h1 className="mt-4 max-w-2xl text-36 leading-tight font-semibold tracking-tight text-balance sm:text-48">
+    <section className="pt-20 pb-16">
+      <h1 className="max-w-2xl text-36 leading-tight font-semibold tracking-tight text-balance sm:text-48">
         읽고, 쓰고, 나눈 것들을 모아둔 곳
       </h1>
 
-      <p className="mt-4 max-w-xl text-16 leading-relaxed text-muted-foreground">
+      <p className="mt-6 max-w-xl text-16 leading-relaxed text-muted-foreground">
         프론트엔드 스터디에서 회차마다 각자 쓴 글을 모읍니다. 원문은 각자의 블로그에 있고, 여기서는
         찾아보기 쉽게 정리합니다.
       </p>
 
-      <dl className="mt-8 flex flex-wrap gap-x-8 gap-y-4">
+      <dl className="mt-12 flex flex-wrap gap-x-12 gap-y-6">
         {stats.map(({ label, value, suffix }) => (
           <div key={label}>
             <dt className="text-14 text-muted-foreground">{label}</dt>
-            <dd className="mt-1 text-24 leading-none font-semibold tabular-nums">
+            <dd className="mt-2 text-24 leading-none font-semibold tabular-nums">
               {value}
               {suffix ? (
                 <span className="ml-1 text-14 font-normal text-muted-foreground">{suffix}</span>
@@ -69,19 +60,6 @@ export function HomeHero({
           </div>
         ))}
       </dl>
-
-      <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-14 text-muted-foreground">
-        <a
-          href={ARCHIVE_REPO_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-1 transition-colors hover:text-brand"
-        >
-          원본 데이터 {ARCHIVE_REPO_SLUG}
-          <ArrowUpRight className="size-3" aria-hidden />
-        </a>
-        {latestDate ? <span>최근 업데이트 {formatArchiveDate(latestDate)}</span> : null}
-      </div>
     </section>
   );
 }

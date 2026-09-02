@@ -62,8 +62,8 @@ export function TimelineEntry({ archive }: TimelineEntryProps) {
                   aria-hidden
                 />
               </a>
-              <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-14 text-muted-foreground">
-                <span>{article.author}</span>
+              <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-14 text-muted-foreground">
+                <span className="font-medium text-foreground/70">{article.author}</span>
                 {article.tags.map((tag) => (
                   <Link
                     key={tag}

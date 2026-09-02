@@ -22,7 +22,7 @@ function ExplorerBody({ articles }: ArticleExplorerProps) {
   const filtered = useMemo(() => filterArticles(articles, filter), [articles, filter]);
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-6">
       <FilterBar resultCount={filtered.length} totalCount={articles.length} />
       <ArticleGrid
         articles={filtered}

@@ -27,7 +27,7 @@ export default function LabPage() {
 
   return (
     <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-32">
-      <header className="border-b border-border/60 pt-16 pb-8">
+      <header className="pt-20 pb-12">
         <p className="inline-flex items-center gap-1 text-14 font-medium tracking-wide text-muted-foreground uppercase">
           <FlaskConical className="size-4" aria-hidden />
           임시 페이지
@@ -58,7 +58,7 @@ export default function LabPage() {
         </nav>
       </header>
 
-      <div className="flex flex-col gap-20 pt-12">
+      <div className="flex flex-col gap-24">
         <DesignTokens />
         {CARD_VARIANTS.map((variant) => (
           <LabSection key={variant.id} variant={variant} articles={samples} />

@@ -8,9 +8,12 @@ export function SiteHeader() {
   const commandData = buildCommandPaletteData();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
-      <div className="mx-auto flex h-14 w-full max-w-6xl items-center gap-6 px-6">
-        <Link href="/" className="font-medium tracking-tight">
+    <header
+      data-site-header
+      className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur"
+    >
+      <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-8 px-6">
+        <Link href="/" className="text-16 font-semibold tracking-tight">
           Frontend Archive
         </Link>
         <SiteNav />

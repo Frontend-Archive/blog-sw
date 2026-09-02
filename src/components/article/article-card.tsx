@@ -1,11 +1,7 @@
-import { ArrowUpRight, Clock } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { ArticleThumbnail } from '@/components/article/article-thumbnail';
-import { Badge } from '@/components/ui/badge';
 import { toSlug } from '@/lib/archive/taxonomy';
 import type { ArticleCardData } from '@/lib/archive/view';
-import { formatArchiveDate } from '@/lib/format';
 
 interface ArticleCardProps {
   article: ArticleCardData;
@@ -13,41 +9,38 @@ interface ArticleCardProps {
 }
 
 /**
- * 카드 안의 정보 계층
- *   14 메타(작성자·회차·날짜) → 18 제목 → 16 요약 → 12 태그 → 14 출처
- * 12px 은 칩에만 쓰므로, 메타와 요약은 크기 대신 굵기와 색으로 갈라놓는다.
+ * 카드는 세 덩어리로만 읽힌다.
+ *   썸네일(대표 태그 얹음) → 18 제목 → 14 요약 → 14 한 줄 메타
+ *
+ * 파비콘·시계·화살표 아이콘과 날짜, 태그 나열을 걷어냈다. 작은 요소가 많으면
+ * 카드마다 높이가 들쭉날쭉해지고 시선이 제목에 닿지 않는다.
  */
 export function ArticleCard({ article, priority = false }: ArticleCardProps) {
-  const { hostname } = article;
+  const leadTag = article.tags[0];
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-xl border border-border/70 bg-card transition-colors hover:border-brand/50">
-      <div className="aspect-[1.91/1] overflow-hidden bg-muted">
+    <article className="group relative flex flex-col overflow-hidden rounded-xl border border-border/70 bg-card transition-colors hover:border-brand/40">
+      <div className="relative aspect-[16/10] overflow-hidden bg-muted">
         <ArticleThumbnail
           image={article.image}
           title={article.title}
-          fallbackLabel={article.tags[0] ?? hostname}
+          fallbackLabel={leadTag ?? article.hostname}
           seed={article.url}
           priority={priority}
-          className="h-full w-full transition-transform duration-500 group-hover:scale-[1.03]"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
+        {leadTag ? (
+          <Link
+            href={`/tags/${toSlug(leadTag)}`}
+            className="absolute top-3 left-3 z-10 rounded-full bg-background/85 px-2 py-1 text-12 font-medium backdrop-blur transition-colors hover:bg-background"
+          >
+            {leadTag}
+          </Link>
+        ) : null}
       </div>
 
-      <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-center gap-2 text-14 text-muted-foreground">
-          <span className="font-medium text-foreground/70">{article.author}</span>
-          <span aria-hidden>·</span>
-          <Link
-            href={`/archives/${article.archiveId}`}
-            className="relative z-10 transition-colors hover:text-foreground"
-          >
-            {article.archiveId}회차
-          </Link>
-          <span aria-hidden>·</span>
-          <time dateTime={article.archiveDate}>{formatArchiveDate(article.archiveDate)}</time>
-        </div>
-
-        <h3 className="mt-2 text-18 leading-snug font-semibold text-balance">
+      <div className="flex flex-1 flex-col p-6">
+        <h3 className="text-18 leading-snug font-semibold text-balance">
           <a
             href={article.url}
             target="_blank"
@@ -59,52 +52,26 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
         </h3>
 
         {article.description ? (
-          <p className="mt-2 line-clamp-2 text-16 leading-relaxed text-muted-foreground">
+          <p className="mt-3 line-clamp-2 text-14 leading-relaxed text-muted-foreground">
             {article.description}
           </p>
         ) : null}
 
-        {article.tags.length > 0 ? (
-          <ul className="mt-4 flex flex-wrap gap-1">
-            {article.tags.map((tag) => (
-              <li key={tag}>
-                <Link href={`/tags/${toSlug(tag)}`} className="relative z-10">
-                  <Badge
-                    variant="secondary"
-                    className="font-normal transition-colors hover:bg-foreground hover:text-background"
-                  >
-                    {tag}
-                  </Badge>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-
-        <div className="mt-auto flex items-center gap-2 pt-4 text-14 text-muted-foreground">
-          {article.favicon ? (
-            <Image
-              src={article.favicon}
-              alt=""
-              width={14}
-              height={14}
-              className="size-4 rounded-sm"
-            />
-          ) : null}
-          <span className="truncate">{hostname}</span>
+        <div className="mt-auto flex items-center gap-2 pt-6 text-14 text-muted-foreground">
+          <span className="font-medium text-foreground/80">{article.author}</span>
+          <span aria-hidden>·</span>
+          <Link
+            href={`/archives/${article.archiveId}`}
+            className="relative z-10 transition-colors hover:text-brand"
+          >
+            {article.archiveId}회차
+          </Link>
           {article.readingMinutes ? (
             <>
               <span aria-hidden>·</span>
-              <span className="inline-flex shrink-0 items-center gap-1">
-                <Clock className="size-3" aria-hidden />
-                {article.readingMinutes}분
-              </span>
+              <span>{article.readingMinutes}분</span>
             </>
           ) : null}
-          <ArrowUpRight
-            className="ml-auto size-4 shrink-0 opacity-0 transition-opacity group-hover:opacity-100"
-            aria-hidden
-          />
         </div>
       </div>
     </article>

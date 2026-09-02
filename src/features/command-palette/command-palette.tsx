@@ -50,10 +50,11 @@ export function CommandPalette({ data, open, onOpenChange }: CommandPaletteProps
       onOpenChange={onOpenChange}
       title="검색"
       description="아티클, 태그, 멤버, 회차를 검색합니다."
+      className="sm:max-w-2xl"
     >
       <Command filter={matches}>
         <CommandInput placeholder="아티클, 태그, 멤버, 회차 검색" />
-        <CommandList>
+        <CommandList className="max-h-[60vh]">
           <CommandEmpty>결과가 없습니다.</CommandEmpty>
 
           <CommandGroup heading="아티클">

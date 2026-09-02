@@ -62,7 +62,7 @@ export default async function ArchiveDetailPage({ params }: PageProps<'/archives
         </Link>
       </nav>
 
-      <header className="border-b border-border/60 pt-8 pb-8">
+      <header className="pt-8 pb-12">
         <div className="flex items-center gap-3">
           <Badge variant="secondary">{archive.type === 'off-line' ? '오프라인' : '온라인'}</Badge>
           <time dateTime={archive.date} className="text-14 text-muted-foreground">
@@ -76,7 +76,7 @@ export default async function ArchiveDetailPage({ params }: PageProps<'/archives
         </p>
       </header>
 
-      <section className="grid gap-5 pt-8 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {articles.map((article, articleIndex) => (
           <ArticleCard key={article.key} article={article} priority={articleIndex < 3} />
         ))}
