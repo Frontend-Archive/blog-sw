@@ -1,10 +1,11 @@
 import type { CardVariant } from '../types';
 import { IndexedCard, StandardCard } from './base-cards';
-import { GlassCard, MiniRowCard, SplitCard, StackCard } from './dense-cards';
-import { OverlapCard, PolaroidCard, TicketCard, VerticalThumbCard } from './media-cards';
+import { BookCoverCard, FolderCard, OffsetCard, WatermarkCard } from './dense-cards';
+import { CutCornerCard, NaturalRatioCard, StoryCard, ThumbRightCard } from './media-cards';
 
 const GRID_3 = 'grid gap-5 sm:grid-cols-2 lg:grid-cols-3';
-const GRID_2 = 'grid gap-4 sm:grid-cols-2';
+const GRID_4 = 'grid gap-5 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4';
+const MASONRY = 'columns-1 gap-5 sm:columns-2 lg:columns-3';
 const STACK = 'flex flex-col';
 
 export const CARD_VARIANTS: CardVariant[] = [
@@ -16,46 +17,46 @@ export const CARD_VARIANTS: CardVariant[] = [
     Component: StandardCard,
   },
   {
-    id: 'overlap',
-    name: '02 · 오버랩',
-    note: '텍스트 블록이 썸네일 위로 겹쳐 올라온다. 이미지와 글이 한 덩어리로 읽힌다.',
-    layout: GRID_3,
-    Component: OverlapCard,
+    id: 'natural-ratio',
+    name: '02 · 비율 유지',
+    note: '썸네일을 자르지 않고 원본 비율 그대로 쌓는다. 이미지 정보가 손실되지 않는다.',
+    layout: MASONRY,
+    Component: NaturalRatioCard,
   },
   {
-    id: 'vertical-thumb',
-    name: '03 · 세로 썸네일',
-    note: '3:4 썸네일을 왼쪽에 세운다. 테두리 없이 목록 밀도를 높인다.',
-    layout: GRID_2,
-    Component: VerticalThumbCard,
-  },
-  {
-    id: 'polaroid',
-    name: '04 · 폴라로이드',
-    note: '정사각 썸네일에 여백 프레임을 둘렀다. 호버 시 살짝 기운다.',
-    layout: GRID_3,
-    Component: PolaroidCard,
-  },
-  {
-    id: 'ticket',
-    name: '05 · 티켓',
-    note: '절취선과 노치로 티켓처럼. 회차 번호를 발권 번호처럼 쓴다.',
-    layout: GRID_2,
-    Component: TicketCard,
-  },
-  {
-    id: 'glass',
-    name: '06 · 글래스',
-    note: '썸네일을 꽉 채우고 하단에 반투명 바를 얹는다. 이미지가 주인공이 된다.',
-    layout: GRID_3,
-    Component: GlassCard,
-  },
-  {
-    id: 'mini-row',
-    name: '07 · 미니 행',
-    note: '가장 촘촘하되 44px 썸네일로 시각 단서를 남긴다.',
+    id: 'thumb-right',
+    name: '03 · 우측 썸네일',
+    note: '제목이 먼저 읽히고 썸네일은 보조로 물러난다. 글 중심 목록에 맞는다.',
     layout: STACK,
-    Component: MiniRowCard,
+    Component: ThumbRightCard,
+  },
+  {
+    id: 'cut-corner',
+    name: '04 · 컷 코너',
+    note: '오른쪽 위 모서리를 잘라내고 그 자리에 회차 번호를 놓는다.',
+    layout: GRID_3,
+    Component: CutCornerCard,
+  },
+  {
+    id: 'story',
+    name: '05 · 스토리',
+    note: '9:14 세로 카드. 상단 세그먼트가 몇 번째 글인지 보여준다.',
+    layout: GRID_4,
+    Component: StoryCard,
+  },
+  {
+    id: 'offset',
+    name: '06 · 오프셋',
+    note: '썸네일과 텍스트 블록을 어긋나게 겹친다. 정렬을 일부러 깨서 리듬을 만든다.',
+    layout: GRID_3,
+    Component: OffsetCard,
+  },
+  {
+    id: 'folder',
+    name: '07 · 폴더',
+    note: '상단 탭에 대표 태그를 올린다. 주제별로 분류된 인상을 준다.',
+    layout: GRID_3,
+    Component: FolderCard,
   },
   {
     id: 'indexed',
@@ -65,17 +66,17 @@ export const CARD_VARIANTS: CardVariant[] = [
     Component: IndexedCard,
   },
   {
-    id: 'stack',
-    name: '09 · 스택',
-    note: '뒤에 카드가 겹쳐 쌓인 듯 보인다. 아카이브가 쌓인다는 은유.',
+    id: 'watermark',
+    name: '09 · 워터마크',
+    note: '회차 번호를 배경에 크게 깔고 썸네일은 원형으로 작게. 텍스트가 주인공이다.',
     layout: GRID_3,
-    Component: StackCard,
+    Component: WatermarkCard,
   },
   {
-    id: 'split',
-    name: '10 · 분할',
-    note: '카드 안을 좌우로 나눈다. 세로 길이가 일정해 그리드가 가지런하다.',
-    layout: GRID_2,
-    Component: SplitCard,
+    id: 'book-cover',
+    name: '10 · 책 표지',
+    note: '2:3 세로 표지에 책등 그림자. 서가에 꽂힌 것처럼 보인다.',
+    layout: GRID_4,
+    Component: BookCoverCard,
   },
 ];
