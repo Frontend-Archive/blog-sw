@@ -1,5 +1,21 @@
 import type { Metadata } from "next";
+import { Geist, Noto_Sans_KR } from "next/font/google";
+import { SiteHeader } from "@/components/layout/site-header";
+import { ThemeProvider } from "@/components/layout/theme-provider";
 import "./globals.css";
+
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist",
+  display: "swap",
+});
+
+const notoSansKr = Noto_Sans_KR({
+  weight: ["400", "500", "700"],
+  variable: "--font-noto-kr",
+  display: "swap",
+  preload: false,
+});
 
 export const metadata: Metadata = {
   title: "Frontend Archive",
@@ -8,8 +24,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ko" className="h-full antialiased">
-      <body className="flex min-h-full flex-col">{children}</body>
+    <html
+      lang="ko"
+      className={`${geist.variable} ${notoSansKr.variable} h-full antialiased`}
+      suppressHydrationWarning
+    >
+      <body className="bg-background text-foreground flex min-h-full flex-col font-sans">
+        <ThemeProvider>
+          <SiteHeader />
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
