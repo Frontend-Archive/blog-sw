@@ -11,8 +11,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "sync": "tsx scripts/sync-archive.ts",
-    "prebuild": "pnpm sync && pnpm sync:og",
-    "sync:og": "tsx scripts/sync-og.ts"
+    "prebuild": "pnpm sync && pnpm sync:og && pnpm sync:avatars",
+    "sync:og": "tsx scripts/sync-og.ts",
+    "sync:avatars": "tsx scripts/sync-avatars.ts"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
