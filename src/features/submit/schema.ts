@@ -1,0 +1,47 @@
+import { z } from 'zod';
+import { MEETING_TYPES } from '@/lib/archive/schema';
+
+/** 태그는 최대 5개, 각 30자 이내. 원본 규칙은 자유 문자열이지만 폼에서만 상한을 둔다. */
+export const MAX_TAGS = 5;
+const MAX_TAG_LENGTH = 30;
+
+export const tagsSchema = z
+  .string()
+  .transform((value) =>
+    value
+      .split(',')
+      .map((tag) => tag.trim())
+      .filter((tag) => tag.length > 0),
+  )
+  .pipe(
+    z
+      .array(z.string().max(MAX_TAG_LENGTH, `태그는 ${MAX_TAG_LENGTH}자 이내여야 합니다.`))
+      .max(MAX_TAGS, `태그는 최대 ${MAX_TAGS}개까지 넣을 수 있습니다.`),
+  );
+
+export const fillSlotSchema = z.object({
+  mode: z.literal('fill-slot'),
+  archiveId: z.coerce.number().int().positive(),
+  title: z.string().trim().min(1, '제목을 입력해 주세요.').max(200, '제목이 너무 깁니다.'),
+  url: z.url('http 로 시작하는 올바른 링크를 넣어 주세요.'),
+  tags: tagsSchema,
+});
+
+export const newArchiveSchema = z.object({
+  mode: z.literal('new-archive'),
+  date: z.iso.date('날짜를 YYYY-MM-DD 형식으로 넣어 주세요.'),
+  type: z.enum(MEETING_TYPES),
+});
+
+export const submissionSchema = z.discriminatedUnion('mode', [fillSlotSchema, newArchiveSchema]);
+
+export type FillSlotInput = z.infer<typeof fillSlotSchema>;
+export type NewArchiveInput = z.infer<typeof newArchiveSchema>;
+export type SubmissionInput = z.infer<typeof submissionSchema>;
+
+export interface SubmitResult {
+  ok: boolean;
+  message: string;
+  /** 필드별 오류. 폼에서 각 입력 아래에 표시한다. */
+  fieldErrors?: Record<string, string[]>;
+}

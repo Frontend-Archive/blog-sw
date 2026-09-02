@@ -1,6 +1,9 @@
 import { TriangleAlert } from 'lucide-react';
 import type { Metadata } from 'next';
 import { SignInButton, SignOutButton } from '@/components/auth/sign-in-button';
+import { SubmitForm } from '@/features/submit/submit-form';
+import { findOpenSlots, nextArchiveId } from '@/lib/archive/model';
+import { archives } from '@/lib/archive/source';
 import { auth } from '@/lib/auth';
 import { isAuthConfigured, isMemberMapConfigured } from '@/lib/auth/members';
 
@@ -60,7 +63,11 @@ export default async function SubmitPage() {
               </p>
               <SignOutButton />
             </div>
-            <Notice>등록 폼은 다음 단계에서 붙습니다.</Notice>
+            <SubmitForm
+              author={author}
+              openSlots={findOpenSlots(archives, author)}
+              nextArchiveId={nextArchiveId(archives)}
+            />
           </>
         ) : (
           <>

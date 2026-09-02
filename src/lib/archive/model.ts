@@ -59,3 +59,27 @@ export function collectAuthors(archives: ParsedArchive[]): string[] {
   }
   return authors;
 }
+
+/** 해당 작성자가 아직 채우지 않은 자리 */
+export interface OpenSlot {
+  archiveId: number;
+  archiveTitle: string;
+  date: string;
+}
+
+export function findOpenSlots(archives: ParsedArchive[], author: string): OpenSlot[] {
+  return archives
+    .filter((archive) =>
+      archive.articles.some((article) => article.author === author && !isFilledArticle(article)),
+    )
+    .map((archive) => ({
+      archiveId: archive.id,
+      archiveTitle: archive.title,
+      date: archive.date,
+    }));
+}
+
+/** 다음 회차 번호 */
+export function nextArchiveId(archives: ParsedArchive[]): number {
+  return archives.reduce((max, archive) => Math.max(max, archive.id), 0) + 1;
+}
