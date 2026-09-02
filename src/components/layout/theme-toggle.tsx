@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { Monitor, Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
+import { Monitor, Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 
 const THEMES = [
-  { value: "light", label: "라이트", icon: Sun },
-  { value: "dark", label: "다크", icon: Moon },
-  { value: "system", label: "시스템", icon: Monitor },
+  { value: 'light', label: '라이트', icon: Sun },
+  { value: 'dark', label: '다크', icon: Moon },
+  { value: 'system', label: '시스템', icon: Monitor },
 ] as const;
 
 export function ThemeToggle() {
