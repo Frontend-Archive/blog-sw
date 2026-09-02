@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { href: '/timeline', label: '타임라인' },
   { href: '/tags', label: '태그' },
   { href: '/members', label: '멤버' },
+  { href: '/submit', label: '글 등록' },
 ] as const;
 
 export function SiteNav() {
