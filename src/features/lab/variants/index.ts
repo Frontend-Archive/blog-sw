@@ -1,11 +1,12 @@
 import type { CardVariant } from '../types';
 import { IndexedCard, StandardCard } from './base-cards';
-import { CircleCard, ColorBarCard, FilmStripCard, QuoteCard } from './dense-cards';
-import { BrowserFrameCard, DuotoneCard, PageCurlCard, ZigzagCard } from './media-cards';
+import { MattedCard, PeekCard, SidebarCard, StripCard } from './dense-cards';
+import { BannerCard, NumberOverlayCard, RevealCard, StampCard } from './media-cards';
 
 const GRID_3 = 'grid gap-5 sm:grid-cols-2 lg:grid-cols-3';
-const GRID_4 = 'grid gap-5 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4';
-const STACK = 'flex flex-col';
+const GRID_2 = 'grid gap-6 sm:grid-cols-2';
+const STACK = 'flex flex-col gap-4';
+const STACK_TIGHT = 'flex flex-col';
 
 export const CARD_VARIANTS: CardVariant[] = [
   {
@@ -19,63 +20,63 @@ export const CARD_VARIANTS: CardVariant[] = [
     id: 'indexed',
     name: '02 · 인덱스',
     note: '번호를 세워 순서를 강조한다. 최신순 목록이라는 성격이 드러난다.',
-    layout: STACK,
+    layout: STACK_TIGHT,
     Component: IndexedCard,
   },
   {
-    id: 'browser-frame',
-    name: '03 · 브라우저 창',
-    note: '썸네일을 브라우저 목업 안에 넣고 주소창에 출처를 띄운다. 외부 링크임이 분명해진다.',
+    id: 'stamp',
+    name: '03 · 스탬프',
+    note: '썸네일을 원형으로 도려내 카드 위에 겹친다. 프로필 카드 같은 인상.',
     layout: GRID_3,
-    Component: BrowserFrameCard,
+    Component: StampCard,
   },
   {
-    id: 'zigzag',
-    name: '04 · 지그재그',
-    note: '홀·짝이 썸네일 좌우를 번갈아 차지한다. 스크롤에 리듬이 생긴다.',
+    id: 'banner',
+    name: '04 · 배너',
+    note: '썸네일이 왼쪽 전체를 차지하는 와이드형. 태그를 포인트 색으로 앞세운다.',
     layout: STACK,
-    Component: ZigzagCard,
+    Component: BannerCard,
   },
   {
-    id: 'page-curl',
-    name: '05 · 접힌 모서리',
-    note: '오른쪽 아래가 종이처럼 말려 있고 그 자리에 회차 번호가 들어간다.',
+    id: 'reveal',
+    name: '05 · 리빌',
+    note: '3:4 세로 카드. 평소엔 제목만 보이고 호버하면 요약이 떠오른다.',
     layout: GRID_3,
-    Component: PageCurlCard,
+    Component: RevealCard,
   },
   {
-    id: 'duotone',
-    name: '06 · 듀오톤',
-    note: '평소엔 색을 덮어 통일하고 호버하면 원래 색이 드러난다. 썸네일 색이 제각각인 문제를 덮는다.',
+    id: 'number-overlay',
+    name: '06 · 넘버 오버레이',
+    note: '회차 번호를 썸네일 아래쪽에 크게 걸쳐 놓는다.',
     layout: GRID_3,
-    Component: DuotoneCard,
+    Component: NumberOverlayCard,
   },
   {
-    id: 'film-strip',
-    name: '07 · 필름',
-    note: '위아래 퍼포레이션으로 필름 한 컷처럼. 기록물이라는 인상이 강하다.',
+    id: 'matted',
+    name: '07 · 액자',
+    note: '썸네일과 본문을 각각 흰 판 위에 올리고 회색 매트로 감싼다.',
     layout: GRID_3,
-    Component: FilmStripCard,
+    Component: MattedCard,
   },
   {
-    id: 'circle',
-    name: '08 · 원형',
-    note: '원형 썸네일에 가운데 정렬. 사람이 쓴 글이라는 인상이 강해진다.',
-    layout: GRID_4,
-    Component: CircleCard,
+    id: 'sidebar',
+    name: '08 · 사이드바',
+    note: '왼쪽 굵은 색 막대로 목록의 리듬을 만든다. 썸네일은 오른쪽 작은 정사각.',
+    layout: STACK,
+    Component: SidebarCard,
   },
   {
-    id: 'color-bar',
-    name: '09 · 컬러 바',
-    note: '회차마다 다른 색 띠를 위에 얹는다. 목록에서 회차가 색으로 구분된다.',
+    id: 'strip',
+    name: '09 · 스트립',
+    note: '썸네일을 5:1 로 얇게 잘라 띠처럼. 이미지 비중을 최소로 줄인다.',
     layout: GRID_3,
-    Component: ColorBarCard,
+    Component: StripCard,
   },
   {
-    id: 'quote',
-    name: '10 · 인용문',
-    note: '요약을 인용문처럼 앞세우고 썸네일은 배경으로 흐리게 깐다. 글맛이 먼저 온다.',
-    layout: GRID_3,
-    Component: QuoteCard,
+    id: 'peek',
+    name: '10 · 픽',
+    note: '썸네일이 카드 밖으로 살짝 빠져나온다. 목록에 입체감이 생긴다.',
+    layout: GRID_2,
+    Component: PeekCard,
   },
 ];

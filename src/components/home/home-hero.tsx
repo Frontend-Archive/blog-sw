@@ -55,7 +55,7 @@ export function HomeHero({
         읽고, 쓰고, 나눈 것들을 모아둔 곳
       </h1>
 
-      <p className="mt-6 max-w-xl text-16 leading-relaxed text-muted-foreground">
+      <p className="mt-6 max-w-3xl text-16 leading-relaxed text-muted-foreground">
         프론트엔드 스터디에서 회차마다 각자 쓴 글을 모읍니다. 원문은 각자의 블로그에 있고, 여기서는
         찾아보기 쉽게 정리합니다.
       </p>

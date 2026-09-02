@@ -1,8 +1,8 @@
-import { ChevronLeft } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArticleGrid } from '@/components/article/article-grid';
+import { PageHeader } from '@/components/layout/page-header';
 import { collectTags } from '@/lib/archive/model';
 import { toArticleCardList } from '@/lib/archive/view';
 import { Badge } from '@/components/ui/badge';
@@ -36,19 +36,11 @@ export default async function MemberDetailPage({ params }: PageProps<'/members/[
 
   return (
     <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-24">
-      <nav className="pt-12">
-        <Link
-          href="/members"
-          className="inline-flex items-center gap-1 text-14 text-muted-foreground transition-colors hover:text-brand"
-        >
-          <ChevronLeft className="size-4" aria-hidden />
-          전체 멤버
-        </Link>
-      </nav>
-
-      <header className="pt-8 pb-12">
-        <h1 className="text-30 font-semibold tracking-tight sm:text-36">{author}</h1>
-        <p className="mt-2 text-14 text-muted-foreground">아티클 {articles.length}개</p>
+      <PageHeader
+        title={author}
+        description={`${author} 님이 스터디에서 공유한 글 ${articles.length}개입니다.`}
+        back={{ href: '/members', label: '전체 멤버' }}
+      >
         {topTags.length > 0 ? (
           <ul className="mt-5 flex flex-wrap gap-2">
             {topTags.map(({ tag, count }) => (
@@ -63,7 +55,7 @@ export default async function MemberDetailPage({ params }: PageProps<'/members/[
             ))}
           </ul>
         ) : null}
-      </header>
+      </PageHeader>
 
       <section>
         <ArticleGrid articles={cards} />

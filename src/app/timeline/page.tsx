@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
+import { PageHeader } from '@/components/layout/page-header';
 import { TimelineEntry } from '@/components/timeline/timeline-entry';
-import { countEmptySlots } from '@/lib/archive/model';
 import { archives, articles } from '@/lib/archive/source';
 import { formatArchiveDate } from '@/lib/format';
 
@@ -12,22 +12,19 @@ export const metadata: Metadata = {
 export default function TimelinePage() {
   const first = archives.at(-1);
   const latest = archives[0];
-  const emptyCount = countEmptySlots(archives);
 
   return (
-    <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-24">
-      <header className="pt-20 pb-12">
-        <h1 className="text-30 font-semibold tracking-tight">타임라인</h1>
-        <p className="mt-4 max-w-xl text-16 leading-relaxed text-muted-foreground">
-          {first && latest
-            ? `${formatArchiveDate(first.date)}부터 ${formatArchiveDate(latest.date)}까지 `
-            : ''}
-          {archives.length}회차 동안 {articles.length}개의 글을 나눴습니다.
-          {emptyCount > 0 ? ` ${emptyCount}자리는 아직 채워지는 중입니다.` : ''}
-        </p>
-      </header>
+    <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-32">
+      <PageHeader
+        title="타임라인"
+        description={
+          first && latest
+            ? `${formatArchiveDate(first.date)}부터 ${formatArchiveDate(latest.date)}까지 ${archives.length}회차, ${articles.length}개의 글을 나눴습니다.`
+            : undefined
+        }
+      />
 
-      <ol className="max-w-3xl">
+      <ol>
         {archives.map((archive) => (
           <TimelineEntry key={archive.id} archive={archive} />
         ))}

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArticleCard } from '@/components/article/article-card';
 import { EmptySlotCard } from '@/components/article/empty-slot-card';
+import { PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
 import { toArticles } from '@/lib/archive/model';
 import { toArticleCardList } from '@/lib/archive/view';
@@ -52,29 +53,19 @@ export default async function ArchiveDetailPage({ params }: PageProps<'/archives
 
   return (
     <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-24">
-      <nav className="pt-12">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1 text-14 text-muted-foreground transition-colors hover:text-brand"
-        >
-          <ChevronLeft className="size-4" aria-hidden />
-          전체 아티클
-        </Link>
-      </nav>
-
-      <header className="pt-8 pb-12">
-        <div className="flex items-center gap-3">
-          <Badge variant="secondary">{archive.type === 'off-line' ? '오프라인' : '온라인'}</Badge>
-          <time dateTime={archive.date} className="text-14 text-muted-foreground">
-            {formatArchiveDate(archive.date)}
-          </time>
-        </div>
-        <h1 className="mt-3 text-30 font-semibold tracking-tight sm:text-36">{archive.title}</h1>
-        <p className="mt-2 text-14 text-muted-foreground">
-          아티클 {articles.length}개
-          {emptyAuthors.length > 0 ? ` · 작성 예정 ${emptyAuthors.length}개` : ''}
-        </p>
-      </header>
+      <PageHeader
+        title={archive.title}
+        description={`아티클 ${articles.length}개${emptyAuthors.length > 0 ? ` · 작성 예정 ${emptyAuthors.length}개` : ''}`}
+        back={{ href: '/', label: '전체 아티클' }}
+        eyebrow={
+          <>
+            <Badge variant="secondary">{archive.type === 'off-line' ? '오프라인' : '온라인'}</Badge>
+            <time dateTime={archive.date} className="text-14 text-muted-foreground tabular-nums">
+              {formatArchiveDate(archive.date)}
+            </time>
+          </>
+        }
+      />
 
       <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {articles.map((article, articleIndex) => (

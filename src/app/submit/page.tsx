@@ -1,6 +1,7 @@
 import { TriangleAlert } from 'lucide-react';
 import type { Metadata } from 'next';
 import { SignInButton, SignOutButton } from '@/components/auth/sign-in-button';
+import { PageHeader } from '@/components/layout/page-header';
 import { SubmitForm } from '@/features/submit/submit-form';
 import { findOpenSlots, nextArchiveId } from '@/lib/archive/model';
 import { archives } from '@/lib/archive/source';
@@ -37,13 +38,10 @@ export default async function SubmitPage() {
 
   return (
     <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-24">
-      <header className="pt-20 pb-12">
-        <h1 className="text-30 font-semibold tracking-tight">글 등록</h1>
-        <p className="mt-4 max-w-xl text-16 leading-relaxed text-muted-foreground">
-          여기서 등록한 글은 archive 레포의 마크다운에 그대로 커밋되고, 그 커밋이 다시 이 사이트를
-          재배포합니다.
-        </p>
-      </header>
+      <PageHeader
+        title="글 등록"
+        description="여기서 등록한 글은 archive 레포의 마크다운에 그대로 커밋되고, 그 커밋이 다시 이 사이트를 재배포합니다."
+      />
 
       <section className="flex max-w-2xl flex-col gap-6">
         {missingEnv.length > 0 ? (

@@ -2,31 +2,59 @@ import { ArticleThumbnail } from '@/components/article/article-thumbnail';
 import { formatArchiveDate } from '@/lib/format';
 import type { CardVariantProps } from '../types';
 
-/** 03. 썸네일을 브라우저 창 목업 안에 넣는다. 링크가 웹페이지라는 걸 그대로 보여준다. */
-export function BrowserFrameCard({ article }: CardVariantProps) {
+/** 03. 썸네일을 원형으로 도려내 왼쪽 위에 겹친다. */
+export function StampCard({ article }: CardVariantProps) {
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-xl border border-border/70 bg-card">
-      <div className="flex items-center gap-2 border-b border-border/60 bg-muted/60 px-3 py-2">
-        <span className="flex gap-1" aria-hidden>
-          <span className="size-2 rounded-full bg-foreground/20" />
-          <span className="size-2 rounded-full bg-foreground/20" />
-          <span className="size-2 rounded-full bg-foreground/20" />
-        </span>
-        <span className="min-w-0 flex-1 truncate rounded bg-background/70 px-2 py-1 text-center text-12 text-muted-foreground">
-          {article.hostname}
-        </span>
+    <article className="group relative mt-8 flex flex-col rounded-2xl border border-border/70 bg-card px-6 pt-14 pb-6 transition-colors hover:border-brand/40">
+      <div className="absolute -top-8 left-6 size-16 overflow-hidden rounded-full bg-muted ring-4 ring-background">
+        <ArticleThumbnail
+          image={article.image}
+          title={article.title}
+          fallbackLabel=""
+          seed={article.url}
+          className="h-full w-full object-cover"
+        />
       </div>
-      <div className="aspect-[16/10] overflow-hidden bg-muted">
+      <h3 className="text-16 leading-snug font-semibold text-balance">
+        <a
+          href={article.url}
+          target="_blank"
+          rel="noreferrer"
+          className="after:absolute after:inset-0"
+        >
+          <span className="line-clamp-2">{article.title}</span>
+        </a>
+      </h3>
+      {article.description ? (
+        <p className="mt-3 line-clamp-2 text-14 leading-relaxed text-muted-foreground">
+          {article.description}
+        </p>
+      ) : null}
+      <p className="mt-auto pt-5 text-14 text-muted-foreground">
+        {article.author} · {article.archiveId}회차
+      </p>
+    </article>
+  );
+}
+
+/** 04. 썸네일이 카드 왼쪽 전체를 차지하고 텍스트가 오른쪽에 붙는 와이드형 */
+export function BannerCard({ article }: CardVariantProps) {
+  return (
+    <article className="group relative flex overflow-hidden rounded-xl bg-card ring-1 ring-border/70 transition-shadow hover:shadow-lg">
+      <div className="w-40 shrink-0 overflow-hidden bg-muted sm:w-56">
         <ArticleThumbnail
           image={article.image}
           title={article.title}
           fallbackLabel={article.tags[0] ?? ''}
           seed={article.url}
-          className="h-full w-full object-cover object-top"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>
-      <div className="flex flex-1 flex-col gap-2 p-5">
-        <h3 className="text-16 leading-snug font-semibold text-balance">
+      <div className="flex min-w-0 flex-1 flex-col justify-center gap-2 p-6">
+        <span className="text-14 font-medium text-brand">
+          {article.tags[0] ?? article.hostname}
+        </span>
+        <h3 className="text-18 leading-snug font-semibold text-balance">
           <a
             href={article.url}
             target="_blank"
@@ -36,47 +64,42 @@ export function BrowserFrameCard({ article }: CardVariantProps) {
             <span className="line-clamp-2">{article.title}</span>
           </a>
         </h3>
-        <p className="mt-auto text-14 text-muted-foreground">
-          {article.author} · {article.archiveId}회차
+        <p className="text-14 text-muted-foreground">
+          {article.author} · {formatArchiveDate(article.archiveDate)}
         </p>
       </div>
     </article>
   );
 }
 
-/** 04. 홀·짝이 썸네일 좌우를 번갈아 차지한다. */
-export function ZigzagCard({ article, index }: CardVariantProps) {
-  const flipped = index % 2 === 1;
-
+/** 05. 썸네일을 배경으로 깔고 카드를 세로로 길게. 호버하면 요약이 올라온다. */
+export function RevealCard({ article }: CardVariantProps) {
   return (
-    <article
-      className={`group relative flex items-center gap-8 py-6 ${flipped ? 'flex-row-reverse' : ''}`}
-    >
-      <div className="aspect-[16/10] w-2/5 shrink-0 overflow-hidden rounded-xl bg-muted">
-        <ArticleThumbnail
-          image={article.image}
-          title={article.title}
-          fallbackLabel={article.tags[0] ?? ''}
-          seed={article.url}
-          className="h-full w-full object-cover"
-        />
-      </div>
-      <div className={`flex min-w-0 flex-col gap-3 ${flipped ? 'text-right' : ''}`}>
-        <p className="text-14 text-muted-foreground">
-          {article.author} · {formatArchiveDate(article.archiveDate)}
-        </p>
-        <h3 className="text-20 leading-snug font-semibold text-balance">
+    <article className="group relative aspect-[3/4] overflow-hidden rounded-2xl bg-muted">
+      <ArticleThumbnail
+        image={article.image}
+        title={article.title}
+        fallbackLabel={article.tags[0] ?? article.hostname}
+        seed={article.url}
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 p-6">
+        <h3 className="text-18 leading-snug font-semibold text-balance text-white">
           <a
             href={article.url}
             target="_blank"
             rel="noreferrer"
             className="after:absolute after:inset-0"
           >
-            {article.title}
+            <span className="line-clamp-3">{article.title}</span>
           </a>
         </h3>
+        <p className="mt-3 text-14 text-white/70">
+          {article.author} · {article.archiveId}회차
+        </p>
         {article.description ? (
-          <p className="line-clamp-2 text-14 leading-relaxed text-muted-foreground">
+          <p className="mt-3 line-clamp-3 text-14 leading-relaxed text-white/80 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             {article.description}
           </p>
         ) : null}
@@ -85,11 +108,11 @@ export function ZigzagCard({ article, index }: CardVariantProps) {
   );
 }
 
-/** 05. 오른쪽 아래 모서리가 접힌 종이 */
-export function PageCurlCard({ article }: CardVariantProps) {
+/** 06. 썸네일 위에 회차를 큼직하게 겹쳐 놓는 형태 */
+export function NumberOverlayCard({ article }: CardVariantProps) {
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-xl border border-border/70 bg-card">
-      <div className="aspect-[16/10] overflow-hidden bg-muted">
+    <article className="group relative flex flex-col">
+      <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-muted">
         <ArticleThumbnail
           image={article.image}
           title={article.title}
@@ -97,8 +120,14 @@ export function PageCurlCard({ article }: CardVariantProps) {
           seed={article.url}
           className="h-full w-full object-cover"
         />
+        <span
+          className="absolute -bottom-4 left-4 text-48 leading-none font-bold text-background tabular-nums drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)]"
+          aria-hidden
+        >
+          {String(article.archiveId).padStart(2, '0')}
+        </span>
       </div>
-      <div className="flex flex-1 flex-col gap-2 p-5 pb-10">
+      <div className="mt-6 flex flex-col gap-2 pl-4">
         <h3 className="text-16 leading-snug font-semibold text-balance">
           <a
             href={article.url}
@@ -110,55 +139,6 @@ export function PageCurlCard({ article }: CardVariantProps) {
           </a>
         </h3>
         <p className="text-14 text-muted-foreground">{article.author}</p>
-      </div>
-
-      {/* 접힌 모서리. 삼각형 두 장을 겹쳐 종이가 말린 것처럼 보이게 한다. */}
-      <span
-        className="absolute right-0 bottom-0 size-10 bg-muted transition-all group-hover:size-12"
-        style={{ clipPath: 'polygon(100% 0, 100% 100%, 0 100%)' }}
-        aria-hidden
-      />
-      <span
-        className="absolute right-2 bottom-2 text-14 font-semibold text-muted-foreground tabular-nums"
-        aria-hidden
-      >
-        {article.archiveId}
-      </span>
-    </article>
-  );
-}
-
-/** 06. 썸네일에 색을 덮어두고 호버하면 원래 색이 드러난다. */
-export function DuotoneCard({ article }: CardVariantProps) {
-  return (
-    <article className="group relative flex flex-col gap-4">
-      <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-muted">
-        <ArticleThumbnail
-          image={article.image}
-          title={article.title}
-          fallbackLabel={article.tags[0] ?? ''}
-          seed={article.url}
-          className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
-        />
-        <span
-          className="absolute inset-0 bg-brand/35 mix-blend-color transition-opacity duration-500 group-hover:opacity-0"
-          aria-hidden
-        />
-      </div>
-      <div className="flex flex-col gap-2">
-        <h3 className="text-16 leading-snug font-semibold text-balance">
-          <a
-            href={article.url}
-            target="_blank"
-            rel="noreferrer"
-            className="after:absolute after:inset-0"
-          >
-            <span className="line-clamp-2">{article.title}</span>
-          </a>
-        </h3>
-        <p className="text-14 text-muted-foreground">
-          {article.author} · {article.archiveId}회차
-        </p>
       </div>
     </article>
   );

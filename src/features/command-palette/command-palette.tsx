@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/command';
 import type { CommandPaletteData } from '@/lib/archive/command-data';
 import { formatArchiveDate } from '@/lib/format';
+import { highlight } from './highlight';
 
 interface CommandPaletteProps {
   data: CommandPaletteData;
@@ -35,6 +36,8 @@ function matches(value: string, search: string): number {
 
 export function CommandPalette({ data, open, onOpenChange }: CommandPaletteProps) {
   const router = useRouter();
+  const [search, setSearch] = useState('');
+  const terms = search.trim().toLowerCase().split(/\s+/).filter(Boolean);
 
   const run = useCallback(
     (action: () => void) => {
@@ -53,8 +56,12 @@ export function CommandPalette({ data, open, onOpenChange }: CommandPaletteProps
       className="sm:max-w-2xl"
     >
       <Command filter={matches}>
-        <CommandInput placeholder="아티클, 태그, 멤버, 회차 검색" />
-        <CommandList className="max-h-[60vh]">
+        <CommandInput
+          value={search}
+          onValueChange={setSearch}
+          placeholder="아티클, 태그, 멤버, 회차 검색"
+        />
+        <CommandList className="h-96 max-h-none">
           <CommandEmpty>결과가 없습니다.</CommandEmpty>
 
           <CommandGroup heading="아티클">
@@ -67,10 +74,8 @@ export function CommandPalette({ data, open, onOpenChange }: CommandPaletteProps
                 }
               >
                 <ExternalLink className="size-4 shrink-0" aria-hidden />
-                <span className="min-w-0 flex-1 truncate">{article.title}</span>
-                <span className="shrink-0 text-14 text-muted-foreground tabular-nums">
-                  {article.author} · {formatArchiveDate(article.archiveDate)}
-                </span>
+                <span className="min-w-0 flex-1 truncate">{highlight(article.title, terms)}</span>
+                <span className="shrink-0 text-14 text-muted-foreground">{article.author}</span>
               </CommandItem>
             ))}
           </CommandGroup>
@@ -85,7 +90,7 @@ export function CommandPalette({ data, open, onOpenChange }: CommandPaletteProps
                 onSelect={() => run(() => router.push(`/tags/${slug}`))}
               >
                 <Hash className="size-4 shrink-0" aria-hidden />
-                <span className="min-w-0 flex-1 truncate">{tag}</span>
+                <span className="min-w-0 flex-1 truncate">{highlight(tag, terms)}</span>
                 <span className="shrink-0 text-14 text-muted-foreground tabular-nums">{count}</span>
               </CommandItem>
             ))}
@@ -101,7 +106,7 @@ export function CommandPalette({ data, open, onOpenChange }: CommandPaletteProps
                 onSelect={() => run(() => router.push(`/members/${slug}`))}
               >
                 <User className="size-4 shrink-0" aria-hidden />
-                <span className="min-w-0 flex-1 truncate">{author}</span>
+                <span className="min-w-0 flex-1 truncate">{highlight(author, terms)}</span>
               </CommandItem>
             ))}
           </CommandGroup>
@@ -116,7 +121,7 @@ export function CommandPalette({ data, open, onOpenChange }: CommandPaletteProps
                 onSelect={() => run(() => router.push(`/archives/${id}`))}
               >
                 <Layers className="size-4 shrink-0" aria-hidden />
-                <span className="min-w-0 flex-1 truncate">{title}</span>
+                <span className="min-w-0 flex-1 truncate">{highlight(title, terms)}</span>
                 <span className="shrink-0 text-14 text-muted-foreground tabular-nums">
                   {formatArchiveDate(date)}
                 </span>

@@ -1,6 +1,7 @@
-import { ArrowUpRight, RefreshCw } from 'lucide-react';
+import Link from 'next/link';
 import { ARCHIVE_REPO_SLUG, ARCHIVE_REPO_URL } from '@/lib/archive/config';
 import { archives, articles } from '@/lib/archive/source';
+import { collectAuthors } from '@/lib/archive/model';
 import { formatArchiveDate } from '@/lib/format';
 
 /** GitHub 마크. lucide 에는 브랜드 로고가 없어 공식 SVG 경로를 직접 넣는다. */
@@ -12,39 +13,71 @@ function GithubMark({ className }: { className?: string }) {
   );
 }
 
+const NAV = [
+  { href: '/', label: '아티클' },
+  { href: '/timeline', label: '타임라인' },
+  { href: '/tags', label: '태그' },
+  { href: '/members', label: '멤버' },
+] as const;
+
 export function SiteFooter() {
   const latest = archives[0];
 
   return (
     <footer className="mt-auto border-t border-border/60">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-12 sm:flex-row sm:items-end sm:justify-between">
-        <div className="flex flex-col gap-3">
-          <p className="text-16 font-semibold tracking-tight">Frontend Archive</p>
-          <p className="text-14 text-muted-foreground">
-            스터디 {archives.length}회차 · 아티클 {articles.length}개
-          </p>
+      <div className="mx-auto w-full max-w-6xl px-6 py-16">
+        <div className="flex flex-col gap-12 sm:flex-row sm:justify-between">
+          <div className="flex flex-col gap-4">
+            <p className="text-18 font-semibold tracking-tight">Frontend Archive</p>
+            <p className="max-w-sm text-14 leading-relaxed text-muted-foreground">
+              프론트엔드 스터디 {archives.length}회차, {collectAuthors(archives).length}명이 나눈 글{' '}
+              {articles.length}개를 모아둡니다.
+            </p>
+          </div>
+
+          <nav className="flex flex-col gap-3">
+            <p className="text-14 font-medium tracking-wide text-muted-foreground uppercase">
+              바로가기
+            </p>
+            <ul className="flex flex-wrap gap-x-6 gap-y-2 sm:flex-col sm:gap-2">
+              {NAV.map(({ href, label }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="text-14 text-muted-foreground transition-colors hover:text-brand"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
 
-        <div className="flex flex-col items-start gap-3 sm:items-end">
+        <div className="mt-12 flex flex-col gap-4 border-t border-border/60 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <a
             href={ARCHIVE_REPO_URL}
             target="_blank"
             rel="noreferrer"
-            className="group inline-flex items-center gap-2 rounded-lg border border-border/70 px-4 py-2 text-14 transition-colors hover:border-brand/50 hover:bg-accent"
+            className="group inline-flex w-fit items-center gap-3 rounded-full border border-border/70 py-2 pr-5 pl-2 transition-colors hover:border-brand/50"
           >
-            <GithubMark className="size-4" />
-            {ARCHIVE_REPO_SLUG}
-            <ArrowUpRight
-              className="size-4 text-muted-foreground transition-transform group-hover:translate-x-px group-hover:-translate-y-px"
-              aria-hidden
-            />
+            <span className="flex size-8 items-center justify-center rounded-full bg-foreground text-background transition-colors group-hover:bg-brand group-hover:text-brand-foreground">
+              <GithubMark className="size-4" />
+            </span>
+            <span className="flex flex-col leading-tight">
+              <span className="text-14 font-medium">{ARCHIVE_REPO_SLUG}</span>
+              <span className="text-14 text-muted-foreground">원본 데이터 저장소</span>
+            </span>
           </a>
 
           {latest ? (
             <p className="inline-flex items-center gap-2 text-14 text-muted-foreground">
-              <RefreshCw className="size-4" aria-hidden />
-              <span className="sr-only">최근 업데이트</span>
-              <time dateTime={latest.date} className="tabular-nums">
+              <span className="relative flex size-2" aria-hidden>
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-60" />
+                <span className="relative inline-flex size-2 rounded-full bg-brand" />
+              </span>
+              마지막 업데이트
+              <time dateTime={latest.date} className="font-medium text-foreground tabular-nums">
                 {formatArchiveDate(latest.date)}
               </time>
             </p>

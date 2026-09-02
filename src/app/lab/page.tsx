@@ -1,5 +1,6 @@
 import { FlaskConical } from 'lucide-react';
 import type { Metadata } from 'next';
+import { PageHeader } from '@/components/layout/page-header';
 import { DesignTokens } from '@/features/lab/design-tokens';
 import { LabSection } from '@/features/lab/lab-section';
 import { CARD_VARIANTS } from '@/features/lab/variants';
@@ -27,18 +28,16 @@ export default function LabPage() {
 
   return (
     <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-32">
-      <header className="pt-20 pb-12">
-        <p className="inline-flex items-center gap-1 text-14 font-medium tracking-wide text-muted-foreground uppercase">
-          <FlaskConical className="size-4" aria-hidden />
-          임시 페이지
-        </p>
-        <h1 className="mt-3 text-30 font-semibold tracking-tight">카드 UI 시안</h1>
-        <p className="mt-4 max-w-xl text-16 leading-relaxed text-muted-foreground">
-          같은 아티클 {samples.length}개를 {CARD_VARIANTS.length}가지 카드로 그렸습니다. 썸네일이
-          없는 링크와 읽는 시간이 빠진 링크를 일부러 섞어, 데이터가 부실할 때 어떻게 보이는지까지
-          비교할 수 있게 했습니다.
-        </p>
-
+      <PageHeader
+        title="카드 UI 시안"
+        description={`같은 아티클 ${samples.length}개를 ${CARD_VARIANTS.length}가지 카드로 그렸습니다. 썸네일이 없는 링크와 읽는 시간이 빠진 링크를 일부러 섞어, 데이터가 부실할 때 어떻게 보이는지까지 비교할 수 있게 했습니다.`}
+        eyebrow={
+          <span className="inline-flex items-center gap-1 text-14 font-medium tracking-wide text-muted-foreground uppercase">
+            <FlaskConical className="size-4" aria-hidden />
+            임시 페이지
+          </span>
+        }
+      >
         <nav className="mt-6 flex flex-wrap gap-2">
           <a
             href="#tokens"
@@ -56,7 +55,7 @@ export default function LabPage() {
             </a>
           ))}
         </nav>
-      </header>
+      </PageHeader>
 
       <div className="flex flex-col gap-24">
         <DesignTokens />

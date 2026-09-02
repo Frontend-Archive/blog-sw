@@ -1,8 +1,7 @@
-import { ChevronLeft } from 'lucide-react';
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArticleGrid } from '@/components/article/article-grid';
+import { PageHeader } from '@/components/layout/page-header';
 import { articlesByTag, getTagBySlug, tagSlugs } from '@/lib/archive/taxonomy';
 import { toArticleCardList } from '@/lib/archive/view';
 
@@ -31,20 +30,11 @@ export default async function TagDetailPage({ params }: PageProps<'/tags/[slug]'
 
   return (
     <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-24">
-      <nav className="pt-12">
-        <Link
-          href="/tags"
-          className="inline-flex items-center gap-1 text-14 text-muted-foreground transition-colors hover:text-brand"
-        >
-          <ChevronLeft className="size-4" aria-hidden />
-          전체 태그
-        </Link>
-      </nav>
-
-      <header className="pt-8 pb-12">
-        <h1 className="text-30 font-semibold tracking-tight sm:text-36">{tag}</h1>
-        <p className="mt-2 text-14 text-muted-foreground">아티클 {articles.length}개</p>
-      </header>
+      <PageHeader
+        title={tag}
+        description={`${tag} 주제로 정리한 글 ${articles.length}개입니다.`}
+        back={{ href: '/tags', label: '전체 태그' }}
+      />
 
       <section>
         <ArticleGrid articles={cards} />
