@@ -10,8 +10,8 @@ const NAV_ITEMS = [
   { href: '/tags', label: '태그' },
   { href: '/members', label: '멤버' },
   { href: '/submit', label: '글 등록' },
-  // 카드 시안 비교용 임시 항목. 디자인이 정해지면 함께 지운다.
-  { href: '/lab', label: 'Lab' },
+  // 시안 비교용 임시 항목. 디자인이 정해지면 함께 지운다.
+  { href: '/lab-gnb', label: 'Lab·GNB' },
 ] as const;
 
 export function SiteNav() {
