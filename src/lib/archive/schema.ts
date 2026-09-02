@@ -32,9 +32,12 @@ export type MeetingType = z.infer<typeof meetingTypeSchema>;
 export type Article = z.infer<typeof articleSchema>;
 export type Archive = z.infer<typeof archiveSchema>;
 
-/** title 과 url 이 모두 채워진 아티클 */
-export type FilledArticle = Article & { title: string; url: string };
-
-export function isFilledArticle(article: Article): article is FilledArticle {
+/**
+ * 발표자가 아직 채우지 않은 자리인지 판별한다.
+ *
+ * "빈 문자열이 아닌 string" 은 타입으로 표현할 수 없어 타입 술어(is)를 쓰지 않는다.
+ * 술어로 쓰면 부정 분기가 never 로 좁혀져 미작성 항목을 다룰 수 없다.
+ */
+export function isFilledArticle(article: Article): boolean {
   return article.title.trim().length > 0 && article.url.trim().length > 0;
 }

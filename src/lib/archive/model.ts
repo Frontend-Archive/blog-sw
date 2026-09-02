@@ -1,8 +1,8 @@
 import type { ParsedArchive } from './parse';
-import { isFilledArticle, type FilledArticle, type MeetingType } from './schema';
+import { isFilledArticle, type Article, type MeetingType } from './schema';
 
 /** 회차 정보를 붙여 평탄화한 아티클. 목록/카드의 기본 단위다. */
-export interface ArchiveArticle extends FilledArticle {
+export interface ArchiveArticle extends Article {
   /** 회차 안에서 안정적인 식별자 (회차당 author 는 유일) */
   key: string;
   archiveId: number;

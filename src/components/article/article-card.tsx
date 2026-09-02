@@ -1,5 +1,6 @@
 import { ArrowUpRight, Clock } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ArticleThumbnail } from '@/components/article/article-thumbnail';
 import { Badge } from '@/components/ui/badge';
 import type { ArchiveArticle } from '@/lib/archive/model';
@@ -32,7 +33,12 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <span className="font-medium text-foreground/80">{article.author}</span>
           <span aria-hidden>·</span>
-          <span>{article.archiveId}회차</span>
+          <Link
+            href={`/archives/${article.archiveId}`}
+            className="relative z-10 transition-colors hover:text-foreground"
+          >
+            {article.archiveId}회차
+          </Link>
           <span aria-hidden>·</span>
           <time dateTime={article.archiveDate}>{formatArchiveDate(article.archiveDate)}</time>
         </div>
