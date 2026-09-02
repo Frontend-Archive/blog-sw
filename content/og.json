@@ -1,0 +1,281 @@
+{
+  "entries": [
+    {
+      "url": "https://kwonsean.tistory.com/37",
+      "ok": true,
+      "status": 200,
+      "title": "[디자인 패턴] 팩토리 패턴과 프로토타입 패턴을 JS로 이해해보자! (feat. 메모리 할당량)",
+      "description": "JS를 공부한 프론트엔드 개발자에겐 특히나 프로토타입 패턴을 한 번쯤 지나친 개념이라고 생각합니다. 팩토리 패턴은 너무나 유명하구요! 두 패턴 모두 개념 자체는 어렵지 않다 보니 아주 기본적인 개념일 뿐 실제 서비스에선 크게 의미를 두는 패턴은 아니라고 생각할 수 있습니다. 하지만, 이 두 패턴의 본질을 파악하여 어마어마한 성능 개선을 한 사례가 있습니다. 바로 Tanstack Table V9에서 메모리 사용량을 90%나 개선한 사례입니다!지금부터 팩토리 패턴, 프로토타입 패턴에 대한 간단한 개념을 Tanstack Table에서 쓸거 같은 예시 코드로 이해해 보고 어떻게 메모리 사용량을 줄일 수 있었는지 알아보도록 합시다!1. 팩토리(Factory) 패턴?팩토리 패턴은 말 그대로 '객체를 찍어내는 공장'..",
+      "siteName": "KwonFe",
+      "image": {
+        "src": "/og/7fef0d3e44b2fc10.png",
+        "width": 800,
+        "height": 446
+      },
+      "favicon": "/og/favicons/7fef0d3e44b2fc10.png",
+      "readingMinutes": 14,
+      "fetchedAt": "2026-09-02T13:35:21.517Z"
+    },
+    {
+      "url": "https://yeomyeom.tistory.com/156",
+      "ok": true,
+      "status": 200,
+      "title": "긴 리스트 꼭 가상화여야 할까? CSS 두 줄로 렌더링·페인팅 비용 72% 줄이기",
+      "description": "회사 프로젝트 중 랭킹 페이지를 개편하다 문제를 만났습니다. 순위표는 채널에 따라 수백 명, 많게는 약 1,000명가량의 행을 한 번에 그립니다. 화면에는 십수 개만 보이지만, 브라우저는 스크롤을 시작하기도 전에 보이지 않는 행까지 전부의 위치, 크기와 픽셀을 계산합니다. 첫 렌더에서 이미 비용을 다 치르는 셈입니다. 가장 먼저 떠오른 답은 무한 스크롤이었습니다. 약 1,000행을 한 번에 내려주지 말고 필요한 만큼만 잘라서 받는 방식이죠. 그런데 두 가지가 걸렸습니다. 하나는, 무한 스크롤은 데이터를 나눠 받는 기법이지 그리는 비용을 직접 줄이는 기법이 아니라는 점입니다. 스크롤해서 행이 쌓이면 결국 다시 전부 그리게 되니까요. 다른 하나는 현실적인 문제로, 이 방식은 백엔드에 페이지네이션 API가 필..",
+      "siteName": "염딩코",
+      "image": {
+        "src": "/og/2e49581aa546208c.png",
+        "width": 800,
+        "height": 443
+      },
+      "readingMinutes": 12,
+      "fetchedAt": "2026-09-02T13:35:22.054Z"
+    },
+    {
+      "url": "https://app.notion.com/p/seungwon-1/2-Middleware-8-22-3c42a7ff711a805392e9e50d3e63901a",
+      "ok": true,
+      "status": 200,
+      "title": "[2회차] 도메인 간 언어오염과 Middleware 패턴 8/22 | Notion",
+      "description": "1. Middleware 패턴이란?",
+      "siteName": "seungwon-1 on Notion",
+      "image": {
+        "src": "/og/2c6ae9205bb06634.png",
+        "width": 2048,
+        "height": 583
+      },
+      "fetchedAt": "2026-09-02T13:35:22.644Z"
+    },
+    {
+      "url": "https://kwonsean.tistory.com/35",
+      "ok": true,
+      "status": 200,
+      "title": "[디자인 패턴] 프록시(Proxy) 패턴을 JS로 이해해보자! (feat. 캐싱)",
+      "description": "개발자라면 프록시(Proxy)라는 단어는 뭔가 익숙할 겁니다. 하지만 이 말의 의미가 정확히 뭔지, 그리고 프록시 패턴은 또 뭔지 설명하기는 쉽지 않다고 생각이 듭니다. 이제부터 차근차근 JS를 통해서 프록시 패턴에 대해 파헤쳐보도록 하겠습니다! 1. Proxy 패턴이란?먼저 Proxy는 대리(행위)나 대리권, 대리 투표, 대리인 등을 뜻하는 단어입니다. 즉, 프록시 패턴은 대신해 주는 무엇인가 있는 패턴이지 않을까 유추해 볼 수 있을 겁니다.그렇습니다! 프록시 패턴은 어떤 값에 접근하는 과정 앞단에 프록시(대리인)을 두어 진짜 객체가 아닌 대리인이 대신 일을 처리하는 패턴을 뜻 합니다!프록시 패턴은 보안, 캐싱, 데이터 유효성 검사, 지연 초기화, 로깅 등등 다양한 곳에서 활용할 수 있습니다.간단한 ..",
+      "siteName": "KwonFe",
+      "image": {
+        "src": "/og/d75a45b8e838b95c.png",
+        "width": 800,
+        "height": 446
+      },
+      "favicon": "/og/favicons/d75a45b8e838b95c.png",
+      "readingMinutes": 10,
+      "fetchedAt": "2026-09-02T13:35:23.820Z"
+    },
+    {
+      "url": "https://app.notion.com/p/seungwon-1/1-Compound-7-12-39b2a7ff711a8060a459c70cdcca4c72",
+      "ok": true,
+      "status": 200,
+      "title": "[1회차] 공용 컴포넌트와 Compound 패턴 7/12 | Notion",
+      "description": "컴파운드 패턴",
+      "siteName": "seungwon-1 on Notion",
+      "image": {
+        "src": "/og/0f0eb533310328b0.png",
+        "width": 1900,
+        "height": 982
+      },
+      "readingMinutes": 4,
+      "fetchedAt": "2026-09-02T13:35:24.055Z"
+    },
+    {
+      "url": "https://kwonsean.tistory.com/34",
+      "ok": true,
+      "status": 200,
+      "title": "클로저 누구냐 너..",
+      "description": "프론트엔드 개발자로서 '클로저'라는 단어는 많이 들어봤을 겁니다. 하지만 막상 클로저가 뭐예요?라는 질문에 선뜻 대답을 하긴 어렵습니다. 이렇게 개념이 모호하다 보니 실무에서도 내가 클로저라는 걸 쓰고 있는 건가? 그냥 말 그대로 개념적인 내용이지 실무에선 안 쓰이는 거 아닌가 하는 생각이 들었습니다.그러던 중 한 면접 시뮬레이션(https://github.com/CaesiumY/claude-interview-agents)을 해보면서 나왔던 첫 질문이 클로저가 무엇인지, 그리고 실무에서 사용한 사례가 있다면 설명해달라는 내용이었습니다. 호기롭게 면접 뿌셔보자..! 도전해 봤지만 바로 이 첫 질문에서 벽을 느꼈고, 클로저에 대해서 한 번 다시 공부해 보고 쉽게 정리하여 나와 같은 사람들이 더 이상 클로저..",
+      "siteName": "KwonFe",
+      "image": {
+        "src": "/og/62b486e7a06145d0.png",
+        "width": 800,
+        "height": 446
+      },
+      "favicon": "/og/favicons/62b486e7a06145d0.png",
+      "readingMinutes": 15,
+      "fetchedAt": "2026-09-02T13:35:25.104Z"
+    },
+    {
+      "url": "https://yeomyeom.tistory.com/155",
+      "ok": true,
+      "status": 200,
+      "title": "React Compiler는 도대체 useMemo를 어떻게 대신할까?",
+      "description": "얼마전에 진행하던 사이드 프로젝트에서 React 19로 버전을 업그레이드를 하고, React 19로 업그레이드를 하는 김에 React Compiler를 도입해보았습니다. React Compiler를 도입하는 과정 자체는 어렵지 않았습니다.그러나, React Compiler를 왜 만들게 되었고 내부적으로 어떤 방식으로 동작하는지 아무런 이해없이 넘어갈 수는 없었습니다. React 팀은 왜 React Compiler를 도입하게 되었고, 이것이 어떤 방식으로 동작하는지 살펴보고 이해하기 위한 글을 작성해봅니다. 최적화를 자동으로 해준다고 하지만, 어떤 tradeoff가 있는지도 알아봅시다. React Compiler의 목적React compiler의 목적은 React 공식문서에서 찾을 수 있었습니다.\"R..",
+      "siteName": "염딩코",
+      "image": {
+        "src": "/og/1d80c15a40869edd.png",
+        "width": 800,
+        "height": 577
+      },
+      "readingMinutes": 19,
+      "fetchedAt": "2026-09-02T13:35:25.395Z"
+    },
+    {
+      "url": "https://app.notion.com/p/seungwon-1/4-Calude-Code-Deep-Dive-6-20-3842a7ff711a80abaff9ddb4f633a7e5",
+      "ok": true,
+      "status": 200,
+      "title": "[4회차] Claude Code Deep Dive 6/20 | Notion",
+      "description": "1. 사수와의 생산성 격차를 마주",
+      "siteName": "seungwon-1 on Notion",
+      "image": {
+        "src": "/og/cc36939d919d1aa9.png",
+        "width": 1200,
+        "height": 630
+      },
+      "fetchedAt": "2026-09-02T13:35:25.954Z"
+    },
+    {
+      "url": "https://kwonsean.tistory.com/33",
+      "ok": true,
+      "status": 200,
+      "title": "개발자가 UX까지 신경써야 하나요?",
+      "description": "결론부터 말하자면 '반드시 신경써야한다'. 사실 UX란건 사용자가 있는 제품 / 서비스를 만드는 사람이라면 누구나 반드시 고려해야하는 가장 중요한 부분이라고 생각한다.물론 사용자들의 니즈를 정확히 파악해서 사용자가 엄청나게 필요로 하는 서비스를 개발했다면 UX보단 기능에 더 중점을 두고 서비스를 운영할 수 있을 것이다. 하지만 곧 비슷한 서비스들이 생겨난다면 사용자들은 결국 UX가 좋은 서비스를 선택할 것이기 때문에, 좋았던 아이디어를 남에게 홀라당 바치는 꼴이 될 수 있다고 생각한다. 그러므로 UX는 제품 / 서비스를 기획하는 사람뿐 아니라 모든 사람이 신경써야 하는 중요한 포인트다.서비스를 만드는 모두가 UX를 고민해야 하는 이유는 명확하다. 팀 내에 UX의 중요성에 대한 공감대가 없다면 잦은 의견 ..",
+      "siteName": "KwonFe",
+      "image": {
+        "src": "/og/58206801c695e979.png",
+        "width": 800,
+        "height": 446
+      },
+      "favicon": "/og/favicons/58206801c695e979.png",
+      "readingMinutes": 9,
+      "fetchedAt": "2026-09-02T13:35:27.006Z"
+    },
+    {
+      "url": "https://yeomyeom.tistory.com/152",
+      "ok": true,
+      "status": 200,
+      "title": "[TypeScript] Exhaustive Check로 \"수정 깜빡함\" 버그 막기",
+      "description": "새 타입을 하나 추가했을 뿐인데, 컴파일러가 \"여기도 고쳐야 하지 않냐\"라고 먼저 알려줬다. 문제: 컴파일러는 빠뜨린 케이스를 알려주지 않는다.union type을 switch로 분기하는 코드는 흔하다.문제는 union에 멤버가 추가됐을 때, 타입스크립트가 처리 안 한 케이스에 대해 침묵한다는 것이다.type Shape = Circle | Square;function getArea(shape: Shape) { switch (shape.kind) { case 'circle': return Math.PI * shape.radius 2; case 'square': return shape.sideLength 2; } } 여기에 Triangle을 추가해도 ge..",
+      "siteName": "염딩코",
+      "image": {
+        "src": "/og/64ed1ebc26c78c43.png",
+        "width": 800,
+        "height": 423
+      },
+      "readingMinutes": 8,
+      "fetchedAt": "2026-09-02T13:35:27.378Z"
+    },
+    {
+      "url": "https://app.notion.com/p/seungwon-1/3-5-30-36f2a7ff711a809b8ceafcf58e187a86",
+      "ok": true,
+      "status": 200,
+      "title": "[3회차] 체험판 신청 퍼널 개선기 5/30 | Notion",
+      "description": "제품마다 따로 흩어져 있던 체험판 신청 흐름을 하나로 통합하는 작업을 맡았다. 처음엔",
+      "siteName": "seungwon-1 on Notion",
+      "image": {
+        "src": "/og/2d1b5b37f41a4d04.png",
+        "width": 2048,
+        "height": 1031
+      },
+      "fetchedAt": "2026-09-02T13:35:27.923Z"
+    },
+    {
+      "url": "https://kwonsean.tistory.com/31",
+      "ok": true,
+      "status": 200,
+      "title": "Sentry 도입후에도 console을 찍고 있는 당신에게 (ft. 그대들의 Sentry는 안녕하신가요?)",
+      "description": "들어가며아마 이 글을 읽어보시려고 하는 분이라면, Sentry가 무엇인지 알고 계시리라고 생각합니다. 또한 다른 좋은 글(카카오 페이, 우아한 형제들 등)들을 통해서, 왜 Sentry를 써야 하는가? 어떻게 하면 효율적인 데이터를 모을 수 있을까?라는 고민들을 보고 공감을 얻으셨으리라고 생각합니다.저도 그런 글들을 보고 sentry 도입을 일단 해두었습니다. 무려 2년전에 말이죠.. 하지만 막상 도입은 했지만 설정할 부분이 많아 복잡하게 느껴졌고.. 당장 바쁜 업무들을 처리하며 우선순위가 점점 낮아졌습니다. 그러다 보니 Sentry를 통해 모니터링을 한다기 보다는 문제가 생긴 후에 디버깅 용도로 더 자주 사용하곤 했습니다. 또한 관리도 제대로 되지 않고 무의미한 로그들만 쌓여가곤 했지요. 그러다 이대로는..",
+      "siteName": "KwonFe",
+      "image": {
+        "src": "/og/b9d0a53d0bb5e485.png",
+        "width": 800,
+        "height": 441
+      },
+      "favicon": "/og/favicons/b9d0a53d0bb5e485.png",
+      "readingMinutes": 14,
+      "fetchedAt": "2026-09-02T13:35:28.970Z"
+    },
+    {
+      "url": "https://jk-devv.vercel.app/blog/레거시-프로젝트-개선/",
+      "ok": true,
+      "status": 200,
+      "title": "레거시 프로젝트, 유지보수 기반 다지기",
+      "description": "환경 분리, 코드 스타일 정비, 미사용 코드 정리, 의존성 관리로 레거시 프로젝트의 지속 가능한 운영 기반을 마련한 과정을 정리합니다.",
+      "siteName": "JK.dev",
+      "readingMinutes": 25,
+      "fetchedAt": "2026-09-02T13:35:29.228Z"
+    },
+    {
+      "url": "https://yeomyeom.tistory.com/150#google_vignette",
+      "ok": true,
+      "status": 200,
+      "title": "메인스레드 쉬는 시간 압수하기",
+      "description": "브라우저의 메인 스레드는 언제나 바쁘다현대 웹 애플리케이션, 특히 복잡한 UI와 수많은 서드파티 스크립트(GTM, Ads, Maps 등)를 품은 페이지에서 메인 스레드 블로킹은 필연적입니다. 메인 스레드가 막히면 TBT(Total Blocking Time)가 치솟고, 사용자의 첫 입력 지연(FID)이 악화됩니다. 초기 렌더링에 당장 필요 없는 작업들을 어떻게 영리하게 뒤로 미룰 것인가?그 해답으로 적용했던 requestIdleCallback에 대해서 정리하고자 합니다. requestIdleCallback은 어떻게 동작하는가?우리가 매일 사용하는 웹 브라우저는 겉보기에 단순해 보이지만, 사용자에게 끊김 없는 화면을 보여주기 위해 1초에 60번(60Hz 기준) 엄청난 속도로 화면을 다시 그립니다. 이 한 ..",
+      "siteName": "염딩코",
+      "image": {
+        "src": "/og/f2403f8d2e9b07c7.png",
+        "width": 670,
+        "height": 173
+      },
+      "readingMinutes": 11,
+      "fetchedAt": "2026-09-02T13:35:29.321Z"
+    },
+    {
+      "url": "https://app.notion.com/p/seungwon-1/2-npm-4-11-33d2a7ff711a80ca93cbfe0d435fd0d8",
+      "ok": true,
+      "status": 200,
+      "title": "[2회차] 사내 npm 개발기 4/11 | Notion",
+      "description": "배포없이 기능 적용하는 것이 필요하다!",
+      "siteName": "seungwon-1 on Notion",
+      "image": {
+        "src": "/og/58d2dcc90db5726e.png",
+        "width": 1200,
+        "height": 630
+      },
+      "fetchedAt": "2026-09-02T13:35:29.806Z"
+    },
+    {
+      "url": "https://kwonsean.tistory.com/32",
+      "ok": true,
+      "status": 200,
+      "title": "그래서 Pretext로 뭘 할 수 있는데!",
+      "description": "요즘 한창 핫한 라이브러리가 있다!바로 Pretext로 AI를 중심으로 돌아가는 이 세상 속에서 순수한 JS 라이브러리가 이렇게 언급이 많이 된다는 게 신기하기도 하고 도대체 무슨 라이브러리이고 어떤 것들을 할 수 있는지 알아보고자 한다. 1. Pretext는 무엇인가?Pretext는 한마디로 \"DOM 없이 텍스트 레이아웃을 계산하는 순수 자바스크립트 함수\" 라고 할 수 있다.기존에는 요소의 높이를 측정하기 위해서는 요소가 화면에 그려진 후에 offsetHeight, clientHeight, getBoundingClientRect() 함수들을 이용해서 값을 가져올 수 있었다.즉, 정확한 요소의 주도권이 DOM에게 있는 상황이었고, 우린 그걸 매번 DOM에게 요청하곤 했다.여기까진 그래서? 지금까지 잘 요..",
+      "siteName": "KwonFe",
+      "image": {
+        "src": "/og/4a9155b7b51f5121.gif",
+        "width": 800,
+        "height": 671
+      },
+      "favicon": "/og/favicons/4a9155b7b51f5121.png",
+      "readingMinutes": 12,
+      "fetchedAt": "2026-09-02T13:35:31.194Z"
+    },
+    {
+      "url": "https://jk-devv.vercel.app/blog/실시간-통신과-websocket/",
+      "ok": true,
+      "status": 200,
+      "title": "Polling부터 WebSocket까지",
+      "description": "HTTP 요청/응답 구조에서 출발해 Polling, Long Polling, SSE, WebSocket의 차이와 프론트엔드 관점의 설계 포인트를 정리합니다.",
+      "siteName": "JK.dev",
+      "readingMinutes": 13,
+      "fetchedAt": "2026-09-02T13:35:31.514Z"
+    },
+    {
+      "url": "https://yeomyeom.tistory.com/151#google_vignette",
+      "ok": true,
+      "status": 200,
+      "title": "Frontend Fundamental 모의고사 2회차 회고",
+      "description": "토스에서 진행하는 frontend fundamental 모의고사 1회 차와 2회 차를 모두 참여하였다. 참여했던 이유는 단 하나다. 다른 프론트엔드 개발자들은 어떤 코드를 지향하는 것인지, 어떤 방향성을 갖고 코드를 작성하는지 궁금했다.무엇이든지 배울 점들이 있을 것 같아서 신청을 했고, 운이 좋게 2회 모두 참여할 수 있었다. 1회 차 모의고사1회 차 모의고사 때 주어진 과제는 실제로 이전에 풀어보았던 과제가 출제되었다. 과제의 난이도는 어렵지 않았지만, 토스에서 보고자 했던 것은 확장성 있는 코드와 유지보수가 쉬운 코드인지 보는 것이었다. 확장성 있는 코드와 유지보수가 쉬운 코드는 내 나름대로 정의를 가지고 풀어 나아갔다. 그럼에도 많은 궁금증과 고민이 있었고, 이것들을 품은 채, 라이브 해설강의를 ..",
+      "siteName": "염딩코",
+      "image": {
+        "src": "/og/4aa5468ffb085d59.png",
+        "width": 800,
+        "height": 415
+      },
+      "readingMinutes": 5,
+      "fetchedAt": "2026-09-02T13:35:31.573Z"
+    },
+    {
+      "url": "https://app.notion.com/p/seungwon-1/1-useQuery-3-14-3212a7ff711a805bb4efee7bbb16a1cc",
+      "ok": true,
+      "status": 200,
+      "title": "[1회차] useQuery 는 어떻게 동작할까 3/14 | Notion",
+      "description": "알고쓰자 useQuery",
+      "siteName": "seungwon-1 on Notion",
+      "image": {
+        "src": "/og/07d0853ae3828ec0.png",
+        "width": 1200,
+        "height": 630
+      },
+      "readingMinutes": 3,
+      "fetchedAt": "2026-09-02T13:35:32.111Z"
+    }
+  ]
+}
