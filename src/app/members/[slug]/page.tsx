@@ -1,12 +1,9 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArticleGrid } from '@/components/article/article-grid';
 import { PageHeader } from '@/components/layout/page-header';
-import { collectTags } from '@/lib/archive/model';
+import { articlesByAuthor, authorSlugs, getAuthorBySlug } from '@/lib/archive/taxonomy';
 import { toArticleCardList } from '@/lib/archive/view';
-import { Badge } from '@/components/ui/badge';
-import { articlesByAuthor, authorSlugs, getAuthorBySlug, toSlug } from '@/lib/archive/taxonomy';
 
 export function generateStaticParams(): { slug: string }[] {
   return authorSlugs.map((slug) => ({ slug }));
@@ -30,32 +27,15 @@ export default async function MemberDetailPage({ params }: PageProps<'/members/[
   const author = getAuthorBySlug(decodeURIComponent(slug));
   if (!author) notFound();
 
-  const articles = articlesByAuthor(author);
-  const cards = toArticleCardList(articles);
-  const topTags = collectTags(articles).slice(0, 8);
+  const cards = toArticleCardList(articlesByAuthor(author));
 
   return (
-    <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-24">
+    <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-32">
       <PageHeader
         title={author}
-        description={`${author} 님이 스터디에서 공유한 글 ${articles.length}개입니다.`}
+        description={`${author} 님이 스터디에서 공유한 글 ${cards.length}개입니다.`}
         back={{ href: '/members', label: '전체 멤버' }}
-      >
-        {topTags.length > 0 ? (
-          <ul className="mt-5 flex flex-wrap gap-2">
-            {topTags.map(({ tag, count }) => (
-              <li key={tag}>
-                <Link href={`/tags/${toSlug(tag)}`}>
-                  <Badge variant="secondary" className="gap-2 font-normal">
-                    {tag}
-                    <span className="text-muted-foreground/80 tabular-nums">{count}</span>
-                  </Badge>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-      </PageHeader>
+      />
 
       <section>
         <ArticleGrid articles={cards} />

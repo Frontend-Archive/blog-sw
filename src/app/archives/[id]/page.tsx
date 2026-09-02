@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArticleCard } from '@/components/article/article-card';
-import { EmptySlotCard } from '@/components/article/empty-slot-card';
 import { PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
 import { toArticles } from '@/lib/archive/model';
@@ -42,9 +41,6 @@ export default async function ArchiveDetailPage({ params }: PageProps<'/archives
   if (!archive) notFound();
 
   const articles = toArticleCardList(toArticles([archive]));
-  const emptyAuthors = archive.articles
-    .filter((article) => !isFilledArticle(article))
-    .map((article) => article.author);
 
   // archives 는 id 내림차순이라 이전 회차가 뒤에 온다.
   const index = archives.findIndex((item) => item.id === archive.id);
@@ -55,7 +51,7 @@ export default async function ArchiveDetailPage({ params }: PageProps<'/archives
     <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-24">
       <PageHeader
         title={archive.title}
-        description={`아티클 ${articles.length}개${emptyAuthors.length > 0 ? ` · 작성 예정 ${emptyAuthors.length}개` : ''}`}
+        description={`이 회차에 나눈 글 ${articles.length}개입니다.`}
         back={{ href: '/', label: '전체 아티클' }}
         eyebrow={
           <>
@@ -71,16 +67,13 @@ export default async function ArchiveDetailPage({ params }: PageProps<'/archives
         {articles.map((article, articleIndex) => (
           <ArticleCard key={article.key} article={article} priority={articleIndex < 3} />
         ))}
-        {emptyAuthors.map((author) => (
-          <EmptySlotCard key={author} author={author} />
-        ))}
       </section>
 
       <nav className="mt-16 flex items-center justify-between border-t border-border/60 pt-6 text-14">
         {older ? (
           <Link
             href={`/archives/${older.id}`}
-            className="inline-flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground"
+            className="inline-flex items-center gap-1 text-muted-foreground transition-colors hover:text-brand"
           >
             <ChevronLeft className="size-4" aria-hidden />
             {older.title}

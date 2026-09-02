@@ -2,8 +2,6 @@ import type { Metadata } from 'next';
 import { PageHeader } from '@/components/layout/page-header';
 import { MemberRow, type MemberProfile } from '@/features/members/member-row';
 import { collectTags } from '@/lib/archive/model';
-import { archives } from '@/lib/archive/source';
-import { isFilledArticle } from '@/lib/archive/schema';
 import { articlesByAuthor, authors, toSlug } from '@/lib/archive/taxonomy';
 import { toArticleCardList } from '@/lib/archive/view';
 
@@ -21,16 +19,9 @@ export default function MembersPage() {
     return {
       author,
       slug: toSlug(author),
-      articleCount: own.length,
       topTags: collectTags(own)
         .slice(0, 3)
         .map((item) => item.tag),
-      participation: archives.map((archive) => ({
-        archiveId: archive.id,
-        filled: archive.articles.some(
-          (article) => article.author === author && isFilledArticle(article),
-        ),
-      })),
       recent: toArticleCardList(own.slice(0, RECENT_LIMIT)),
     };
   });
