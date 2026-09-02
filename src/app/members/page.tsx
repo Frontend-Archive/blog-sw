@@ -10,13 +10,13 @@ export const metadata: Metadata = {
 
 export default function MembersPage() {
   return (
-    <main className="mx-auto w-full max-w-4xl flex-1 px-6 pb-24">
+    <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-24">
       <header className="pt-20 pb-12">
         <h1 className="text-30 font-semibold tracking-tight">멤버</h1>
         <p className="mt-2 text-14 text-muted-foreground">{authors.length}명</p>
       </header>
 
-      <ul className="grid gap-4 sm:grid-cols-2">
+      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {authors.map((author) => {
           const count = articlesByAuthor(author).length;
           return (

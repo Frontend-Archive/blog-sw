@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useSyncExternalStore } from 'react';
+import { CountUp } from '@/components/home/count-up';
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
@@ -20,6 +21,7 @@ function subscribe(): () => void {
 interface DaysSinceProps {
   /** 기준일 (YYYY-MM-DD) */
   from: string;
+  delayMs?: number;
 }
 
 /**
@@ -27,13 +29,12 @@ interface DaysSinceProps {
  *
  * 정적으로 굳은 빌드 시점이 아니라 보는 사람 기준의 숫자를 보여준다.
  * 렌더 중에 Date.now() 를 부르면 순수하지 않으므로 useSyncExternalStore 로 감싼다.
- * 서버는 빌드 시각을, 클라이언트는 현재 시각을 기준으로 계산한다.
  */
-export function DaysSince({ from }: DaysSinceProps) {
+export function DaysSince({ from, delayMs }: DaysSinceProps) {
   const getSnapshot = useCallback(() => daysBetween(from, Date.now()), [from]);
   const getServerSnapshot = useCallback(() => daysBetween(from, BUILD_TIME), [from]);
 
   const days = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-  return <span suppressHydrationWarning>{days.toLocaleString('ko-KR')}</span>;
+  return <CountUp value={days} delayMs={delayMs} />;
 }

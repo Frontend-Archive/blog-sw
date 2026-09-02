@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { CountUp } from '@/components/home/count-up';
 import { DaysSince } from '@/components/home/days-since';
 
 interface HomeHeroProps {
@@ -26,13 +27,25 @@ export function HomeHero({
   readingMinutes,
   firstDate,
 }: HomeHeroProps) {
+  // 항목마다 조금씩 늦게 시작해 왼쪽부터 차례로 올라가게 한다.
+  const STAGGER_MS = 80;
   const stats: Stat[] = [
-    { label: '회차', value: archiveCount },
-    { label: '아티클', value: articleCount },
-    { label: '멤버', value: memberCount },
-    { label: '읽을거리', value: readingMinutes.toLocaleString('ko-KR'), suffix: '분' },
+    { label: '회차', value: <CountUp value={archiveCount} delayMs={0} /> },
+    { label: '아티클', value: <CountUp value={articleCount} delayMs={STAGGER_MS} /> },
+    { label: '멤버', value: <CountUp value={memberCount} delayMs={STAGGER_MS * 2} /> },
+    {
+      label: '읽을거리',
+      value: <CountUp value={readingMinutes} delayMs={STAGGER_MS * 3} />,
+      suffix: '분',
+    },
     ...(firstDate
-      ? [{ label: '시작한 지', value: <DaysSince from={firstDate} />, suffix: '일째' }]
+      ? [
+          {
+            label: '시작한 지',
+            value: <DaysSince from={firstDate} delayMs={STAGGER_MS * 4} />,
+            suffix: '일째',
+          },
+        ]
       : []),
   ];
 

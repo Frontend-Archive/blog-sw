@@ -66,10 +66,10 @@ export function CommandPalette({ data, open, onOpenChange }: CommandPaletteProps
                   run(() => window.open(article.url, '_blank', 'noopener,noreferrer'))
                 }
               >
-                <ExternalLink className="size-4" aria-hidden />
-                <span className="truncate">{article.title}</span>
-                <span className="ml-auto shrink-0 text-14 text-muted-foreground">
-                  {article.author} · {article.archiveId}회차
+                <ExternalLink className="size-4 shrink-0" aria-hidden />
+                <span className="min-w-0 flex-1 truncate">{article.title}</span>
+                <span className="shrink-0 text-14 text-muted-foreground tabular-nums">
+                  {article.author} · {formatArchiveDate(article.archiveDate)}
                 </span>
               </CommandItem>
             ))}
@@ -84,9 +84,9 @@ export function CommandPalette({ data, open, onOpenChange }: CommandPaletteProps
                 value={`${tag} 태그 tag`}
                 onSelect={() => run(() => router.push(`/tags/${slug}`))}
               >
-                <Hash className="size-4" aria-hidden />
-                <span>{tag}</span>
-                <span className="ml-auto text-14 text-muted-foreground tabular-nums">{count}</span>
+                <Hash className="size-4 shrink-0" aria-hidden />
+                <span className="min-w-0 flex-1 truncate">{tag}</span>
+                <span className="shrink-0 text-14 text-muted-foreground tabular-nums">{count}</span>
               </CommandItem>
             ))}
           </CommandGroup>
@@ -100,8 +100,8 @@ export function CommandPalette({ data, open, onOpenChange }: CommandPaletteProps
                 value={`${author} 멤버 member`}
                 onSelect={() => run(() => router.push(`/members/${slug}`))}
               >
-                <User className="size-4" aria-hidden />
-                <span>{author}</span>
+                <User className="size-4 shrink-0" aria-hidden />
+                <span className="min-w-0 flex-1 truncate">{author}</span>
               </CommandItem>
             ))}
           </CommandGroup>
@@ -115,9 +115,9 @@ export function CommandPalette({ data, open, onOpenChange }: CommandPaletteProps
                 value={`${title} ${id}회차 ${date}`}
                 onSelect={() => run(() => router.push(`/archives/${id}`))}
               >
-                <Layers className="size-4" aria-hidden />
-                <span>{title}</span>
-                <span className="ml-auto text-14 text-muted-foreground">
+                <Layers className="size-4 shrink-0" aria-hidden />
+                <span className="min-w-0 flex-1 truncate">{title}</span>
+                <span className="shrink-0 text-14 text-muted-foreground tabular-nums">
                   {formatArchiveDate(date)}
                 </span>
               </CommandItem>

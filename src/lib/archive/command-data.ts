@@ -11,6 +11,7 @@ export interface CommandArticle {
   url: string;
   hostname: string;
   archiveId: number;
+  archiveDate: string;
   searchText: string;
 }
 
@@ -47,6 +48,7 @@ function toCommandArticle(article: ArchiveArticle): CommandArticle {
     url: article.url,
     hostname,
     archiveId: article.archiveId,
+    archiveDate: article.archiveDate,
     searchText: [article.title, article.author, ...article.tags, hostname].join(' ').toLowerCase(),
   };
 }

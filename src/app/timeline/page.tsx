@@ -15,7 +15,7 @@ export default function TimelinePage() {
   const emptyCount = countEmptySlots(archives);
 
   return (
-    <main className="mx-auto w-full max-w-3xl flex-1 px-6 pb-24">
+    <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-24">
       <header className="pt-20 pb-12">
         <h1 className="text-30 font-semibold tracking-tight">타임라인</h1>
         <p className="mt-4 max-w-xl text-16 leading-relaxed text-muted-foreground">
@@ -27,7 +27,7 @@ export default function TimelinePage() {
         </p>
       </header>
 
-      <ol>
+      <ol className="max-w-3xl">
         {archives.map((archive) => (
           <TimelineEntry key={archive.id} archive={archive} />
         ))}
