@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArticleGrid } from '@/components/article/article-grid';
 import { collectTags } from '@/lib/archive/model';
+import { toArticleCardList } from '@/lib/archive/view';
 import { Badge } from '@/components/ui/badge';
 import { articlesByAuthor, authorSlugs, getAuthorBySlug, toSlug } from '@/lib/archive/taxonomy';
 
@@ -30,6 +31,7 @@ export default async function MemberDetailPage({ params }: PageProps<'/members/[
   if (!author) notFound();
 
   const articles = articlesByAuthor(author);
+  const cards = toArticleCardList(articles);
   const topTags = collectTags(articles).slice(0, 8);
 
   return (
@@ -64,7 +66,7 @@ export default async function MemberDetailPage({ params }: PageProps<'/members/[
       </header>
 
       <section className="pt-10">
-        <ArticleGrid articles={articles} />
+        <ArticleGrid articles={cards} />
       </section>
     </main>
   );

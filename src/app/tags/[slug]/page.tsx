@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArticleGrid } from '@/components/article/article-grid';
 import { articlesByTag, getTagBySlug, tagSlugs } from '@/lib/archive/taxonomy';
+import { toArticleCardList } from '@/lib/archive/view';
 
 export function generateStaticParams(): { slug: string }[] {
   return tagSlugs.map((slug) => ({ slug }));
@@ -26,6 +27,7 @@ export default async function TagDetailPage({ params }: PageProps<'/tags/[slug]'
   if (!tag) notFound();
 
   const articles = articlesByTag(tag);
+  const cards = toArticleCardList(articles);
 
   return (
     <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-24">
@@ -45,7 +47,7 @@ export default async function TagDetailPage({ params }: PageProps<'/tags/[slug]'
       </header>
 
       <section className="pt-10">
-        <ArticleGrid articles={articles} />
+        <ArticleGrid articles={cards} />
       </section>
     </main>
   );

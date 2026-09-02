@@ -1,8 +1,8 @@
 import { ArticleCard } from '@/components/article/article-card';
-import type { ArchiveArticle } from '@/lib/archive/model';
+import type { ArticleCardData } from '@/lib/archive/view';
 
 interface ArticleGridProps {
-  articles: ArchiveArticle[];
+  articles: ArticleCardData[];
   /** 위쪽 몇 장의 썸네일을 우선 로드할지 */
   priorityCount?: number;
   emptyMessage?: string;

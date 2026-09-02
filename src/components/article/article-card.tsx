@@ -3,25 +3,23 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArticleThumbnail } from '@/components/article/article-thumbnail';
 import { Badge } from '@/components/ui/badge';
-import type { ArchiveArticle } from '@/lib/archive/model';
-import { getHostname, getOg } from '@/lib/archive/og';
 import { toSlug } from '@/lib/archive/taxonomy';
+import type { ArticleCardData } from '@/lib/archive/view';
 import { formatArchiveDate } from '@/lib/format';
 
 interface ArticleCardProps {
-  article: ArchiveArticle;
+  article: ArticleCardData;
   priority?: boolean;
 }
 
 export function ArticleCard({ article, priority = false }: ArticleCardProps) {
-  const og = getOg(article.url);
-  const hostname = getHostname(article.url);
+  const { hostname } = article;
 
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-xl border border-border/70 bg-card transition-colors hover:border-foreground/25">
       <div className="aspect-[1.91/1] overflow-hidden bg-muted">
         <ArticleThumbnail
-          image={og?.image}
+          image={article.image}
           title={article.title}
           fallbackLabel={article.tags[0] ?? hostname}
           seed={article.url}
@@ -55,9 +53,9 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
           </a>
         </h3>
 
-        {og?.description ? (
+        {article.description ? (
           <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-            {og.description}
+            {article.description}
           </p>
         ) : null}
 
@@ -79,16 +77,22 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
         ) : null}
 
         <div className="mt-auto flex items-center gap-2 pt-2 text-xs text-muted-foreground">
-          {og?.favicon ? (
-            <Image src={og.favicon} alt="" width={14} height={14} className="size-3.5 rounded-sm" />
+          {article.favicon ? (
+            <Image
+              src={article.favicon}
+              alt=""
+              width={14}
+              height={14}
+              className="size-3.5 rounded-sm"
+            />
           ) : null}
           <span className="truncate">{hostname}</span>
-          {og?.readingMinutes ? (
+          {article.readingMinutes ? (
             <>
               <span aria-hidden>·</span>
               <span className="inline-flex shrink-0 items-center gap-1">
                 <Clock className="size-3" aria-hidden />
-                {og.readingMinutes}분
+                {article.readingMinutes}분
               </span>
             </>
           ) : null}

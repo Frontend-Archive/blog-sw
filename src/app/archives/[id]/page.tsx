@@ -6,6 +6,7 @@ import { ArticleCard } from '@/components/article/article-card';
 import { EmptySlotCard } from '@/components/article/empty-slot-card';
 import { Badge } from '@/components/ui/badge';
 import { toArticles } from '@/lib/archive/model';
+import { toArticleCardList } from '@/lib/archive/view';
 import { archives, getArchiveById } from '@/lib/archive/source';
 import { isFilledArticle } from '@/lib/archive/schema';
 import { formatArchiveDate } from '@/lib/format';
@@ -39,7 +40,7 @@ export default async function ArchiveDetailPage({ params }: PageProps<'/archives
   const archive = parsed === null ? undefined : getArchiveById(parsed);
   if (!archive) notFound();
 
-  const articles = toArticles([archive]);
+  const articles = toArticleCardList(toArticles([archive]));
   const emptyAuthors = archive.articles
     .filter((article) => !isFilledArticle(article))
     .map((article) => article.author);
