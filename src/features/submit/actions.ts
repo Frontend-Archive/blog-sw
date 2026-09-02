@@ -4,6 +4,12 @@ import { auth } from '@/lib/auth';
 import { isAuthConfigured } from '@/lib/auth/members';
 import { findOpenSlots } from '@/lib/archive/model';
 import { archives } from '@/lib/archive/source';
+import {
+  ArchiveDispatchError,
+  dispatchToArchive,
+  isDispatchConfigured,
+  type ArchiveDispatchPayload,
+} from '@/lib/archive/dispatch';
 import { submissionSchema, type SubmissionInput, type SubmitResult } from './schema';
 
 function fail(message: string, fieldErrors?: Record<string, string[]>): SubmitResult {
@@ -22,24 +28,23 @@ function toFieldErrors(
   return fieldErrors;
 }
 
-/** 로그인한 사용자의 archive author 이름. 멤버가 아니면 undefined */
-async function currentAuthor(): Promise<string | undefined> {
-  if (!isAuthConfigured) return undefined;
-  const session = await auth();
-  return session?.user?.author;
-}
-
 /**
- * 폼 입력을 검증하고 누가 무엇을 바꾸려는지까지 확정한다.
- * 실제 archive 레포 반영은 다음 단계에서 붙는다.
+ * 폼 입력을 검증하고 archive 레포로 변경 요청을 보낸다.
+ *
+ * 폼에서 넘어온 author 는 믿지 않는다. 세션에서 다시 읽어 본인 자리인지 확인한다.
  */
 export async function submitArticle(
   _previous: SubmitResult | null,
   formData: FormData,
 ): Promise<SubmitResult> {
-  const author = await currentAuthor();
+  const session = isAuthConfigured ? await auth() : null;
+  const author = session?.user?.author;
+  const requestedBy = session?.user?.githubLogin ?? '';
   if (!author) {
     return fail('스터디 멤버만 등록할 수 있습니다. 다시 로그인해 주세요.');
+  }
+  if (!isDispatchConfigured) {
+    return fail('GITHUB_TOKEN 이 설정되지 않아 archive 에 반영할 수 없습니다.');
   }
 
   const parsed = submissionSchema.safeParse(Object.fromEntries(formData));
@@ -54,7 +59,18 @@ export async function submitArticle(
     if (!openSlots.some((slot) => slot.archiveId === input.archiveId)) {
       return fail(`${input.archiveId}회차에는 ${author} 님이 채울 빈 자리가 없습니다.`);
     }
-    return { ok: true, message: `${input.archiveId}회차에 등록할 준비가 되었습니다.` };
+    return send(
+      {
+        mode: 'fill-slot',
+        author,
+        archiveId: input.archiveId,
+        title: input.title,
+        url: input.url,
+        tags: input.tags,
+        requestedBy,
+      },
+      `${input.archiveId}회차에 등록을 요청했습니다. 반영까지 1~2분 걸립니다.`,
+    );
   }
 
   const yearMonth = input.date.slice(0, 7).replace('-', '');
@@ -63,5 +79,22 @@ export async function submitArticle(
       date: ['이미 존재하는 회차입니다.'],
     });
   }
-  return { ok: true, message: '새 회차를 만들 준비가 되었습니다.' };
+
+  return send(
+    { mode: 'new-archive', date: input.date, type: input.type, requestedBy },
+    '새 회차 생성을 요청했습니다. 반영까지 1~2분 걸립니다.',
+  );
+}
+
+async function send(payload: ArchiveDispatchPayload, message: string): Promise<SubmitResult> {
+  try {
+    await dispatchToArchive(payload);
+    return { ok: true, message };
+  } catch (error) {
+    if (error instanceof ArchiveDispatchError) {
+      return fail(error.message);
+    }
+    console.error('[submit] archive dispatch 실패', error);
+    return fail('archive 에 반영을 요청하지 못했습니다. 잠시 후 다시 시도해 주세요.');
+  }
 }
