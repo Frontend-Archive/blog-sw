@@ -1,4 +1,4 @@
-import { ArrowUpRight, Globe } from 'lucide-react';
+import { ArrowUpRight, Rss } from 'lucide-react';
 import Link from 'next/link';
 import { GithubMark } from '@/components/icons/github-mark';
 import { MemberAvatar } from '@/features/members/member-avatar';
@@ -36,18 +36,6 @@ export function MemberRow({ profile }: { profile: MemberProfile }) {
               >
                 {author}
               </Link>
-              {blog ? (
-                <a
-                  href={blog}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`${author} 님의 블로그`}
-                  title={blog.replace(/^https?:\/\//, '')}
-                  className="flex size-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-                >
-                  <Globe className="size-4" aria-hidden />
-                </a>
-              ) : null}
               {github ? (
                 <a
                   href={github}
@@ -60,24 +48,23 @@ export function MemberRow({ profile }: { profile: MemberProfile }) {
                   <GithubMark className="size-4" />
                 </a>
               ) : null}
+              {blog ? (
+                <a
+                  href={blog}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`${author} 님의 블로그`}
+                  title={blog.replace(/^https?:\/\//, '')}
+                  className="flex size-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                >
+                  <Rss className="size-4" aria-hidden />
+                </a>
+              ) : null}
             </div>
             <p className="text-14 text-muted-foreground tabular-nums">
               아티클 {articleCount}개 · {participation.length}회차 중 {attended}회
             </p>
           </div>
-        </div>
-
-        {/* 회차별 참여 스트립. 왼쪽이 1회차다. */}
-        <div className="flex items-center gap-1" aria-hidden>
-          {[...participation]
-            .sort((a, b) => a.archiveId - b.archiveId)
-            .map(({ archiveId, filled }) => (
-              <span
-                key={archiveId}
-                title={`${archiveId}회차`}
-                className={`h-2 flex-1 rounded-full ${filled ? 'bg-brand' : 'bg-border'}`}
-              />
-            ))}
         </div>
 
         {topTags.length > 0 ? (

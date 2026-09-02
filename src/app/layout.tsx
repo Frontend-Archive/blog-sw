@@ -27,10 +27,10 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
       lang="ko"
-      className={`${geist.variable} ${notoSansKr.variable} h-full antialiased`}
+      className={`${geist.variable} ${notoSansKr.variable} antialiased`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col bg-background font-sans text-foreground">
+      <body className="flex min-h-dvh flex-col bg-background font-sans text-foreground">
         <ThemeProvider>
           <SiteHeader />
           {children}

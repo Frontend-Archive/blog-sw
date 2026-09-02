@@ -39,7 +39,7 @@ export default function MembersPage() {
     <main className="mx-auto w-full max-w-6xl flex-1 px-6 pb-32">
       <PageHeader
         title="멤버"
-        description={`${authors.length}명이 회차마다 각자 쓴 글을 나눕니다. 막대는 어느 회차를 채웠는지 보여줍니다.`}
+        description={`${authors.length}명이 회차마다 각자 쓴 글을 나눕니다. 이름을 누르면 그 사람의 글만 모아 봅니다.`}
       />
 
       <div>
