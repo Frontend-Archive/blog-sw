@@ -2,7 +2,6 @@ import { HomeHero } from '@/components/home/home-hero';
 import { ArticleExplorer } from '@/features/filter/article-explorer';
 import { collectAuthors } from '@/lib/archive/model';
 import { archives, articles } from '@/lib/archive/source';
-import { tagCounts } from '@/lib/archive/taxonomy';
 import { toArticleCardList } from '@/lib/archive/view';
 
 export default function Home() {
@@ -16,7 +15,7 @@ export default function Home() {
         archiveCount={archives.length}
         articleCount={articles.length}
         memberCount={collectAuthors(archives).length}
-        topicCount={tagCounts.length}
+        readingMinutes={cards.reduce((total, card) => total + (card.readingMinutes ?? 0), 0)}
         firstDate={first?.date}
         latestDate={latest?.date}
       />

@@ -1,9 +1,10 @@
 import type { CardVariant } from '../types';
-import { BadgedCard, HorizontalCard, MagazineCard, OverlayCard, StandardCard } from './media-cards';
-import { IndexedCard, MinimalCard, MonoCard, RowCard, StickerCard } from './text-cards';
+import { IndexedCard, StandardCard } from './base-cards';
+import { GlassCard, MiniRowCard, SplitCard, StackCard } from './dense-cards';
+import { OverlapCard, PolaroidCard, TicketCard, VerticalThumbCard } from './media-cards';
 
 const GRID_3 = 'grid gap-5 sm:grid-cols-2 lg:grid-cols-3';
-const GRID_2 = 'grid gap-5 sm:grid-cols-2';
+const GRID_2 = 'grid gap-4 sm:grid-cols-2';
 const STACK = 'flex flex-col';
 
 export const CARD_VARIANTS: CardVariant[] = [
@@ -15,46 +16,46 @@ export const CARD_VARIANTS: CardVariant[] = [
     Component: StandardCard,
   },
   {
-    id: 'overlay',
-    name: '02 · 오버레이',
-    note: '썸네일 위에 텍스트를 얹는다. 이미지가 좋은 글은 강해지지만 없으면 빈약해진다.',
+    id: 'overlap',
+    name: '02 · 오버랩',
+    note: '텍스트 블록이 썸네일 위로 겹쳐 올라온다. 이미지와 글이 한 덩어리로 읽힌다.',
     layout: GRID_3,
-    Component: OverlayCard,
+    Component: OverlapCard,
   },
   {
-    id: 'horizontal',
-    name: '03 · 가로형',
-    note: '한 화면에 더 많이 들어간다. 목록 밀도와 썸네일을 둘 다 챙기는 절충안.',
+    id: 'vertical-thumb',
+    name: '03 · 세로 썸네일',
+    note: '3:4 썸네일을 왼쪽에 세운다. 테두리 없이 목록 밀도를 높인다.',
     layout: GRID_2,
-    Component: HorizontalCard,
+    Component: VerticalThumbCard,
   },
   {
-    id: 'magazine',
-    name: '04 · 매거진',
-    note: '테두리를 없애고 제목을 키웠다. 글 수가 적을 때 여백이 자연스럽다.',
-    layout: GRID_2,
-    Component: MagazineCard,
-  },
-  {
-    id: 'badged',
-    name: '05 · 뱃지형',
-    note: '회차와 읽는 시간을 썸네일 위로 올려 텍스트 영역을 비웠다.',
+    id: 'polaroid',
+    name: '04 · 폴라로이드',
+    note: '정사각 썸네일에 여백 프레임을 둘렀다. 호버 시 살짝 기운다.',
     layout: GRID_3,
-    Component: BadgedCard,
+    Component: PolaroidCard,
   },
   {
-    id: 'minimal',
-    name: '06 · 미니멀',
-    note: '썸네일 없이 글만. 노션처럼 썸네일이 부실한 링크가 섞여도 균일해 보인다.',
-    layout: STACK,
-    Component: MinimalCard,
+    id: 'ticket',
+    name: '05 · 티켓',
+    note: '절취선과 노치로 티켓처럼. 회차 번호를 발권 번호처럼 쓴다.',
+    layout: GRID_2,
+    Component: TicketCard,
   },
   {
-    id: 'row',
-    name: '07 · 표 행',
-    note: '가장 촘촘하다. 19개를 한 화면에 다 넣을 수 있지만 탐색보다 열람에 가깝다.',
+    id: 'glass',
+    name: '06 · 글래스',
+    note: '썸네일을 꽉 채우고 하단에 반투명 바를 얹는다. 이미지가 주인공이 된다.',
+    layout: GRID_3,
+    Component: GlassCard,
+  },
+  {
+    id: 'mini-row',
+    name: '07 · 미니 행',
+    note: '가장 촘촘하되 44px 썸네일로 시각 단서를 남긴다.',
     layout: STACK,
-    Component: RowCard,
+    Component: MiniRowCard,
   },
   {
     id: 'indexed',
@@ -64,17 +65,17 @@ export const CARD_VARIANTS: CardVariant[] = [
     Component: IndexedCard,
   },
   {
-    id: 'mono',
-    name: '09 · 모노',
-    note: '메타를 고정폭으로. 개발자 대상이라는 톤이 분명해진다.',
+    id: 'stack',
+    name: '09 · 스택',
+    note: '뒤에 카드가 겹쳐 쌓인 듯 보인다. 아카이브가 쌓인다는 은유.',
     layout: GRID_3,
-    Component: MonoCard,
+    Component: StackCard,
   },
   {
-    id: 'sticker',
-    name: '10 · 스티커',
-    note: '태그를 맨 위로 올려 주제부터 읽히게 했다. 썸네일 의존이 없다.',
-    layout: GRID_3,
-    Component: StickerCard,
+    id: 'split',
+    name: '10 · 분할',
+    note: '카드 안을 좌우로 나눈다. 세로 길이가 일정해 그리드가 가지런하다.',
+    layout: GRID_2,
+    Component: SplitCard,
   },
 ];

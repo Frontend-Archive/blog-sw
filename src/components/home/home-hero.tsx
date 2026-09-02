@@ -8,7 +8,7 @@ interface HomeHeroProps {
   archiveCount: number;
   articleCount: number;
   memberCount: number;
-  topicCount: number;
+  readingMinutes: number;
   firstDate: string | undefined;
   latestDate: string | undefined;
 }
@@ -23,7 +23,7 @@ export function HomeHero({
   archiveCount,
   articleCount,
   memberCount,
-  topicCount,
+  readingMinutes,
   firstDate,
   latestDate,
 }: HomeHeroProps) {
@@ -31,9 +31,9 @@ export function HomeHero({
     { label: '회차', value: archiveCount },
     { label: '아티클', value: articleCount },
     { label: '멤버', value: memberCount },
-    { label: '주제', value: topicCount },
+    { label: '읽을거리', value: readingMinutes.toLocaleString('ko-KR'), suffix: '분' },
     ...(firstDate
-      ? [{ label: '함께한 지', value: <DaysSince from={firstDate} />, suffix: '일' }]
+      ? [{ label: '시작한 지', value: <DaysSince from={firstDate} />, suffix: '일째' }]
       : []),
   ];
 
