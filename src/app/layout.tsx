@@ -3,6 +3,7 @@ import { Geist, Noto_Sans_KR } from 'next/font/google';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { SiteHeader } from '@/components/layout/site-header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
+import { RecentFab } from '@/features/reading/recent-fab';
 import './globals.css';
 
 const geist = Geist({
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
           {/* 본문이 최소 한 화면을 차지하게 해서, 스크롤 맨 위에서는 푸터가 보이지 않는다. */}
           <div className="flex min-h-[calc(100dvh-var(--header-height))] flex-col">{children}</div>
           <SiteFooter />
+          <RecentFab />
         </ThemeProvider>
       </body>
     </html>

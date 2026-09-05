@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArticleCard } from '@/components/article/article-card';
+import { ReadDim } from '@/features/reading/read-dim';
 import { PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
 import { toArticles } from '@/lib/archive/model';
@@ -65,7 +66,9 @@ export default async function ArchiveDetailPage({ params }: PageProps<'/archives
 
       <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {articles.map((article, articleIndex) => (
-          <ArticleCard key={article.key} article={article} priority={articleIndex < 3} />
+          <ReadDim key={article.key} articleKey={article.key}>
+            <ArticleCard article={article} priority={articleIndex < 3} />
+          </ReadDim>
         ))}
       </section>
 

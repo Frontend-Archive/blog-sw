@@ -1,4 +1,5 @@
 import { ArticleCard } from '@/components/article/article-card';
+import { ReadDim } from '@/features/reading/read-dim';
 import type { ArticleCardData } from '@/lib/archive/view';
 
 interface ArticleGridProps {
@@ -24,7 +25,9 @@ export function ArticleGrid({
   return (
     <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {articles.map((article, index) => (
-        <ArticleCard key={article.key} article={article} priority={index < priorityCount} />
+        <ReadDim key={article.key} articleKey={article.key}>
+          <ArticleCard article={article} priority={index < priorityCount} />
+        </ReadDim>
       ))}
     </div>
   );
