@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-09-02T18:08:27.808Z",
+  "syncedAt": "2026-09-05T17:22:29.040Z",
   "source": "Frontend-Archive/archive@main",
   "archives": [
     {
@@ -188,7 +188,7 @@
         {
           "author": "민준경",
           "title": "Polling부터 WebSocket까지",
-          "url": "https://jk-devv.vercel.app/blog/레거시-프로젝트-개선/",
+          "url": "https://jk-devv.vercel.app/blog/실시간-통신과-websocket/",
           "tags": [
             "Websocket"
           ]
@@ -232,7 +232,7 @@
         {
           "author": "민준경",
           "title": "레거시 프로젝트, 유지보수 기반 다지기",
-          "url": "https://jk-devv.vercel.app/blog/실시간-통신과-websocket/",
+          "url": "https://jk-devv.vercel.app/blog/레거시-프로젝트-개선/",
           "tags": [
             "유지보수"
           ]
