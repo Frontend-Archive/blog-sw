@@ -4,6 +4,8 @@ import { Badge } from '@/components/ui/badge';
 import { MemberAvatar } from '@/features/members/member-avatar';
 import type { ParsedArchive } from '@/lib/archive/parse';
 import { isFilledArticle } from '@/lib/archive/schema';
+import { displayName, memberId } from '@/lib/archive/members-config';
+import { articleSlug } from '@/lib/archive/taxonomy';
 import { formatArchiveDate } from '@/lib/format';
 
 interface TimelineEntryProps {
@@ -66,15 +68,18 @@ export function TimelineEntry({ archive }: TimelineEntryProps) {
           >
             {/* 작성자를 제목 바로 뒤에 붙여 한 문장처럼 읽히게 한다. */}
             <p className="flex flex-wrap items-baseline gap-x-2">
-              <a
-                href={article.url}
-                target="_blank"
-                rel="noreferrer"
+              <Link
+                href={`/articles/${articleSlug({ archiveId: archive.id, author: article.author })}`}
                 className="text-16 leading-snug font-medium transition-colors hover:text-brand"
               >
                 {article.title}
-              </a>
-              <span className="text-14 text-muted-foreground">{article.author}</span>
+              </Link>
+              <Link
+                href={`/members/${memberId(article.author) ?? ''}`}
+                className="text-14 text-muted-foreground transition-colors hover:text-brand"
+              >
+                {displayName(article.author)}
+              </Link>
             </p>
           </li>
         ))}

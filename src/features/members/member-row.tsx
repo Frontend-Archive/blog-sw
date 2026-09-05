@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { GithubMark } from '@/components/icons/github-mark';
 import { MemberAvatar } from '@/features/members/member-avatar';
 import { blogUrl, githubLogin, githubProfileUrl } from '@/lib/archive/members-config';
-import { toSlug } from '@/lib/archive/taxonomy';
+import { articleSlug, toSlug } from '@/lib/archive/taxonomy';
 import type { ArticleCardData } from '@/lib/archive/view';
 
 export interface MemberProfile {
@@ -84,10 +84,8 @@ export function MemberRow({ profile }: { profile: MemberProfile }) {
           <ol className="flex flex-col">
             {recent.map((article, index) => (
               <li key={article.key}>
-                <a
-                  href={article.url}
-                  target="_blank"
-                  rel="noreferrer"
+                <Link
+                  href={`/articles/${articleSlug(article)}`}
                   className="group flex items-baseline gap-4 rounded-lg px-3 py-3 transition-colors hover:bg-accent"
                 >
                   <span className="w-4 shrink-0 text-14 text-muted-foreground tabular-nums">
@@ -103,7 +101,7 @@ export function MemberRow({ profile }: { profile: MemberProfile }) {
                     className="size-4 shrink-0 self-center text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
                     aria-hidden
                   />
-                </a>
+                </Link>
               </li>
             ))}
           </ol>

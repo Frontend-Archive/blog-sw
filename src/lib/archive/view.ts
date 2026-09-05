@@ -1,4 +1,5 @@
 import type { ArchiveArticle } from './model';
+import { displayName } from './members-config';
 import { getHostname, getOg } from './og';
 import type { OgImage } from './og-schema';
 
@@ -28,12 +29,14 @@ export interface ArticleCardData {
 export function toArticleCardData(article: ArchiveArticle): ArticleCardData {
   const og = getOg(article.url);
   const hostname = getHostname(article.url);
+  // archive 에 옛 이름으로 남아 있어도 화면에는 지금 이름 하나로만 보인다.
+  const author = displayName(article.author);
 
   return {
     key: article.key,
     title: article.title,
     url: article.url,
-    author: article.author,
+    author,
     tags: article.tags,
     archiveId: article.archiveId,
     archiveDate: article.archiveDate,
@@ -42,7 +45,7 @@ export function toArticleCardData(article: ArchiveArticle): ArticleCardData {
     image: og?.image,
     favicon: og?.favicon,
     readingMinutes: og?.readingMinutes,
-    searchText: [article.title, article.author, ...article.tags, hostname, og?.description ?? '']
+    searchText: [article.title, author, ...article.tags, hostname, og?.description ?? '']
       .join(' ')
       .toLowerCase(),
   };

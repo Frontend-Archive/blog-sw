@@ -1,6 +1,6 @@
 'use client';
 
-import { ExternalLink, Hash, Layers, User } from 'lucide-react';
+import { FileText, Hash, Layers, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import {
@@ -69,11 +69,9 @@ export function CommandPalette({ data, open, onOpenChange }: CommandPaletteProps
               <CommandItem
                 key={article.key}
                 value={article.searchText}
-                onSelect={() =>
-                  run(() => window.open(article.url, '_blank', 'noopener,noreferrer'))
-                }
+                onSelect={() => run(() => router.push(`/articles/${article.slug}`))}
               >
-                <ExternalLink className="size-4 shrink-0" aria-hidden />
+                <FileText className="size-4 shrink-0" aria-hidden />
                 <span className="min-w-0 flex-1 truncate">{highlight(article.title, terms)}</span>
                 <span className="shrink-0 text-14 text-muted-foreground">{article.author}</span>
               </CommandItem>

@@ -1,3 +1,4 @@
+import { displayName } from './members-config';
 import type { ParsedArchive } from './parse';
 import { isFilledArticle, type Article, type MeetingType } from './schema';
 
@@ -52,8 +53,10 @@ export function collectAuthors(archives: ParsedArchive[]): string[] {
   const authors: string[] = [];
   for (const archive of archives) {
     for (const article of archive.articles) {
-      if (!authors.includes(article.author)) {
-        authors.push(article.author);
+      // 옛 이름과 지금 이름이 섞여 있어도 한 사람으로 센다.
+      const name = displayName(article.author);
+      if (!authors.includes(name)) {
+        authors.push(name);
       }
     }
   }

@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import { PageHeader } from '@/components/layout/page-header';
 import { MemberRow, type MemberProfile } from '@/features/members/member-row';
 import { collectTags } from '@/lib/archive/model';
-import { articlesByAuthor, authors, toSlug } from '@/lib/archive/taxonomy';
+import { memberId } from '@/lib/archive/members-config';
+import { articlesByAuthor, authors } from '@/lib/archive/taxonomy';
 import { toArticleCardList } from '@/lib/archive/view';
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export default function MembersPage() {
     const own = articlesByAuthor(author);
     return {
       author,
-      slug: toSlug(author),
+      slug: memberId(author) ?? '',
       topTags: collectTags(own)
         .slice(0, 3)
         .map((item) => item.tag),

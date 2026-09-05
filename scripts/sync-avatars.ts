@@ -6,13 +6,15 @@
  */
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { GITHUB_LOGIN_BY_AUTHOR } from '@/lib/archive/members-config';
+import { MEMBERS } from '@/lib/archive/members-config';
 
 const AVATAR_DIR = 'public/avatars';
 const SIZE = 160;
 
 async function main(): Promise<void> {
-  const entries = Object.entries(GITHUB_LOGIN_BY_AUTHOR).filter(([, login]) => login);
+  const entries = MEMBERS.flatMap((member) =>
+    member.github ? [{ name: member.name, login: member.github }] : [],
+  );
   if (entries.length === 0) {
     console.log('[sync-avatars] 설정된 GitHub 아이디가 없어 건너뜁니다.');
     return;
@@ -22,14 +24,14 @@ async function main(): Promise<void> {
   await mkdir(dir, { recursive: true });
 
   let saved = 0;
-  for (const [author, login] of entries) {
+  for (const { name, login } of entries) {
     try {
       const response = await fetch(`https://github.com/${login}.png?size=${SIZE}`, {
         redirect: 'follow',
         signal: AbortSignal.timeout(15_000),
       });
       if (!response.ok) {
-        console.warn(`[sync-avatars] ${author}(${login}) 실패: ${response.status}`);
+        console.warn(`[sync-avatars] ${name}(${login}) 실패: ${response.status}`);
         continue;
       }
       const bytes = Buffer.from(await response.arrayBuffer());
@@ -37,7 +39,7 @@ async function main(): Promise<void> {
       saved += 1;
     } catch (error) {
       console.warn(
-        `[sync-avatars] ${author}(${login}) 실패: ${error instanceof Error ? error.message : error}`,
+        `[sync-avatars] ${name}(${login}) 실패: ${error instanceof Error ? error.message : error}`,
       );
     }
   }
