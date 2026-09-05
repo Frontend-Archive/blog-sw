@@ -20,10 +20,10 @@ export function FilterBar({ resultCount, totalCount }: FilterBarProps) {
   const hasQuery = query.trim().length > 0;
 
   return (
-    <div>
-      <div className="relative">
+    <div className="flex flex-col items-end">
+      <div className="relative w-80">
         <Search
-          className="pointer-events-none absolute top-1/2 left-5 size-5 -translate-y-1/2 text-muted-foreground"
+          className="pointer-events-none absolute top-1/2 left-3.5 size-5 -translate-y-1/2 text-muted-foreground"
           aria-hidden
         />
         <input
@@ -32,14 +32,14 @@ export function FilterBar({ resultCount, totalCount }: FilterBarProps) {
           onChange={(event) => setQuery(event.target.value)}
           placeholder="제목, 작성자, 태그로 검색"
           aria-label="아티클 검색"
-          className="h-14 w-full rounded-2xl border border-input bg-transparent pr-14 pl-14 text-16 transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-brand [&::-webkit-search-cancel-button]:hidden"
+          className="h-12 w-full rounded-2xl border border-input bg-transparent pr-11 pl-11 text-16 transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-brand [&::-webkit-search-cancel-button]:hidden"
         />
         {hasQuery ? (
           <button
             type="button"
             onClick={reset}
             aria-label="검색어 지우기"
-            className="absolute top-1/2 right-4 flex size-8 -translate-y-1/2 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+            className="absolute top-1/2 right-2 flex size-8 -translate-y-1/2 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
           >
             <X className="size-4" aria-hidden />
           </button>

@@ -2,22 +2,29 @@ import Image from 'next/image';
 import type { OgImage } from '@/lib/archive/og-schema';
 import { cn } from '@/lib/utils';
 
-/** 썸네일이 없는 링크를 위한 대체 배경. 같은 글은 항상 같은 색이 나오도록 문자열에서 유도한다. */
-const FALLBACK_GRADIENTS = [
-  'from-sky-200 to-indigo-200 dark:from-sky-900 dark:to-indigo-950',
-  'from-amber-200 to-rose-200 dark:from-amber-900 dark:to-rose-950',
-  'from-emerald-200 to-teal-200 dark:from-emerald-900 dark:to-teal-950',
-  'from-violet-200 to-fuchsia-200 dark:from-violet-900 dark:to-fuchsia-950',
-  'from-slate-200 to-zinc-300 dark:from-slate-800 dark:to-zinc-900',
-] as const;
+/**
+ * 썸네일이 없는 링크를 위한 대체 배경.
+ *
+ * 청록에서 파랑까지 차가운 쪽에서만 고른다. 포인트 색(264)을 품으면서도
+ * 폭이 있어 카드끼리 구분이 되고, 색이 제각각일 때처럼 목록이 시끄럽지 않다.
+ * 같은 글은 항상 같은 색이 나오도록 문자열에서 유도한다.
+ */
+const FALLBACK_HUES = [200, 220, 240, 260, 280] as const;
 
-function pickGradient(seed: string): string {
+function pickHue(seed: string): number {
   let hash = 0;
   for (let i = 0; i < seed.length; i += 1) {
     hash = (hash * 31 + seed.charCodeAt(i)) % 2147483647;
   }
-  const index = hash % FALLBACK_GRADIENTS.length;
-  return FALLBACK_GRADIENTS[index] ?? FALLBACK_GRADIENTS[0];
+  return FALLBACK_HUES[hash % FALLBACK_HUES.length] ?? FALLBACK_HUES[0];
+}
+
+/** 밝기와 채도는 테마 변수를 따르고, 색상만 글마다 달리한다. */
+function fallbackBackground(seed: string): string {
+  const hue = pickHue(seed);
+  const from = `oklch(var(--thumb-l-from) var(--thumb-c) ${hue})`;
+  const to = `oklch(var(--thumb-l-to) var(--thumb-c) ${hue + 24})`;
+  return `linear-gradient(135deg, ${from}, ${to})`;
 }
 
 interface ArticleThumbnailProps {
@@ -42,14 +49,11 @@ export function ArticleThumbnail({
     return (
       <div
         aria-hidden
-        className={cn(
-          'flex items-center justify-center bg-gradient-to-br',
-          pickGradient(seed),
-          className,
-        )}
+        style={{ backgroundImage: fallbackBackground(seed) }}
+        className={cn('flex items-center justify-center', className)}
       >
         {fallbackLabel ? (
-          <span className="px-4 text-center text-14 font-medium text-balance text-foreground/60">
+          <span className="px-4 text-center text-16 font-medium text-balance text-foreground/75">
             {fallbackLabel}
           </span>
         ) : null}

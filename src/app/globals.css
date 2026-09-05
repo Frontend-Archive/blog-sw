@@ -112,6 +112,16 @@
 }
 
 :root {
+  /* 브랜드 마크 색. 판 위에 A 를 올린 형태라 판과 글리프가 함께 뒤집혀야 한다.
+     라이트 모드는 흰색 계열 판에 진한 A, 다크 모드는 그 반대다. */
+  --mark-plate-from: #fbfcff;
+  --mark-plate-mid: #edf1fa;
+  --mark-plate-to: #d3dbf0;
+  --mark-face-left-from: #7e9bff;
+  --mark-face-left-to: #4c6ae8;
+  --mark-face-right-from: #3b55cc;
+  --mark-face-right-to: #1b2564;
+  --mark-bar: #93a9ff;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -141,6 +151,12 @@
   --brand: oklch(0.52 0.19 264);
   --brand-foreground: oklch(0.985 0 0);
   --brand-subtle: oklch(0.96 0.02 264);
+
+  /* 썸네일이 없는 글의 대체 배경. 색상은 차가운 계열에서 고르고,
+     밝기와 채도만 테마에 맞춰 바꾼다. */
+  --thumb-l-from: 0.88;
+  --thumb-l-to: 0.79;
+  --thumb-c: 0.12;
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
@@ -153,6 +169,14 @@
 }
 
 .dark {
+  --mark-plate-from: #3d465c;
+  --mark-plate-mid: #191e2a;
+  --mark-plate-to: #05070b;
+  --mark-face-left-from: #dce4ff;
+  --mark-face-left-to: #a8bcff;
+  --mark-face-right-from: #8fa6ff;
+  --mark-face-right-to: #5c79f0;
+  --mark-bar: #eef2ff;
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -174,6 +198,10 @@
   --brand: oklch(0.74 0.16 264);
   --brand-foreground: oklch(0.16 0 0);
   --brand-subtle: oklch(0.28 0.05 264);
+
+  --thumb-l-from: 0.4;
+  --thumb-l-to: 0.28;
+  --thumb-c: 0.14;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -200,10 +228,45 @@
   summary {
     cursor: pointer;
   }
+  /* 한국어는 CJK 로 취급되어 기본값에서는 어절 한가운데가 잘린다.
+     keep-all 로 어절을 지키고, 그래서 넘치는 긴 URL·영문만 강제로 끊는다. */
   body {
     @apply bg-background text-foreground;
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
   html {
     @apply font-sans;
+  }
+}
+
+/* 첫 렌더에서 헤일로가 수채화 물감처럼 번져 나가게 한다.
+   blur 를 함께 키워야 가장자리가 굳지 않고 퍼지는 것처럼 보인다. */
+@keyframes halo-bloom {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+    filter: blur(24px);
+  }
+  45% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(64px);
+  }
+}
+
+@layer utilities {
+  .animate-halo-bloom {
+    transform-origin: 20% 50%;
+    animation: halo-bloom 1.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-halo-bloom {
+      animation: none;
+    }
   }
 }

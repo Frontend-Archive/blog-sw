@@ -51,14 +51,17 @@ export function HomeHero({
 
   return (
     <section className="relative isolate pt-20 pb-16">
-      {/* 제목 뒤에 깔리는 포인트 색 헤일로. 크게 흐려서 색만 남기고 형태는 지운다. */}
+      {/*
+        제목 뒤에 깔리는 포인트 색 헤일로. 크게 흐려서 색만 남기고 형태는 지운다.
+        어두운 바탕에서만 색이 은은하게 살고, 흰 바탕에서는 얼룩처럼 보여 다크에서만 켠다.
+      */}
       <span
         aria-hidden
-        className="pointer-events-none absolute top-12 -left-6 h-40 w-2/5 rounded-full bg-gradient-to-br from-brand/45 via-brand/25 to-transparent blur-3xl dark:from-brand/35 dark:via-brand/20"
+        className="animate-halo-bloom pointer-events-none absolute top-12 -left-6 hidden h-40 w-2/5 rounded-full bg-gradient-to-br from-brand/55 via-brand/32 to-transparent blur-3xl dark:block"
       />
 
-      <h1 className="relative max-w-2xl text-36 leading-tight font-semibold tracking-tight text-balance sm:text-48">
-        읽고, 쓰고, 나눈 것들을 모아둔 곳
+      <h1 className="relative max-w-2xl text-36 leading-tight font-semibold tracking-tight sm:text-48">
+        Frontend Archive
       </h1>
 
       <p className="mt-6 max-w-3xl text-16 leading-relaxed text-muted-foreground">

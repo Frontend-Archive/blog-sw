@@ -48,7 +48,7 @@ export function TagCloud({ tags }: { tags: TagCloudItem[] }) {
               style={{ fontSize: `${size}px` }}
               className={`inline-block leading-tight transition-colors hover:text-brand ${className}`}
             >
-              {item.tag}
+              #{item.tag}
             </Link>
           </li>
         );
