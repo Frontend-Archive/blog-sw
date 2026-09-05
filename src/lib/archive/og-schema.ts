@@ -20,6 +20,11 @@ export const ogEntrySchema = z.object({
   favicon: z.string().startsWith('/og/').optional(),
   /** 본문 추출이 충분할 때만 채워지는 예상 읽는 시간(분) */
   readingMinutes: z.int().positive().optional(),
+  /**
+   * 본문 앞부분 문단. 상세 페이지에서 인용으로 보여준다.
+   * 노션처럼 클라이언트 렌더인 곳은 비어 있다.
+   */
+  excerpt: z.array(z.string()).optional(),
   fetchedAt: z.iso.datetime(),
 });
 

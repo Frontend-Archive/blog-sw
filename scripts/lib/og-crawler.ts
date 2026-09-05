@@ -108,6 +108,38 @@ async function downloadFavicon(
   return null;
 }
 
+/** 발췌로 쓸 문단 수와 한 문단의 상한. 원문을 대체할 만큼 길게 가져가지 않는다. */
+const EXCERPT_PARAGRAPHS = 3;
+const MAX_PARAGRAPH_LENGTH = 400;
+
+/** 본문 컨테이너를 고른다. 티스토리는 전용 클래스가 따로 있다. */
+function findBody($: cheerio.CheerioAPI) {
+  const candidates = ['.entry-content', '.tt_article_useless_p_margin', 'article', 'main'];
+  for (const selector of candidates) {
+    const found = $(selector).first();
+    if (found.length && found.text().trim().length > 500) return found;
+  }
+  return $('body');
+}
+
+/** 본문 앞 문단 몇 개. 목차나 캡션 같은 짧은 조각은 건너뛴다. */
+function extractExcerpt($: cheerio.CheerioAPI): string[] | undefined {
+  const container = findBody($);
+  container.find('script, style, noscript, nav, header, footer, aside, figure').remove();
+
+  const paragraphs = container
+    .find('p')
+    .toArray()
+    .map((element) => $(element).text().replace(/\s+/g, ' ').trim())
+    .filter((text) => text.length > 40)
+    .slice(0, EXCERPT_PARAGRAPHS)
+    .map((text) =>
+      text.length > MAX_PARAGRAPH_LENGTH ? `${text.slice(0, MAX_PARAGRAPH_LENGTH)}…` : text,
+    );
+
+  return paragraphs.length > 0 ? paragraphs : undefined;
+}
+
 function estimateReadingMinutes($: cheerio.CheerioAPI): number | undefined {
   const container = $('article').first().length
     ? $('article').first()
@@ -158,6 +190,7 @@ export async function crawlOg(url: string, publicOgDir: string): Promise<OgEntry
       image: image ?? undefined,
       favicon: favicon ?? undefined,
       readingMinutes: estimateReadingMinutes($),
+      excerpt: extractExcerpt($),
       fetchedAt,
     };
   } catch (error) {
