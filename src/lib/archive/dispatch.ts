@@ -14,18 +14,20 @@ export const ADD_ARTICLE_EVENT = 'add-article';
 
 export type ArchiveDispatchPayload =
   | {
-      mode: 'fill-slot';
-      author: string;
+      /** 회차 하나를 통째로 다시 쓴다. 빈 자리는 title 과 url 이 빈 문자열로 온다. */
+      mode: 'edit-archive';
       archiveId: number;
-      title: string;
-      url: string;
-      tags: string[];
+      date: string;
+      type: 'on-line' | 'off-line';
+      articles: { author: string; title: string; url: string; tags: string[] }[];
       requestedBy: string;
     }
   | {
+      /** 회차를 새로 만든다. 글은 만들면서 채워도 되고 전부 비어 있어도 된다. */
       mode: 'new-archive';
       date: string;
       type: 'on-line' | 'off-line';
+      articles: { author: string; title: string; url: string; tags: string[] }[];
       requestedBy: string;
     };
 

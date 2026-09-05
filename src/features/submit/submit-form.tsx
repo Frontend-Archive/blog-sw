@@ -1,33 +1,28 @@
 'use client';
 
 import { CircleCheck, CircleX, Loader2 } from 'lucide-react';
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import type { OpenSlot } from '@/lib/archive/model';
-import { formatArchiveDate } from '@/lib/format';
 import { submitArticle } from './actions';
-import { MAX_TAGS, type SubmitResult } from './schema';
+import { ArchiveEditFields, HEAD_COLUMNS, SlotList } from './archive-fields';
+import { type SubmitResult } from './schema';
+import { MeetingType, Row } from './submit-fields';
 import { SubmitStatus } from './submit-status';
+import type { EditableArchive, EditableSlot } from './types';
 
 interface SubmitFormProps {
-  author: string;
-  openSlots: OpenSlot[];
-  nextArchiveId: number;
-}
-
-function FieldError({ errors }: { errors: string[] | undefined }) {
-  if (!errors || errors.length === 0) return null;
-  return <p className="text-14 text-destructive">{errors.join(' ')}</p>;
+  archives: EditableArchive[];
+  /** 새 회차에 놓일 빈 자리. 명부 순서 그대로다. */
+  emptySlots: EditableSlot[];
 }
 
 function SubmitButton({ children }: { children: React.ReactNode }) {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" disabled={pending} className="gap-2">
+    <Button type="submit" size="lg" disabled={pending} className="gap-2 px-6">
       {pending ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
       {children}
     </Button>
@@ -48,9 +43,11 @@ function ResultBanner({ result }: { result: SubmitResult | null }) {
   );
 }
 
-export function SubmitForm({ author, openSlots, nextArchiveId }: SubmitFormProps) {
+export function SubmitForm({ archives, emptySlots }: SubmitFormProps) {
   const [result, formAction] = useActionState<SubmitResult | null, FormData>(submitArticle, null);
-  const fieldErrors = result?.fieldErrors ?? {};
+  const [selectedId, setSelectedId] = useState(archives[0]?.id);
+  const errors = result?.fieldErrors ?? {};
+  const selected = archives.find((archive) => archive.id === selectedId) ?? archives[0];
 
   if (result?.ok && result.pending) {
     return (
@@ -62,105 +59,73 @@ export function SubmitForm({ author, openSlots, nextArchiveId }: SubmitFormProps
   }
 
   return (
-    <Tabs defaultValue="fill-slot" className="gap-6">
-      <TabsList>
-        <TabsTrigger value="fill-slot">내 자리 채우기</TabsTrigger>
-        <TabsTrigger value="new-archive">새 회차 열기</TabsTrigger>
+    // 폼 안에도 세그먼트 토글(진행 방식)이 있어서, 상단까지 같은 모양이면
+    // 무엇이 화면을 가르는 축인지 안 보인다. 여기는 밑줄로 가른다.
+    <Tabs defaultValue="edit-archive" className="gap-8">
+      <TabsList
+        variant="line"
+        className="h-auto w-full justify-start gap-6 border-b border-border/60 p-0"
+      >
+        <TabsTrigger
+          value="edit-archive"
+          className="flex-none px-0 pb-3 text-16 data-active:bg-transparent"
+        >
+          회차 수정
+        </TabsTrigger>
+        <TabsTrigger
+          value="new-archive"
+          className="flex-none px-0 pb-3 text-16 data-active:bg-transparent"
+        >
+          회차 생성
+        </TabsTrigger>
       </TabsList>
 
-      <TabsContent value="fill-slot">
-        {openSlots.length === 0 ? (
+      <TabsContent value="edit-archive">
+        {selected === undefined ? (
           <p className="text-16 leading-relaxed text-muted-foreground">
-            {author} 님이 채울 빈 자리가 없습니다. 새 회차를 먼저 열어 주세요.
+            아직 회차가 없습니다. 먼저 회차를 만들어 주세요.
           </p>
         ) : (
-          <form action={formAction} className="flex flex-col gap-5">
-            <input type="hidden" name="mode" value="fill-slot" />
+          // 회차를 바꾸면 입력을 새로 그려야 defaultValue 가 갈린다.
+          <form key={selected.id} action={formAction} className="flex flex-col gap-8">
+            <input type="hidden" name="mode" value="edit-archive" />
+            <input type="hidden" name="archiveId" value={selected.id} />
 
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="archiveId">회차</Label>
-              <select
-                id="archiveId"
-                name="archiveId"
-                required
-                defaultValue={openSlots[0]?.archiveId}
-                className="h-9 rounded-md border border-input bg-background px-3 text-14"
-              >
-                {openSlots.map((slot) => (
-                  <option key={slot.archiveId} value={slot.archiveId}>
-                    {slot.archiveTitle} · {formatArchiveDate(slot.date)}
-                  </option>
-                ))}
-              </select>
-              <FieldError errors={fieldErrors.archiveId} />
-            </div>
+            <ArchiveEditFields
+              archives={archives}
+              selected={selected}
+              onSelect={setSelectedId}
+              errors={errors}
+            />
 
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="title">제목</Label>
-              <Input id="title" name="title" required maxLength={200} placeholder="글 제목" />
-              <FieldError errors={fieldErrors.title} />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="url">링크</Label>
-              <Input
-                id="url"
-                name="url"
-                type="url"
-                required
-                inputMode="url"
-                placeholder="https://"
-              />
-              <FieldError errors={fieldErrors.url} />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="tags">태그</Label>
-              <Input id="tags" name="tags" placeholder="쉼표로 구분. 예: React, 성능 개선" />
-              <p className="text-14 text-muted-foreground">최대 {MAX_TAGS}개</p>
-              <FieldError errors={fieldErrors.tags} />
-            </div>
-
-            <div className="flex items-center gap-4">
-              <SubmitButton>등록</SubmitButton>
+            <div className="flex items-center justify-end gap-4">
               <ResultBanner result={result} />
+              <SubmitButton>수정 요청</SubmitButton>
             </div>
           </form>
         )}
       </TabsContent>
 
       <TabsContent value="new-archive">
-        <form action={formAction} className="flex flex-col gap-5">
+        <form action={formAction} className="flex flex-col gap-8">
           <input type="hidden" name="mode" value="new-archive" />
 
-          <p className="text-16 leading-relaxed text-muted-foreground">
-            {nextArchiveId}회차를 만들고 멤버 자리를 비워 둡니다. 각자 나중에 채우면 됩니다.
-          </p>
+          <div className="flex max-w-2xl flex-col gap-3">
+            <Row label="진행일" htmlFor="new-date" errors={errors.date} columns={HEAD_COLUMNS}>
+              <Input id="new-date" name="date" type="date" required className="w-fit" />
+            </Row>
 
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="date">진행일</Label>
-            <Input id="date" name="date" type="date" required />
-            <FieldError errors={fieldErrors.date} />
+            <Row label="진행 방식" htmlFor="new-type" errors={errors.type} columns={HEAD_COLUMNS}>
+              <MeetingType defaultValue="off-line" idPrefix="new-" />
+            </Row>
           </div>
 
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="type">진행 방식</Label>
-            <select
-              id="type"
-              name="type"
-              required
-              defaultValue="off-line"
-              className="h-9 rounded-md border border-input bg-background px-3 text-14"
-            >
-              <option value="off-line">오프라인</option>
-              <option value="on-line">온라인</option>
-            </select>
-            <FieldError errors={fieldErrors.type} />
-          </div>
+          {/* 새 회차는 전부 빈 자리라 '빈 자리' 안내를 넷 다 붙일 이유가 없다. */}
+          <SlotList slots={emptySlots} errors={errors} idPrefix="new-" showEmptyHint={false} />
 
-          <div className="flex items-center gap-4">
-            <SubmitButton>회차 만들기</SubmitButton>
+          <div className="flex items-center justify-end gap-4">
             <ResultBanner result={result} />
+            <SubmitButton>회차 만들기</SubmitButton>
           </div>
         </form>
       </TabsContent>

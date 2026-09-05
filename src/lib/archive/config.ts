@@ -1,9 +1,14 @@
-/** archive 레포 위치. 포크해서 쓸 수 있도록 환경변수로 덮어쓸 수 있다. */
+/**
+ * archive 레포 위치.
+ *
+ * 환경변수로 덮어쓸 수 있게 두었지만 실제로 바꾼 적이 없고, 설정해야 할 값만
+ * 넷 늘렸다. 옮길 일이 생기면 여기를 고치는 편이 빠르다.
+ */
 export const ARCHIVE_REPO = {
-  owner: process.env.ARCHIVE_REPO_OWNER ?? 'Frontend-Archive',
-  name: process.env.ARCHIVE_REPO_NAME ?? 'archive',
-  path: process.env.ARCHIVE_REPO_PATH ?? 'archives',
-  ref: process.env.ARCHIVE_REPO_REF ?? 'main',
+  owner: 'Frontend-Archive',
+  name: 'archive',
+  path: 'archives',
+  ref: 'main',
 } as const;
 
 export const ARCHIVE_REPO_SLUG = `${ARCHIVE_REPO.owner}/${ARCHIVE_REPO.name}`;

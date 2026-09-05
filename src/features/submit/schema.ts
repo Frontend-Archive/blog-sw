@@ -19,25 +19,38 @@ export const tagsSchema = z
       .max(MAX_TAGS, `태그는 최대 ${MAX_TAGS}개까지 넣을 수 있습니다.`),
   );
 
-export const fillSlotSchema = z.object({
-  mode: z.literal('fill-slot'),
-  archiveId: z.coerce.number().int().positive(),
-  title: z.string().trim().min(1, '제목을 입력해 주세요.').max(200, '제목이 너무 깁니다.'),
-  url: z.url('http 로 시작하는 올바른 링크를 넣어 주세요.'),
+/**
+ * 회차 안 글 한 편.
+ *
+ * 아직 안 채운 자리는 빈 값으로 온다. 제목과 링크는 함께 있거나 함께 비어야
+ * 하고, 그 검사는 배열을 다 모은 뒤 editArchiveSchema 에서 한다.
+ */
+export const articleEditSchema = z.object({
+  author: z.string().trim().min(1),
+  title: z.string().trim().max(200, '제목이 너무 깁니다.'),
+  url: z.union([z.literal(''), z.url('http 로 시작하는 올바른 링크를 넣어 주세요.')]),
   tags: tagsSchema,
+});
+
+export const editArchiveSchema = z.object({
+  mode: z.literal('edit-archive'),
+  archiveId: z.coerce.number().int().positive(),
+  date: z.iso.date('날짜를 YYYY-MM-DD 형식으로 넣어 주세요.'),
+  type: z.enum(MEETING_TYPES),
+  articles: z.array(articleEditSchema).min(1, '회차에 사람이 한 명도 없습니다.'),
 });
 
 export const newArchiveSchema = z.object({
   mode: z.literal('new-archive'),
   date: z.iso.date('날짜를 YYYY-MM-DD 형식으로 넣어 주세요.'),
   type: z.enum(MEETING_TYPES),
+  /** 만들면서 바로 채워도 된다. 다 비우면 빈 회차가 생긴다. */
+  articles: z.array(articleEditSchema).min(1, '회차에 사람이 한 명도 없습니다.'),
 });
 
-export const submissionSchema = z.discriminatedUnion('mode', [fillSlotSchema, newArchiveSchema]);
-
-export type FillSlotInput = z.infer<typeof fillSlotSchema>;
+export type ArticleEditInput = z.infer<typeof articleEditSchema>;
+export type EditArchiveInput = z.infer<typeof editArchiveSchema>;
 export type NewArchiveInput = z.infer<typeof newArchiveSchema>;
-export type SubmissionInput = z.infer<typeof submissionSchema>;
 
 /** 등록 요청이 실제로 반영됐는지 추적하는 데 필요한 정보 */
 export interface PendingSubmission {
