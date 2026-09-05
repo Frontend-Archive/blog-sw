@@ -1,3 +1,4 @@
+import { BrandMark } from '@/components/icons/brand-mark';
 import { GithubMark } from '@/components/icons/github-mark';
 import { ARCHIVE_REPO_SLUG, ARCHIVE_REPO_URL } from '@/lib/archive/config';
 
@@ -5,7 +6,10 @@ export function SiteFooter() {
   return (
     <footer className="mt-auto border-t border-border/60">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-6 px-6 py-8">
-        <p className="text-16 font-semibold tracking-tight">Frontend Archive</p>
+        <p className="flex items-center gap-2.5 text-16 font-semibold tracking-tight">
+          <BrandMark idPrefix="ft" className="size-5" />
+          Frontend Archive
+        </p>
 
         <a
           href={ARCHIVE_REPO_URL}
