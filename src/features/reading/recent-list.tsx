@@ -46,7 +46,7 @@ function Row({ article }: { article: ArticleCardData }) {
 }
 
 /**
- * 최근 본 글.
+ * 최근 읽은 글.
  *
  * 저장된 것은 키와 본 날짜뿐이라 글 정보는 서버에서 받은 전체 목록에서 찾아 붙인다.
  * 순서는 저장된 순서를 그대로 따르고, 본 날짜가 바뀌는 지점에서만 끊어 준다.
@@ -66,7 +66,7 @@ export function RecentList({ all }: { all: ArticleCardData[] }) {
   if (days.length === 0) {
     return (
       <p className="rounded-xl border border-dashed border-border/60 px-6 py-16 text-center text-14 text-muted-foreground">
-        아직 본 글이 없습니다. 아티클을 열면 여기에 쌓입니다.
+        아직 읽은 글이 없습니다. 아티클을 열면 여기에 쌓입니다.
       </p>
     );
   }

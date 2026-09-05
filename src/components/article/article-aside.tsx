@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ArticleThumbnail } from '@/components/article/article-thumbnail';
+import { memberId } from '@/lib/archive/members-config';
 import { articleSlug, toSlug } from '@/lib/archive/taxonomy';
 import type { ArticleCardData } from '@/lib/archive/view';
 
@@ -10,6 +11,8 @@ interface ArticleAsideProps {
   topicTags: string[];
   /** 같은 사람이 쓴 다른 글 */
   author: ArticleCardData[];
+  /** 그 사람 이름. 묶음 이름을 이걸로 대신한다. */
+  authorName: string;
 }
 
 /**
@@ -73,7 +76,7 @@ function TopicLabel({ tags }: { tags: string[] }) {
   );
 }
 
-export function ArticleAside({ topic, topicTags, author }: ArticleAsideProps) {
+export function ArticleAside({ topic, topicTags, author, authorName }: ArticleAsideProps) {
   if (topic.length === 0 && author.length === 0) return null;
 
   return (
@@ -91,7 +94,17 @@ export function ArticleAside({ topic, topicTags, author }: ArticleAsideProps) {
 
       {author.length > 0 ? (
         <section className="flex flex-col gap-3">
-          <h2 className="text-14 text-muted-foreground">작성자의 다른 글</h2>
+          {/* '작성자' 라고만 하면 누구인지 다시 위로 올라가 확인해야 한다.
+              이름을 그대로 내걸고, 누르면 그 사람의 글 전체로 간다. */}
+          <h2 className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-14 text-muted-foreground">
+            <Link
+              href={`/members/${memberId(authorName) ?? ''}`}
+              className="transition-colors hover:text-brand"
+            >
+              {authorName}
+            </Link>
+            <span>의 다른 글</span>
+          </h2>
           <ul className="flex flex-col">
             {author.map((item) => (
               <Row key={item.key} article={item} />

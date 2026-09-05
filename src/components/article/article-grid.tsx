@@ -23,7 +23,7 @@ export function ArticleGrid({
   }
 
   return (
-    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-7 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
       {articles.map((article, index) => (
         <ReadDim key={article.key} articleKey={article.key}>
           <ArticleCard article={article} priority={index < priorityCount} />

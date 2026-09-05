@@ -109,7 +109,12 @@ export default async function ArticleDetailPage({ params }: PageProps<'/articles
         </article>
 
         <aside>
-          <ArticleAside topic={topic} topicTags={topicTags} author={byAuthor} />
+          <ArticleAside
+            topic={topic}
+            topicTags={topicTags}
+            author={byAuthor}
+            authorName={article.author}
+          />
         </aside>
       </div>
     </main>

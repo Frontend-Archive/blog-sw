@@ -2,7 +2,7 @@
 
 import { useCallback, useSyncExternalStore } from 'react';
 
-/** 무엇을 언제 봤는지. 최근 본 글과 목록의 읽음 표시가 이 하나를 나눠 쓴다. */
+/** 무엇을 언제 읽었는지. 최근 읽은 글과 목록의 읽음 표시가 이 하나를 나눠 쓴다. */
 export const VISITS_KEY = 'fa:visits';
 
 /** 이만큼만 남긴다. 이보다 오래된 글은 읽음 표시도 함께 풀린다. */
@@ -10,19 +10,19 @@ export const VISIT_LIMIT = 100;
 
 export interface VisitEntry {
   key: string;
-  /** 본 날짜. 로컬 기준 YYYY-MM-DD */
+  /** 읽은 날짜. 로컬 기준 YYYY-MM-DD */
   at: string;
 }
 
 /**
  * 브라우저에만 남는 기록.
  *
- * 아카이브에는 로그인이 없으니 "내가 뭘 언제 봤는지"는 서버가 알 수 없다.
+ * 아카이브에는 로그인이 없으니 "내가 뭘 언제 읽었는지"는 서버가 알 수 없다.
  * localStorage 는 React 바깥의 저장소라 useSyncExternalStore 로 읽고,
  * 값이 없거나 못 읽어도 화면이 깨지지 않게 한다.
  *
- * 최근 본 글과 읽음 표시를 따로 저장했더니 한쪽을 지워도 다른 쪽이 남았다.
- * 사용자에게는 같은 "내가 본 것"이라 저장소도 하나로 둔다.
+ * 최근 읽은 글과 읽음 표시를 따로 저장했더니 한쪽을 지워도 다른 쪽이 남았다.
+ * 사용자에게는 같은 "내가 읽은 것"이라 저장소도 하나로 둔다.
  */
 const EMPTY: VisitEntry[] = [];
 const cache = new Map<string, VisitEntry[]>();

@@ -29,13 +29,15 @@ export function ReadDim({
   return (
     <div
       className={cn(
-        'group/read relative flex [&_[data-thumb]]:transition-[filter] [&_[data-thumb]]:duration-500',
+        'group/read relative flex min-w-0 [&_[data-thumb]]:transition-[filter] [&_[data-thumb]]:duration-500',
         read && '[&_[data-thumb]]:grayscale hover:[&_[data-thumb]]:grayscale-0',
       )}
     >
       {children}
+      {/* 모바일 카드는 가로라 오른쪽 위가 제목 자리다. 칩을 얹으면 제목을 가려
+          회색 처리만 남긴다. */}
       {read ? (
-        <span className="pointer-events-none absolute top-3 right-3 z-10 inline-flex items-center gap-1 rounded-full bg-background/85 px-3 py-1 text-12 font-medium backdrop-blur">
+        <span className="pointer-events-none absolute top-3 right-3 z-10 hidden items-center gap-1 rounded-full bg-background/85 px-3 py-1 text-12 font-medium backdrop-blur md:inline-flex">
           <Check className="size-3.5" aria-hidden />
           읽음
         </span>

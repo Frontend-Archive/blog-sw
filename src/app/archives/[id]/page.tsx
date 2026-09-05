@@ -64,7 +64,7 @@ export default async function ArchiveDetailPage({ params }: PageProps<'/archives
         }
       />
 
-      <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="grid gap-7 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
         {articles.map((article, articleIndex) => (
           <ReadDim key={article.key} articleKey={article.key}>
             <ArticleCard article={article} priority={articleIndex < 3} />

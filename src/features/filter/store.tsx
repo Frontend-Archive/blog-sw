@@ -7,6 +7,7 @@ import { EMPTY_FILTER, type ArticleFilter } from './types';
 
 interface FilterActions {
   setQuery: (query: string) => void;
+  toggleUnreadOnly: () => void;
   /** URL 에서 읽은 필터를 통째로 덮어쓴다. */
   hydrate: (filter: ArticleFilter) => void;
   reset: () => void;
@@ -18,6 +19,7 @@ function createFilterStore(initial: ArticleFilter): StoreApi<FilterStore> {
   return createStore<FilterStore>()((set) => ({
     ...initial,
     setQuery: (query) => set({ query }),
+    toggleUnreadOnly: () => set((state) => ({ unreadOnly: !state.unreadOnly })),
     hydrate: (filter) => set({ ...filter }),
     reset: () => set({ ...EMPTY_FILTER }),
   }));
