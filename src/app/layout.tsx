@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
 import { Geist, Noto_Sans_KR } from 'next/font/google';
+import { SiteBottomNav } from '@/components/layout/site-bottom-nav';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { SiteHeader } from '@/components/layout/site-header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
+import { CommandPaletteProvider } from '@/features/command-palette/command-palette-provider';
 import { RecentFab } from '@/features/reading/recent-fab';
+import { buildCommandPaletteData } from '@/lib/archive/command-data';
 import './globals.css';
 
 const geist = Geist({
@@ -33,13 +36,20 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       className={`${geist.variable} ${notoSansKr.variable} antialiased`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-dvh flex-col bg-background font-sans text-foreground">
+      {/* 하단 바가 본문 끝을 덮지 않게 그만큼 아래를 비운다. */}
+      <body className="flex min-h-dvh flex-col bg-background pb-[calc(var(--bottom-nav-height)+2rem)] font-sans text-foreground md:pb-0">
         <ThemeProvider>
-          <SiteHeader />
-          {/* 본문이 최소 한 화면을 차지하게 해서, 스크롤 맨 위에서는 푸터가 보이지 않는다. */}
-          <div className="flex min-h-[calc(100dvh-var(--header-height))] flex-col">{children}</div>
-          <SiteFooter />
-          <RecentFab />
+          {/* 상단 검색 버튼과 하단 바가 같은 팔레트를 열어야 해서 위에서 감싼다. */}
+          <CommandPaletteProvider data={buildCommandPaletteData()}>
+            <SiteHeader />
+            {/* 본문이 최소 한 화면을 차지하게 해서, 스크롤 맨 위에서는 푸터가 보이지 않는다. */}
+            <div className="flex min-h-[calc(100dvh-var(--header-height))] flex-col">
+              {children}
+            </div>
+            <SiteFooter />
+            <SiteBottomNav />
+            <RecentFab />
+          </CommandPaletteProvider>
         </ThemeProvider>
       </body>
     </html>

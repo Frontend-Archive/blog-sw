@@ -2,23 +2,17 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { isNavActive, NAV_ITEMS } from '@/components/layout/nav-items';
 import { cn } from '@/lib/utils';
 
-const NAV_ITEMS = [
-  { href: '/', label: '아티클' },
-  { href: '/timeline', label: '타임라인' },
-  { href: '/tags', label: '태그' },
-  { href: '/members', label: '멤버' },
-  { href: '/submit', label: '글 등록' },
-] as const;
-
+/** 상단 내비. 모바일에서는 하단 바가 대신하므로 숨긴다. */
 export function SiteNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="flex items-center gap-1 text-14">
+    <nav className="hidden items-center gap-1 text-14 md:flex">
       {NAV_ITEMS.map(({ href, label }) => {
-        const isActive = href === '/' ? pathname === '/' : pathname.startsWith(href);
+        const isActive = isNavActive(pathname, href);
         return (
           <Link
             key={href}
