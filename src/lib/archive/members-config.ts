@@ -48,12 +48,18 @@ export const MEMBERS: MemberConfig[] = [
 
 const byName = new Map<string, MemberConfig>();
 const byId = new Map<string, MemberConfig>();
+// GitHub 아이디는 대소문자를 가리지 않는다. 소문자로 눕혀 둔다.
+const byGithub = new Map<string, MemberConfig>();
 
 for (const member of MEMBERS) {
   if (byId.has(member.id)) {
     throw new Error(`멤버 id 가 중복되었습니다 — ${member.id}`);
   }
   byId.set(member.id, member);
+
+  if (member.github) {
+    byGithub.set(member.github.toLowerCase(), member);
+  }
 
   for (const name of [member.name, ...(member.aliases ?? [])]) {
     const existing = byName.get(name);
@@ -68,6 +74,17 @@ export const memberIds = MEMBERS.map((member) => member.id);
 
 export function memberById(id: string): MemberConfig | undefined {
   return byId.get(id);
+}
+
+/**
+ * GitHub 로그인 아이디로 멤버를 찾는다. 로그인한 사람이 누구인지 가릴 때 쓴다.
+ *
+ * github 를 적어 두지 않은 멤버는 여기서 안 잡힌다. 로그인은 못 하지만
+ * 화면에는 그대로 나온다.
+ */
+export function memberByGithub(login: string | undefined | null): MemberConfig | undefined {
+  if (!login) return undefined;
+  return byGithub.get(login.toLowerCase());
 }
 
 /**

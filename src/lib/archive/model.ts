@@ -27,14 +27,6 @@ export function toArticles(archives: ParsedArchive[]): ArchiveArticle[] {
     );
 }
 
-/** 아직 채워지지 않은 슬롯 수 */
-export function countEmptySlots(archives: ParsedArchive[]): number {
-  return archives.reduce(
-    (total, archive) => total + archive.articles.filter((a) => !isFilledArticle(a)).length,
-    0,
-  );
-}
-
 /** 등장 횟수 내림차순 태그 목록 */
 export function collectTags(articles: ArchiveArticle[]): { tag: string; count: number }[] {
   const counts = new Map<string, number>();

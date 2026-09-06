@@ -7,7 +7,7 @@ import type { EditableArchive, EditableSlot } from '@/features/submit/types';
 import { MEMBERS } from '@/lib/archive/members-config';
 import { archives } from '@/lib/archive/source';
 import { auth } from '@/lib/auth';
-import { isAuthConfigured, isMemberMapConfigured } from '@/lib/auth/members';
+import { isAuthConfigured } from '@/lib/auth/members';
 
 export const metadata: Metadata = {
   title: '글 관리',
@@ -70,7 +70,6 @@ export default async function SubmitPage() {
 
   const missingEnv = [
     isAuthConfigured ? null : 'AUTH_SECRET, AUTH_GITHUB_ID, AUTH_GITHUB_SECRET',
-    isMemberMapConfigured ? null : 'ARCHIVE_MEMBERS',
   ].filter((value) => value !== null);
 
   return (

@@ -1,39 +1,16 @@
-import { z } from 'zod';
+import { memberByGithub } from '@/lib/archive/members-config';
 
 /**
  * 글을 등록할 수 있는 사람은 스터디 멤버뿐이다.
- * GitHub 로그인 아이디를 archive 레포의 author 이름에 대응시킨다.
  *
- * 예: ARCHIVE_MEMBERS={"kwonsean":"권시현","junkyeong":"민준경"}
+ * 누가 멤버인지는 members-config 의 명부 하나로만 정한다. 예전에는 같은 내용을
+ * ARCHIVE_MEMBERS 환경변수에도 적었는데, 두 곳이 어긋나면 로그인은 되는데
+ * 이름이 안 붙거나 그 반대가 됐다. 새 멤버는 어차피 명부에 넣어야 한다.
  */
-const memberMapSchema = z.record(z.string().min(1), z.string().min(1));
-
-function parseMemberMap(): Record<string, string> {
-  const raw = process.env.ARCHIVE_MEMBERS;
-  if (!raw) return {};
-
-  try {
-    const parsed = memberMapSchema.safeParse(JSON.parse(raw));
-    if (!parsed.success) {
-      console.error('[auth] ARCHIVE_MEMBERS 형식이 올바르지 않습니다.', parsed.error.message);
-      return {};
-    }
-    return parsed.data;
-  } catch (error) {
-    console.error('[auth] ARCHIVE_MEMBERS 를 JSON 으로 읽지 못했습니다.', error);
-    return {};
-  }
-}
-
-const memberMap = parseMemberMap();
-
-/** 멤버 매핑이 설정되어 있는지. 비어 있으면 아무도 등록할 수 없다. */
-export const isMemberMapConfigured = Object.keys(memberMap).length > 0;
 
 /** GitHub 로그인 아이디에 대응하는 archive author 이름. 멤버가 아니면 undefined */
 export function resolveAuthor(githubLogin: string | undefined | null): string | undefined {
-  if (!githubLogin) return undefined;
-  return memberMap[githubLogin.toLowerCase()] ?? memberMap[githubLogin];
+  return memberByGithub(githubLogin)?.name;
 }
 
 /**

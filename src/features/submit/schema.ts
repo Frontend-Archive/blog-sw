@@ -49,8 +49,6 @@ export const newArchiveSchema = z.object({
 });
 
 export type ArticleEditInput = z.infer<typeof articleEditSchema>;
-export type EditArchiveInput = z.infer<typeof editArchiveSchema>;
-export type NewArchiveInput = z.infer<typeof newArchiveSchema>;
 
 /** 등록 요청이 실제로 반영됐는지 추적하는 데 필요한 정보 */
 export interface PendingSubmission {
