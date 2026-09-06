@@ -33,5 +33,10 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
+      # 빌드 전 sync 가 archive 레포를 읽는다. 인증 없이 부르면 시간당 60회라
+      # 러너 IP 를 나눠 쓰는 사이 소진되기 쉽다. 워크플로에 자동으로 주어지는
+      # 토큰을 넘겨 1,000회로 올린다. archive 가 public 이라 이걸로 충분하다.
       - name: Build
         run: pnpm build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
