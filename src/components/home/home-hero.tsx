@@ -65,7 +65,7 @@ export function HomeHero({
       </h1>
 
       <p className="mt-6 max-w-3xl text-16 leading-relaxed text-muted-foreground">
-        회차마다 각자 쓴 글을 모읍니다. 원문은 각자의 블로그에 있습니다.
+        3~5년차 주니어 개발자들이 실무에서 겪은 문제와 푼 과정, 얻은 인사이트를 남깁니다.
       </p>
 
       <dl className="mt-12 flex flex-wrap gap-x-12 gap-y-6">

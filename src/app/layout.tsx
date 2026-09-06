@@ -26,7 +26,7 @@ const notoSansKr = Noto_Sans_KR({
 
 export const metadata: Metadata = {
   title: 'Frontend Archive',
-  description: '스터디 회차별 아티클 아카이브',
+  description: '3~5년차 주니어 개발자들이 실무에서 겪은 문제와 푼 과정, 얻은 인사이트를 남깁니다.',
 };
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
