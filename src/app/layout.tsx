@@ -7,6 +7,7 @@ import { ThemeProvider } from '@/components/layout/theme-provider';
 import { CommandPaletteProvider } from '@/features/command-palette/command-palette-provider';
 import { RecentFab } from '@/features/reading/recent-fab';
 import { buildCommandPaletteData } from '@/lib/archive/command-data';
+import { GOOGLE_SITE_VERIFICATION, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/site';
 import './globals.css';
 
 const geist = Geist({
@@ -25,8 +26,20 @@ const notoSansKr = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: 'Frontend Archive',
-  description: '3~5년차 주니어 개발자들이 실무에서 겪은 문제와 푼 과정, 얻은 인사이트를 남깁니다.',
+  // 하위 페이지가 상대 경로로 적은 canonical·og:image 를 절대 주소로 편다.
+  metadataBase: new URL(SITE_URL),
+  // 하위 페이지는 제목만 적고 뒤에 사이트 이름이 붙는다.
+  title: { default: SITE_NAME, template: `%s · ${SITE_NAME}` },
+  description: SITE_DESCRIPTION,
+  verification: { google: GOOGLE_SITE_VERIFICATION },
+  openGraph: {
+    type: 'website',
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    locale: 'ko_KR',
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {

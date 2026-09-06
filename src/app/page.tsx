@@ -1,8 +1,17 @@
+import type { Metadata } from 'next';
 import { HomeHero } from '@/components/home/home-hero';
 import { ArticleExplorer } from '@/features/filter/article-explorer';
 import { collectAuthors } from '@/lib/archive/model';
 import { archives, articles } from '@/lib/archive/source';
 import { toArticleCardList } from '@/lib/archive/view';
+import { pageMetadata } from '@/lib/metadata';
+import { SITE_DESCRIPTION, SITE_NAME } from '@/lib/site';
+
+export const metadata: Metadata = pageMetadata({
+  title: SITE_NAME,
+  description: SITE_DESCRIPTION,
+  path: '/',
+});
 
 export default function Home() {
   const first = archives.at(-1);

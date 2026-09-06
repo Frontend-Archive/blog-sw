@@ -5,11 +5,13 @@ import { collectTags } from '@/lib/archive/model';
 import { memberId } from '@/lib/archive/members-config';
 import { articlesByAuthor, authors } from '@/lib/archive/taxonomy';
 import { toArticleCardList } from '@/lib/archive/view';
+import { pageMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: '멤버',
   description: '스터디 멤버별 아티클 모아보기',
-};
+  path: '/members',
+});
 
 /** 미리 보여줄 최근 글 수 */
 const RECENT_LIMIT = 3;

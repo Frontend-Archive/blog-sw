@@ -4,6 +4,7 @@ import { ArticleGrid } from '@/components/article/article-grid';
 import { PageHeader } from '@/components/layout/page-header';
 import { articlesByAuthor, authorSlugs, getAuthorBySlug } from '@/lib/archive/taxonomy';
 import { toArticleCardList } from '@/lib/archive/view';
+import { pageMetadata } from '@/lib/metadata';
 
 export function generateStaticParams(): { slug: string }[] {
   return authorSlugs.map((slug) => ({ slug }));
@@ -16,10 +17,11 @@ export async function generateMetadata({
   const author = getAuthorBySlug(decodeURIComponent(slug));
   if (!author) return {};
 
-  return {
+  return pageMetadata({
     title: `${author}의 아티클`,
     description: `${author}이(가) 스터디에서 공유한 아티클 ${articlesByAuthor(author).length}개`,
-  };
+    path: `/members/${slug}`,
+  });
 }
 
 export default async function MemberDetailPage({ params }: PageProps<'/members/[slug]'>) {

@@ -3,11 +3,13 @@ import { PageHeader } from '@/components/layout/page-header';
 import { TimelineEntry } from '@/components/timeline/timeline-entry';
 import { archives, articles } from '@/lib/archive/source';
 import { formatArchiveDate } from '@/lib/format';
+import { pageMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: '타임라인',
   description: '스터디가 회차마다 어떤 주제를 다뤘는지 시간순으로 정리한 기록',
-};
+  path: '/timeline',
+});
 
 export default function TimelinePage() {
   const first = archives.at(-1);

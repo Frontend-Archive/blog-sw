@@ -11,6 +11,7 @@ import { toArticleCardList } from '@/lib/archive/view';
 import { archives, getArchiveById } from '@/lib/archive/source';
 import { isFilledArticle } from '@/lib/archive/schema';
 import { formatArchiveDate } from '@/lib/format';
+import { pageMetadata } from '@/lib/metadata';
 
 export function generateStaticParams(): { id: string }[] {
   return archives.map((archive) => ({ id: String(archive.id) }));
@@ -29,10 +30,11 @@ export async function generateMetadata({ params }: PageProps<'/archives/[id]'>):
 
   const titles = archive.articles.filter(isFilledArticle).map((article) => article.title);
 
-  return {
+  return pageMetadata({
     title: archive.title,
     description: `${formatArchiveDate(archive.date)} · ${titles.length}개 아티클 — ${titles.join(', ')}`,
-  };
+    path: `/archives/${archive.id}`,
+  });
 }
 
 export default async function ArchiveDetailPage({ params }: PageProps<'/archives/[id]'>) {

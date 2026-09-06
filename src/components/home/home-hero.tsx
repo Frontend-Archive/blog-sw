@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { CountUp } from '@/components/home/count-up';
 import { DaysSince } from '@/components/home/days-since';
+import { SITE_DESCRIPTION } from '@/lib/site';
 
 interface HomeHeroProps {
   archiveCount: number;
@@ -65,7 +66,7 @@ export function HomeHero({
       </h1>
 
       <p className="mt-6 max-w-3xl text-16 leading-relaxed text-muted-foreground">
-        3~5년차 주니어 개발자들이 실무에서 겪은 문제와 푼 과정, 얻은 인사이트를 남깁니다.
+        {SITE_DESCRIPTION}
       </p>
 
       <dl className="mt-12 flex flex-wrap gap-x-12 gap-y-6">

@@ -3,11 +3,13 @@ import { PageHeader } from '@/components/layout/page-header';
 import { TagCloud } from '@/features/tags/tag-cloud';
 import { articles } from '@/lib/archive/source';
 import { tagCounts, toSlug } from '@/lib/archive/taxonomy';
+import { pageMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: '태그',
   description: '스터디 아티클에 붙은 전체 태그 목록',
-};
+  path: '/tags',
+});
 
 export default function TagsPage() {
   const tags = tagCounts.map(({ tag, count }) => ({ tag, count, slug: toSlug(tag) }));

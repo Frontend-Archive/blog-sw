@@ -9,12 +9,14 @@ import { ArticleThumbnail } from '@/components/article/article-thumbnail';
 import { getHostname, getOg } from '@/lib/archive/og';
 import {
   articlesByAuthor,
+  articleSlug,
   articleSlugs,
   getArticleBySlug,
   relatedByTag,
 } from '@/lib/archive/taxonomy';
 import { toArticleCardList } from '@/lib/archive/view';
 import { formatArchiveDate } from '@/lib/format';
+import { pageMetadata } from '@/lib/metadata';
 
 /** 사이드 추천을 묶음마다 몇 개까지 보여줄지 */
 const ASIDE_LIMIT = 3;
@@ -32,12 +34,14 @@ export async function generateMetadata({
 
   const og = getOg(article.url);
 
-  return {
+  return pageMetadata({
     title: article.title,
     description:
       og?.description ??
       `${article.author} · 스터디 ${article.archiveId}회차 (${formatArchiveDate(article.archiveDate)})`,
-  };
+    path: `/articles/${articleSlug(article)}`,
+    image: og?.image,
+  });
 }
 
 export default async function ArticleDetailPage({ params }: PageProps<'/articles/[slug]'>) {
