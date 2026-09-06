@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { ArticleThumbnail } from '@/components/article/article-thumbnail';
+import { memberId } from '@/lib/archive/members-config';
 import { articleSlug } from '@/lib/archive/taxonomy';
 import type { ArticleCardData } from '@/lib/archive/view';
 import { formatArchiveDate } from '@/lib/format';
@@ -16,13 +17,16 @@ function dayLabel(day: string): string {
   return formatArchiveDate(day);
 }
 
+/**
+ * 줄 전체가 상세로 가는 링크다.
+ *
+ * 링크 안에 링크를 넣을 수 없어서, 제목 링크를 줄 전체로 늘리고 작성자와
+ * 회차만 그 위에 올린다. 아티클 카드도 같은 방식이다.
+ */
 function Row({ article }: { article: ArticleCardData }) {
   return (
-    <li className="border-b border-border/50 last:border-b-0">
-      <Link
-        href={`/articles/${articleSlug(article)}`}
-        className="group flex items-start gap-4 py-4"
-      >
+    <li className="relative border-b border-border/50 last:border-b-0">
+      <div className="group flex items-start gap-4 py-4">
         <span className="block aspect-square w-14 shrink-0 overflow-hidden rounded-lg bg-muted">
           <ArticleThumbnail
             image={article.image}
@@ -33,14 +37,31 @@ function Row({ article }: { article: ArticleCardData }) {
           />
         </span>
         <span className="flex min-w-0 flex-col gap-1">
-          <span className="line-clamp-2 text-16 leading-normal transition-colors group-hover:text-brand">
-            {article.title}
-          </span>
+          <Link
+            href={`/articles/${articleSlug(article)}`}
+            className="after:absolute after:inset-0 focus-visible:outline-none"
+          >
+            <span className="line-clamp-2 text-16 leading-normal transition-colors group-hover:text-brand">
+              {article.title}
+            </span>
+          </Link>
           <span className="text-14 text-muted-foreground">
-            {article.author} · {article.archiveId}회차
+            <Link
+              href={`/members/${memberId(article.author) ?? ''}`}
+              className="relative z-10 transition-colors hover:text-brand"
+            >
+              {article.author}
+            </Link>
+            {' · '}
+            <Link
+              href={`/archives/${article.archiveId}`}
+              className="relative z-10 transition-colors hover:text-brand"
+            >
+              {article.archiveId}회차
+            </Link>
           </span>
         </span>
-      </Link>
+      </div>
     </li>
   );
 }
