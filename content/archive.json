@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-09-05T17:22:29.040Z",
+  "syncedAt": "2026-09-06T07:36:04.339Z",
   "source": "Frontend-Archive/archive@main",
   "archives": [
     {
@@ -203,7 +203,7 @@
         },
         {
           "author": "최승원",
-          "title": "사내 npm 개발기",
+          "title": "사내 피처플래그 npm 개발기",
           "url": "https://app.notion.com/p/seungwon-1/2-npm-4-11-33d2a7ff711a80ca93cbfe0d435fd0d8",
           "tags": [
             "피처 플래그",
