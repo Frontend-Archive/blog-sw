@@ -9,7 +9,7 @@ export const cachedArchiveSchema = archiveSchema.extend({
 export const archiveCacheSchema = z.object({
   /** 마지막 동기화 시각 (ISO 8601) */
   syncedAt: z.iso.datetime(),
-  /** 동기화한 원본. owner/name@ref 형태 */
+  /** 동기화한 원본. "owner/name@ref (커밋 앞 7자리)" 형태 */
   source: z.string().min(1),
   archives: z.array(cachedArchiveSchema),
 });

@@ -24,9 +24,9 @@ async function readExistingCache(): Promise<ArchiveCache | null> {
 }
 
 async function main(): Promise<void> {
-  let files;
+  let remote;
   try {
-    files = await fetchArchiveFiles();
+    remote = await fetchArchiveFiles();
   } catch (error) {
     const existing = await readExistingCache();
     if (existing) {
@@ -39,10 +39,11 @@ async function main(): Promise<void> {
     throw error;
   }
 
-  const archives = parseArchives(files);
+  const archives = parseArchives(remote.files);
+  const commit = remote.sha.slice(0, 7);
   const cache: ArchiveCache = archiveCacheSchema.parse({
     syncedAt: new Date().toISOString(),
-    source: `${ARCHIVE_REPO_SLUG}@${ARCHIVE_REPO.ref}`,
+    source: `${ARCHIVE_REPO_SLUG}@${ARCHIVE_REPO.ref} (${commit})`,
     archives,
   });
 
@@ -54,7 +55,7 @@ async function main(): Promise<void> {
     0,
   );
   console.log(
-    `[sync-archive] ${ARCHIVE_REPO_SLUG} → ${ARCHIVE_CACHE_PATH} ` +
+    `[sync-archive] ${ARCHIVE_REPO_SLUG}@${commit} → ${ARCHIVE_CACHE_PATH} ` +
       `(회차 ${archives.length}개, 아티클 ${filled}개)`,
   );
 }
