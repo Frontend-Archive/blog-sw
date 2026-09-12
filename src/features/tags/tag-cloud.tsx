@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 export interface TagCloudItem {
   tag: string;
@@ -24,7 +25,13 @@ function levelOf(count: number, max: number): number {
   return Math.round(((count - 1) / (max - 1)) * (LEVELS.length - 1));
 }
 
-export function TagCloud({ tags }: { tags: TagCloudItem[] }) {
+interface TagCloudProps {
+  tags: TagCloudItem[];
+  /** 브랜드 색으로 켜 둘 태그. 미리보기나 고르기처럼 지금 가리키는 태그를 드러낼 때 쓴다. */
+  activeSlugs?: readonly string[];
+}
+
+export function TagCloud({ tags, activeSlugs = [] }: TagCloudProps) {
   const max = tags.reduce((highest, item) => Math.max(highest, item.count), 1);
 
   // 개수가 많은 태그가 가운데로 오도록 앞뒤로 번갈아 담는다.
@@ -46,7 +53,12 @@ export function TagCloud({ tags }: { tags: TagCloudItem[] }) {
               href={`/tags/${item.slug}`}
               title={`글 ${item.count}개`}
               style={{ fontSize: `${size}px` }}
-              className={`inline-block leading-tight transition-colors hover:text-brand ${className}`}
+              aria-current={activeSlugs.includes(item.slug) ? 'true' : undefined}
+              className={cn(
+                'inline-block leading-tight transition-colors hover:text-brand',
+                className,
+                activeSlugs.includes(item.slug) && 'text-brand',
+              )}
             >
               #{item.tag}
             </Link>
