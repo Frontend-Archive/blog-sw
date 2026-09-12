@@ -1,0 +1,92 @@
+/*
+ * 오류 화면에서 마크가 스스로 갈라지는 움직임.
+ * 잠깐 흔들리다 반으로 벌어지고, 다시 붙어 처음부터 되풀이한다.
+ */
+
+.status-shake {
+  animation: status-shake 4s ease-in-out infinite;
+}
+@keyframes status-shake {
+  0%,
+  6%,
+  26%,
+  100% {
+    transform: none;
+  }
+  10%,
+  18% {
+    transform: translateX(-1.2%) rotate(-0.5deg);
+  }
+  14%,
+  22% {
+    transform: translateX(1.2%) rotate(0.5deg);
+  }
+}
+
+.status-crack-left {
+  animation: status-crack 4s cubic-bezier(0.25, 0.9, 0.3, 1) infinite;
+  --status-dx: -7%;
+  --status-dy: 3%;
+  --status-dr: -6deg;
+}
+.status-crack-right {
+  animation: status-crack 4s cubic-bezier(0.25, 0.9, 0.3, 1) infinite;
+  --status-dx: 7%;
+  --status-dy: 6%;
+  --status-dr: 8deg;
+}
+@keyframes status-crack {
+  0%,
+  26% {
+    transform: none;
+  }
+  60%,
+  80% {
+    transform: translate(var(--status-dx), var(--status-dy)) rotate(var(--status-dr));
+  }
+  96%,
+  100% {
+    transform: none;
+  }
+}
+
+/* 갈라지는 순간 틈에서 떨어져 나오는 조각 */
+.status-chip {
+  opacity: 0;
+  animation: status-chip 4s cubic-bezier(0.3, 0.7, 0.4, 1) infinite;
+  animation-delay: var(--status-delay, 0s);
+}
+@keyframes status-chip {
+  0%,
+  28% {
+    transform: none;
+    opacity: 0;
+  }
+  36% {
+    opacity: 1;
+  }
+  70%,
+  100% {
+    transform: translate(var(--status-dx), var(--status-dy)) rotate(var(--status-dr));
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-shake,
+  .status-crack-left,
+  .status-crack-right,
+  .status-chip {
+    animation: none;
+  }
+  /* 움직임 없이도 갈라진 모습은 남긴다 */
+  .status-crack-left {
+    transform: translate(-7%, 3%) rotate(-6deg);
+  }
+  .status-crack-right {
+    transform: translate(7%, 6%) rotate(8deg);
+  }
+  .status-chip {
+    opacity: 0;
+  }
+}
