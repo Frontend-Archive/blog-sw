@@ -57,7 +57,7 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
 
         {/* 카드는 외부 원문이 아니라 상세 페이지로 보낸다. 발췌를 먼저 보여주고
             거기서 원문으로 이어가게 하기 위해서다. */}
-        <h3 className="text-18 leading-snug font-semibold">
+        <h3 className="text-18 leading-normal font-semibold">
           {/* 카드 전체를 덮는 링크. 카드의 호버 효과는 이 링크가 잡힐 때만 켠다.
               작성자·회차·태그 위에서까지 켜지면 어디로 가는지 헷갈린다. */}
           <Link
