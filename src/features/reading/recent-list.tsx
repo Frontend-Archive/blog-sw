@@ -22,11 +22,14 @@ function dayLabel(day: string): string {
  *
  * 링크 안에 링크를 넣을 수 없어서, 제목 링크를 줄 전체로 늘리고 작성자와
  * 회차만 그 위에 올린다. 아티클 카드도 같은 방식이다.
+ *
+ * 호버 색은 줄이 아니라 제목 링크에 건다. 작성자·회차 위에서는 제목 링크가
+ * 가려져 호버가 잡히지 않으니, 누르면 어디로 가는지 한 곳만 켜진다.
  */
 function Row({ article }: { article: ArticleCardData }) {
   return (
     <li className="relative border-b border-border/50 last:border-b-0">
-      <div className="group flex items-start gap-4 py-4">
+      <div className="flex items-start gap-4 py-4">
         <span className="block aspect-square w-14 shrink-0 overflow-hidden rounded-lg bg-muted">
           <ArticleThumbnail
             image={article.image}
@@ -39,11 +42,9 @@ function Row({ article }: { article: ArticleCardData }) {
         <span className="flex min-w-0 flex-col gap-1">
           <Link
             href={`/articles/${articleSlug(article)}`}
-            className="after:absolute after:inset-0 focus-visible:outline-none"
+            className="transition-colors after:absolute after:inset-0 hover:text-brand focus-visible:outline-none"
           >
-            <span className="line-clamp-2 text-16 leading-normal transition-colors group-hover:text-brand">
-              {article.title}
-            </span>
+            <span className="line-clamp-2 text-16 leading-normal">{article.title}</span>
           </Link>
           <span className="text-14 text-muted-foreground">
             <Link

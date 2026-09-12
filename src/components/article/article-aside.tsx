@@ -20,14 +20,17 @@ interface ArticleAsideProps {
  *
  * 테두리 없이 56px 정사각 썸네일과 제목만 눕힌다. 본문 옆에 나란히 서는
  * 자리라 카드처럼 경계를 두르면 본문과 무게가 비슷해져 시선을 나눠 갖는다.
+ *
+ * 링크 안에 링크를 넣을 수 없어서, 제목 링크를 줄 전체로 늘리고 작성자만
+ * 그 위에 올린다. 아티클 카드도 같은 방식이다.
+ *
+ * 호버 색은 줄이 아니라 제목 링크에 건다. 작성자 위에서는 제목 링크가 가려져
+ * 호버가 잡히지 않으니, 누르면 어디로 가는지 한 곳만 켜진다.
  */
 function Row({ article }: { article: ArticleCardData }) {
   return (
-    <li>
-      <Link
-        href={`/articles/${articleSlug(article)}`}
-        className="group flex items-start gap-3 py-3"
-      >
+    <li className="relative">
+      <div className="flex items-start gap-3 py-3">
         <span className="block aspect-square w-14 shrink-0 overflow-hidden rounded-lg bg-muted">
           <ArticleThumbnail
             image={article.image}
@@ -38,12 +41,22 @@ function Row({ article }: { article: ArticleCardData }) {
           />
         </span>
         <span className="flex min-w-0 flex-col gap-0.5">
-          <span className="line-clamp-2 text-14 leading-normal transition-colors group-hover:text-brand">
-            {article.title}
+          <Link
+            href={`/articles/${articleSlug(article)}`}
+            className="transition-colors after:absolute after:inset-0 hover:text-brand focus-visible:outline-none"
+          >
+            <span className="line-clamp-2 text-14 leading-normal">{article.title}</span>
+          </Link>
+          <span className="text-14 text-muted-foreground">
+            <Link
+              href={`/members/${memberId(article.author) ?? ''}`}
+              className="relative z-10 transition-colors hover:text-brand"
+            >
+              {article.author}
+            </Link>
           </span>
-          <span className="text-14 text-muted-foreground">{article.author}</span>
         </span>
-      </Link>
+      </div>
     </li>
   );
 }
@@ -70,7 +83,7 @@ function TopicLabel({ tags }: { tags: string[] }) {
         >
           #{tag}
         </Link>
-      ))}
+      ))}{' '}
       <span>다른 글</span>
     </h2>
   );

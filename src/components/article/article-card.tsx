@@ -25,7 +25,7 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
   const leadTag = article.tags[0];
 
   return (
-    <article className="group relative flex w-full min-w-0 gap-4 overflow-hidden rounded-xl transition-colors md:flex-col md:gap-0 md:border md:border-border/70 md:bg-card md:hover:border-brand/40">
+    <article className="group relative flex w-full min-w-0 gap-4 overflow-hidden rounded-xl transition-colors md:flex-col md:gap-0 md:border md:border-border/70 md:bg-card md:has-[[data-card-link]:hover]:border-brand/40">
       <div
         data-thumb
         className="relative size-16 shrink-0 overflow-hidden rounded-xl bg-muted md:aspect-[16/10] md:size-auto md:w-full md:rounded-none"
@@ -36,7 +36,7 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
           fallbackLabel={leadTag ?? article.hostname}
           seed={article.url}
           priority={priority}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          className="h-full w-full object-cover transition-transform duration-500 group-has-[[data-card-link]:hover]:scale-[1.03]"
         />
       </div>
 
@@ -58,8 +58,11 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
         {/* 카드는 외부 원문이 아니라 상세 페이지로 보낸다. 발췌를 먼저 보여주고
             거기서 원문으로 이어가게 하기 위해서다. */}
         <h3 className="text-18 leading-snug font-semibold">
+          {/* 카드 전체를 덮는 링크. 카드의 호버 효과는 이 링크가 잡힐 때만 켠다.
+              작성자·회차·태그 위에서까지 켜지면 어디로 가는지 헷갈린다. */}
           <Link
             href={`/articles/${articleSlug(article)}`}
+            data-card-link
             className="after:absolute after:inset-0 focus-visible:outline-none"
           >
             {/* 좁은 칸에서 단어를 통째로 넘기면 오른쪽이 크게 빈다. */}

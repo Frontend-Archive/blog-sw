@@ -30,7 +30,8 @@ export function ReadDim({
     <div
       className={cn(
         'group/read relative flex min-w-0 [&_[data-thumb]]:transition-[filter] [&_[data-thumb]]:duration-500',
-        read && '[&_[data-thumb]]:grayscale hover:[&_[data-thumb]]:grayscale-0',
+        read &&
+          '[&_[data-thumb]]:grayscale has-[[data-card-link]:hover]:[&_[data-thumb]]:grayscale-0',
       )}
     >
       {children}
