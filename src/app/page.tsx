@@ -27,10 +27,7 @@ export default function Home() {
         firstDate={first?.date}
       />
 
-      <section>
-        <h2 className="sr-only">아티클 목록</h2>
-        <ArticleExplorer articles={cards} />
-      </section>
+      <ArticleExplorer articles={cards} />
     </main>
   );
 }

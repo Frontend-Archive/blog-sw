@@ -17,6 +17,7 @@ import {
 import { toArticleCardList } from '@/lib/archive/view';
 import { formatArchiveDate } from '@/lib/format';
 import { pageMetadata } from '@/lib/metadata';
+import { displayName } from '@/lib/archive/members-config';
 
 /** 사이드 추천을 묶음마다 몇 개까지 보여줄지 */
 const ASIDE_LIMIT = 3;
@@ -41,6 +42,11 @@ export async function generateMetadata({
       `${article.author} · 스터디 ${article.archiveId}회차 (${formatArchiveDate(article.archiveDate)})`,
     path: `/articles/${articleSlug(article)}`,
     image: og?.image,
+    article: {
+      publishedTime: article.archiveDate,
+      authors: [displayName(article.author)],
+      tags: article.tags,
+    },
   });
 }
 

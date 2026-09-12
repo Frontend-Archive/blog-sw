@@ -19,7 +19,7 @@ export async function generateMetadata({
 
   return pageMetadata({
     title: `${author}의 아티클`,
-    description: `${author}이(가) 스터디에서 공유한 아티클 ${articlesByAuthor(author).length}개`,
+    description: `${author} 님이 스터디에서 공유한 아티클 ${articlesByAuthor(author).length}개`,
     path: `/members/${slug}`,
   });
 }
@@ -39,9 +39,7 @@ export default async function MemberDetailPage({ params }: PageProps<'/members/[
         back={{ href: '/members', label: '전체 멤버' }}
       />
 
-      <section>
-        <ArticleGrid articles={cards} />
-      </section>
+      <ArticleGrid articles={cards} />
     </main>
   );
 }

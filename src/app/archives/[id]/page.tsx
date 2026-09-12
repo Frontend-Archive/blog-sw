@@ -2,8 +2,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArticleCard } from '@/components/article/article-card';
-import { ReadDim } from '@/features/reading/read-dim';
+import { ArticleGrid } from '@/components/article/article-grid';
 import { PageHeader } from '@/components/layout/page-header';
 import { Badge } from '@/components/ui/badge';
 import { toArticles } from '@/lib/archive/model';
@@ -66,15 +65,12 @@ export default async function ArchiveDetailPage({ params }: PageProps<'/archives
         }
       />
 
-      <section className="grid gap-7 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
-        {articles.map((article, articleIndex) => (
-          <ReadDim key={article.key} articleKey={article.key}>
-            <ArticleCard article={article} priority={articleIndex < 3} />
-          </ReadDim>
-        ))}
-      </section>
+      <ArticleGrid articles={articles} />
 
-      <nav className="mt-16 flex items-center justify-between border-t border-border/60 pt-6 text-14">
+      <nav
+        aria-label="회차 이동"
+        className="mt-16 flex items-center justify-between border-t border-border/60 pt-6 text-14"
+      >
         {older ? (
           <Link
             href={`/archives/${older.id}`}

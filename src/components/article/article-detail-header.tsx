@@ -17,7 +17,10 @@ interface ArticleDetailHeaderProps {
 export function ArticleDetailHeader({ article }: ArticleDetailHeaderProps) {
   return (
     <header className="flex flex-col gap-5 pt-12 pb-8">
-      <nav className="flex flex-wrap items-center gap-1 text-14 text-muted-foreground">
+      <nav
+        aria-label="경로"
+        className="flex flex-wrap items-center gap-1 text-14 text-muted-foreground"
+      >
         <Link href="/" className="transition-colors hover:text-brand">
           아티클
         </Link>

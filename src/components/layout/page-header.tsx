@@ -17,7 +17,7 @@ export function PageHeader({ title, description, back, eyebrow, children }: Page
   return (
     <>
       {back ? (
-        <nav className="pt-12">
+        <nav aria-label="상위 목록" className="pt-12">
           <Link
             href={back.href}
             className="inline-flex items-center gap-1 text-14 text-muted-foreground transition-colors hover:text-brand"

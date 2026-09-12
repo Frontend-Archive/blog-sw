@@ -35,9 +35,11 @@ export function TimelineEntry({ archive }: TimelineEntryProps) {
       />
 
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <time dateTime={archive.date} className="text-16 font-semibold tabular-nums">
-          {formatArchiveDate(archive.date)}
-        </time>
+        {/* 회차 하나가 절 하나다. 눈에는 날짜만 보이지만 제목에는 회차 이름을 함께 둔다. */}
+        <h2 className="text-16 font-semibold tabular-nums">
+          <span className="sr-only">{archive.title} · </span>
+          <time dateTime={archive.date}>{formatArchiveDate(archive.date)}</time>
+        </h2>
         <Badge variant="secondary" className="font-normal">
           {archive.type === 'off-line' ? '오프라인' : '온라인'}
         </Badge>

@@ -26,12 +26,11 @@ export function MemberRow({ profile }: { profile: MemberProfile }) {
           <MemberAvatar author={author} size={40} />
           <div className="flex min-w-0 flex-col gap-1">
             <div className="flex items-center gap-4">
-              <Link
-                href={`/members/${slug}`}
-                className="text-20 font-semibold tracking-tight transition-colors hover:text-brand"
-              >
-                {author}
-              </Link>
+              <h2 className="text-20 font-semibold tracking-tight">
+                <Link href={`/members/${slug}`} className="transition-colors hover:text-brand">
+                  {author}
+                </Link>
+              </h2>
 
               {/* 두 링크는 같은 계열이라 서로 붙이고, 이름과는 한 칸 떨어뜨린다.
                   버튼 안쪽 여백이 이미 6px 씩 있어 gap 을 주면 이름보다 멀어 보인다. */}

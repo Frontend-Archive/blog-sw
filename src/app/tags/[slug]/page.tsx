@@ -15,9 +15,12 @@ export async function generateMetadata({ params }: PageProps<'/tags/[slug]'>): P
   const tag = getTagBySlug(decodeURIComponent(slug));
   if (!tag) return {};
 
+  const tagged = articlesByTag(tag);
+
+  // 글 제목을 이어 붙여 제목으로 검색해도 이 페이지가 걸리게 한다.
   return pageMetadata({
     title: `${tag} 태그`,
-    description: `${tag} 주제로 정리한 스터디 아티클 ${articlesByTag(tag).length}개`,
+    description: `${tag} 주제로 정리한 스터디 아티클 ${tagged.length}개 — ${tagged.map((article) => article.title).join(', ')}`,
     path: `/tags/${toSlug(tag)}`,
   });
 }
@@ -38,9 +41,7 @@ export default async function TagDetailPage({ params }: PageProps<'/tags/[slug]'
         back={{ href: '/tags', label: '전체 태그' }}
       />
 
-      <section>
-        <ArticleGrid articles={cards} />
-      </section>
+      <ArticleGrid articles={cards} />
     </main>
   );
 }

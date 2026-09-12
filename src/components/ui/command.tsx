@@ -48,10 +48,6 @@ function CommandDialog({
 }) {
   return (
     <Dialog {...props}>
-      <DialogHeader className="sr-only">
-        <DialogTitle>{title}</DialogTitle>
-        <DialogDescription>{description}</DialogDescription>
-      </DialogHeader>
       <DialogContent
         className={cn(
           "top-24 translate-y-0 overflow-hidden rounded-xl! p-0",
@@ -59,6 +55,11 @@ function CommandDialog({
         )}
         showCloseButton={showCloseButton}
       >
+        {/* 대화상자 밖에 두면 닫혀 있어도 모든 페이지 HTML 에 h2 로 남는다. */}
+        <DialogHeader className="sr-only">
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>{description}</DialogDescription>
+        </DialogHeader>
         {children}
       </DialogContent>
     </Dialog>

@@ -10,7 +10,7 @@ export function SiteNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="hidden items-center gap-1 text-14 md:flex">
+    <nav aria-label="주요 메뉴" className="hidden items-center gap-1 text-14 md:flex">
       {NAV_ITEMS.map(({ href, label }) => {
         const isActive = isNavActive(pathname, href);
         return (
